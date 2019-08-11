@@ -11,6 +11,14 @@
 		523B1D8022FFD8AD00CC451E /* tmp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523B1D7F22FFD8AD00CC451E /* tmp.swift */; };
 		523B1D8322FFE32B00CC451E /* VideoCreator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 523C40C022F8834400143BFD /* VideoCreator.framework */; };
 		523B1D8422FFE32B00CC451E /* VideoCreator.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 523C40C022F8834400143BFD /* VideoCreator.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		523B1D8F2300288500CC451E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523B1D8E2300288500CC451E /* AppDelegate.swift */; };
+		523B1D912300288500CC451E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523B1D902300288500CC451E /* ViewController.swift */; };
+		523B1D932300288700CC451E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 523B1D922300288700CC451E /* Assets.xcassets */; };
+		523B1D962300288700CC451E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 523B1D942300288700CC451E /* Main.storyboard */; };
+		523B1DA52300290A00CC451E /* VideoCreatorMacOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 523B1DA32300290A00CC451E /* VideoCreatorMacOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		523B1DA82300290A00CC451E /* VideoCreatorMacOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 523B1DA12300290A00CC451E /* VideoCreatorMacOS.framework */; };
+		523B1DA92300290A00CC451E /* VideoCreatorMacOS.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 523B1DA12300290A00CC451E /* VideoCreatorMacOS.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		523B1DAF23002A0D00CC451E /* VideoCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523C40E122F883A700143BFD /* VideoCreator.swift */; };
 		523C40C522F8834400143BFD /* VideoCreator.h in Headers */ = {isa = PBXBuildFile; fileRef = 523C40C322F8834400143BFD /* VideoCreator.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		523C40D222F8836300143BFD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523C40D122F8836300143BFD /* AppDelegate.swift */; };
 		523C40D422F8836300143BFD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523C40D322F8836300143BFD /* ViewController.swift */; };
@@ -27,6 +35,13 @@
 			remoteGlobalIDString = 523C40BF22F8834400143BFD;
 			remoteInfo = VideoCreator;
 		};
+		523B1DA62300290A00CC451E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 523C40B722F8834400143BFD /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 523B1DA02300290A00CC451E;
+			remoteInfo = VideoCreatorMacOS;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -41,10 +56,31 @@
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		523B1DAD2300290A00CC451E /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				523B1DA92300290A00CC451E /* VideoCreatorMacOS.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		523B1D7F22FFD8AD00CC451E /* tmp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tmp.swift; sourceTree = "<group>"; };
+		523B1D8C2300288500CC451E /* ExampleMacOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ExampleMacOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		523B1D8E2300288500CC451E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		523B1D902300288500CC451E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		523B1D922300288700CC451E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		523B1D952300288700CC451E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		523B1D972300288700CC451E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		523B1D982300288700CC451E /* ExampleMacOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ExampleMacOS.entitlements; sourceTree = "<group>"; };
+		523B1DA12300290A00CC451E /* VideoCreatorMacOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = VideoCreatorMacOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		523B1DA32300290A00CC451E /* VideoCreatorMacOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VideoCreatorMacOS.h; sourceTree = "<group>"; };
+		523B1DA42300290A00CC451E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		523C40C022F8834400143BFD /* VideoCreator.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = VideoCreator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		523C40C322F8834400143BFD /* VideoCreator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VideoCreator.h; sourceTree = "<group>"; };
 		523C40C422F8834400143BFD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -59,6 +95,21 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		523B1D892300288500CC451E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				523B1DA82300290A00CC451E /* VideoCreatorMacOS.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		523B1D9E2300290A00CC451E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		523C40BD22F8834400143BFD /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -84,11 +135,44 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		523B1D8D2300288500CC451E /* ExampleMacOS */ = {
+			isa = PBXGroup;
+			children = (
+				523B1D8E2300288500CC451E /* AppDelegate.swift */,
+				523B1D902300288500CC451E /* ViewController.swift */,
+				523B1D922300288700CC451E /* Assets.xcassets */,
+				523B1D942300288700CC451E /* Main.storyboard */,
+				523B1D972300288700CC451E /* Info.plist */,
+				523B1D982300288700CC451E /* ExampleMacOS.entitlements */,
+			);
+			path = ExampleMacOS;
+			sourceTree = "<group>";
+		};
+		523B1DA22300290A00CC451E /* VideoCreatorMacOS */ = {
+			isa = PBXGroup;
+			children = (
+				523B1DA32300290A00CC451E /* VideoCreatorMacOS.h */,
+				523B1DA42300290A00CC451E /* Info.plist */,
+			);
+			path = VideoCreatorMacOS;
+			sourceTree = "<group>";
+		};
+		523B1DAE2300293E00CC451E /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				523C40E122F883A700143BFD /* VideoCreator.swift */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
 		523C40B622F8834400143BFD = {
 			isa = PBXGroup;
 			children = (
+				523B1DAE2300293E00CC451E /* Core */,
 				523C40C222F8834400143BFD /* VideoCreator */,
+				523B1DA22300290A00CC451E /* VideoCreatorMacOS */,
 				523C40D022F8836300143BFD /* Example */,
+				523B1D8D2300288500CC451E /* ExampleMacOS */,
 				523C40C122F8834400143BFD /* Products */,
 				523B1D8122FFE32300CC451E /* Frameworks */,
 			);
@@ -99,6 +183,8 @@
 			children = (
 				523C40C022F8834400143BFD /* VideoCreator.framework */,
 				523C40CF22F8836300143BFD /* Example.app */,
+				523B1D8C2300288500CC451E /* ExampleMacOS.app */,
+				523B1DA12300290A00CC451E /* VideoCreatorMacOS.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -107,7 +193,6 @@
 			isa = PBXGroup;
 			children = (
 				523C40C322F8834400143BFD /* VideoCreator.h */,
-				523C40E122F883A700143BFD /* VideoCreator.swift */,
 				523C40C422F8834400143BFD /* Info.plist */,
 			);
 			path = VideoCreator;
@@ -130,6 +215,14 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		523B1D9C2300290A00CC451E /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				523B1DA52300290A00CC451E /* VideoCreatorMacOS.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		523C40BB22F8834400143BFD /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -141,6 +234,43 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		523B1D8B2300288500CC451E /* ExampleMacOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 523B1D992300288700CC451E /* Build configuration list for PBXNativeTarget "ExampleMacOS" */;
+			buildPhases = (
+				523B1D882300288500CC451E /* Sources */,
+				523B1D892300288500CC451E /* Frameworks */,
+				523B1D8A2300288500CC451E /* Resources */,
+				523B1DAD2300290A00CC451E /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				523B1DA72300290A00CC451E /* PBXTargetDependency */,
+			);
+			name = ExampleMacOS;
+			productName = ExampleMacOS;
+			productReference = 523B1D8C2300288500CC451E /* ExampleMacOS.app */;
+			productType = "com.apple.product-type.application";
+		};
+		523B1DA02300290A00CC451E /* VideoCreatorMacOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 523B1DAA2300290A00CC451E /* Build configuration list for PBXNativeTarget "VideoCreatorMacOS" */;
+			buildPhases = (
+				523B1D9C2300290A00CC451E /* Headers */,
+				523B1D9D2300290A00CC451E /* Sources */,
+				523B1D9E2300290A00CC451E /* Frameworks */,
+				523B1D9F2300290A00CC451E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = VideoCreatorMacOS;
+			productName = VideoCreatorMacOS;
+			productReference = 523B1DA12300290A00CC451E /* VideoCreatorMacOS.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 		523C40BF22F8834400143BFD /* VideoCreator */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 523C40C822F8834400143BFD /* Build configuration list for PBXNativeTarget "VideoCreator" */;
@@ -188,6 +318,17 @@
 				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = fuziki.factory;
 				TargetAttributes = {
+					523B1D8B2300288500CC451E = {
+						CreatedOnToolsVersion = 10.2.1;
+						SystemCapabilities = {
+							com.apple.Sandbox = {
+								enabled = 1;
+							};
+						};
+					};
+					523B1DA02300290A00CC451E = {
+						CreatedOnToolsVersion = 10.2.1;
+					};
 					523C40BF22F8834400143BFD = {
 						CreatedOnToolsVersion = 10.2.1;
 					};
@@ -210,12 +351,30 @@
 			projectRoot = "";
 			targets = (
 				523C40BF22F8834400143BFD /* VideoCreator */,
+				523B1DA02300290A00CC451E /* VideoCreatorMacOS */,
 				523C40CE22F8836300143BFD /* Example */,
+				523B1D8B2300288500CC451E /* ExampleMacOS */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		523B1D8A2300288500CC451E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				523B1D932300288700CC451E /* Assets.xcassets in Resources */,
+				523B1D962300288700CC451E /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		523B1D9F2300290A00CC451E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		523C40BE22F8834400143BFD /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -236,6 +395,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		523B1D882300288500CC451E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				523B1D912300288500CC451E /* ViewController.swift in Sources */,
+				523B1D8F2300288500CC451E /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		523B1D9D2300290A00CC451E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				523B1DAF23002A0D00CC451E /* VideoCreator.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		523C40BC22F8834400143BFD /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -262,9 +438,22 @@
 			target = 523C40BF22F8834400143BFD /* VideoCreator */;
 			targetProxy = 523B1D8522FFE32B00CC451E /* PBXContainerItemProxy */;
 		};
+		523B1DA72300290A00CC451E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 523B1DA02300290A00CC451E /* VideoCreatorMacOS */;
+			targetProxy = 523B1DA62300290A00CC451E /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		523B1D942300288700CC451E /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				523B1D952300288700CC451E /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
 		523C40D522F8836300143BFD /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -284,6 +473,106 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		523B1D9A2300288700CC451E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = ExampleMacOS/ExampleMacOS.entitlements;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = NT88A3VRE2;
+				INFOPLIST_FILE = ExampleMacOS/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				PRODUCT_BUNDLE_IDENTIFIER = fuziki.factory.ExampleMacOS;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		523B1D9B2300288700CC451E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = ExampleMacOS/ExampleMacOS.entitlements;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = NT88A3VRE2;
+				INFOPLIST_FILE = ExampleMacOS/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				PRODUCT_BUNDLE_IDENTIFIER = fuziki.factory.ExampleMacOS;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		523B1DAB2300290A00CC451E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = VideoCreatorMacOS/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				PRODUCT_BUNDLE_IDENTIFIER = fuziki.factory.VideoCreatorMacOS;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		523B1DAC2300290A00CC451E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = VideoCreatorMacOS/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				PRODUCT_BUNDLE_IDENTIFIER = fuziki.factory.VideoCreatorMacOS;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
 		523C40C622F8834400143BFD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -497,6 +786,24 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		523B1D992300288700CC451E /* Build configuration list for PBXNativeTarget "ExampleMacOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				523B1D9A2300288700CC451E /* Debug */,
+				523B1D9B2300288700CC451E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		523B1DAA2300290A00CC451E /* Build configuration list for PBXNativeTarget "VideoCreatorMacOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				523B1DAB2300290A00CC451E /* Debug */,
+				523B1DAC2300290A00CC451E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		523C40BA22F8834400143BFD /* Build configuration list for PBXProject "VideoCreator" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

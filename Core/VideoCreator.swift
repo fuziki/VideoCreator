@@ -6,7 +6,6 @@
 //  Copyright © 2019 fuziki.factory. All rights reserved.
 //
 
-import AssetsLibrary
 import AVFoundation
 
 public class VideoCreator {
