@@ -38,8 +38,8 @@ public class VideoCreator {
     private var videoAssetWriterInput: AVAssetWriterInput
     private var audioAssetWriterInput: AVAssetWriterInput
     
-    public init?(url: URL, videoConfig: VideoConfig, audioConfig: AudioConfig) {
-        guard let assetWriter = try? AVAssetWriter(outputURL: url, fileType: AVFileType.mov) else {
+    public init?(url: String, videoConfig: VideoConfig, audioConfig: AudioConfig) {
+        guard let assetWriter = try? AVAssetWriter(outputURL: URL(fileURLWithPath: url), fileType: AVFileType.mov) else {
             print("failed to create asset writter")
             return nil
         }
