@@ -63,18 +63,25 @@ public class VideoCreator {
     public func write(sample: CMSampleBuffer, isVideo: Bool) {
         guard CMSampleBufferDataIsReady(sample),
             assetWriter.status != .failed else {
-            return
+                print("ready: \(CMSampleBufferDataIsReady(sample)), status: \(assetWriter.status)")
+                return
         }
 
         if assetWriter.status == .unknown {
             let startTime = CMSampleBufferGetPresentationTimeStamp(sample)
             assetWriter.startWriting()
             assetWriter.startSession(atSourceTime: startTime)
+            print("assetWriter startWriting")
         }
 
         let input = isVideo ? videoAssetWriterInput: audioAssetWriterInput
         if input.isReadyForMoreMediaData {
-            input.append(sample)
+            let ret = input.append(sample)
+            if !ret {
+                print("input append sample, ret: \(ret), isVideo: \(isVideo), error: \(assetWriter.error)")
+            }
+        } else {
+            print("input is NOT ReadyForMoreMediaData, isVideo: \(isVideo)")
         }
     }
     

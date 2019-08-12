@@ -25,6 +25,14 @@
 		523C40D722F8836300143BFD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 523C40D522F8836300143BFD /* Main.storyboard */; };
 		523C40D922F8836500143BFD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 523C40D822F8836500143BFD /* Assets.xcassets */; };
 		523C40DC22F8836500143BFD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 523C40DA22F8836500143BFD /* LaunchScreen.storyboard */; };
+		52DDA99023007C40005373FB /* VideoCreatorUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52DDA98F23007C40005373FB /* VideoCreatorUser.swift */; };
+		52DDA99823007F9F005373FB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52DDA99723007F9F005373FB /* AppDelegate.swift */; };
+		52DDA99A23007F9F005373FB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52DDA99923007F9F005373FB /* ViewController.swift */; };
+		52DDA99D23007F9F005373FB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 52DDA99B23007F9F005373FB /* Main.storyboard */; };
+		52DDA99F23007FA0005373FB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 52DDA99E23007FA0005373FB /* Assets.xcassets */; };
+		52DDA9A223007FA0005373FB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 52DDA9A023007FA0005373FB /* LaunchScreen.storyboard */; };
+		52DDA9A7230083BB005373FB /* VideoCreator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 523C40C022F8834400143BFD /* VideoCreator.framework */; };
+		52DDA9A8230083BB005373FB /* VideoCreator.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 523C40C022F8834400143BFD /* VideoCreator.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,6 +49,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 523B1DA02300290A00CC451E;
 			remoteInfo = VideoCreatorMacOS;
+		};
+		52DDA9A9230083BB005373FB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 523C40B722F8834400143BFD /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 523C40BF22F8834400143BFD;
+			remoteInfo = VideoCreator;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -63,6 +78,17 @@
 			dstSubfolderSpec = 10;
 			files = (
 				523B1DA92300290A00CC451E /* VideoCreatorMacOS.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		52DDA9AB230083BB005373FB /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				52DDA9A8230083BB005373FB /* VideoCreator.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -92,6 +118,14 @@
 		523C40DB22F8836500143BFD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		523C40DD22F8836500143BFD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		523C40E122F883A700143BFD /* VideoCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCreator.swift; sourceTree = "<group>"; };
+		52DDA98F23007C40005373FB /* VideoCreatorUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCreatorUser.swift; sourceTree = "<group>"; };
+		52DDA99523007F9E005373FB /* UnityUser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UnityUser.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		52DDA99723007F9F005373FB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		52DDA99923007F9F005373FB /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		52DDA99C23007F9F005373FB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		52DDA99E23007FA0005373FB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		52DDA9A123007FA0005373FB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		52DDA9A323007FA0005373FB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,6 +156,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				523B1D8322FFE32B00CC451E /* VideoCreator.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		52DDA99223007F9E005373FB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				52DDA9A7230083BB005373FB /* VideoCreator.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -170,8 +212,9 @@
 			children = (
 				523B1DAE2300293E00CC451E /* Core */,
 				523C40C222F8834400143BFD /* VideoCreator */,
-				523B1DA22300290A00CC451E /* VideoCreatorMacOS */,
 				523C40D022F8836300143BFD /* Example */,
+				52DDA99623007F9F005373FB /* UnityUser */,
+				523B1DA22300290A00CC451E /* VideoCreatorMacOS */,
 				523B1D8D2300288500CC451E /* ExampleMacOS */,
 				523C40C122F8834400143BFD /* Products */,
 				523B1D8122FFE32300CC451E /* Frameworks */,
@@ -185,6 +228,7 @@
 				523C40CF22F8836300143BFD /* Example.app */,
 				523B1D8C2300288500CC451E /* ExampleMacOS.app */,
 				523B1DA12300290A00CC451E /* VideoCreatorMacOS.framework */,
+				52DDA99523007F9E005373FB /* UnityUser.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -193,6 +237,7 @@
 			isa = PBXGroup;
 			children = (
 				523C40C322F8834400143BFD /* VideoCreator.h */,
+				52DDA98F23007C40005373FB /* VideoCreatorUser.swift */,
 				523C40C422F8834400143BFD /* Info.plist */,
 			);
 			path = VideoCreator;
@@ -210,6 +255,19 @@
 				523C40DD22F8836500143BFD /* Info.plist */,
 			);
 			path = Example;
+			sourceTree = "<group>";
+		};
+		52DDA99623007F9F005373FB /* UnityUser */ = {
+			isa = PBXGroup;
+			children = (
+				52DDA99723007F9F005373FB /* AppDelegate.swift */,
+				52DDA99923007F9F005373FB /* ViewController.swift */,
+				52DDA99B23007F9F005373FB /* Main.storyboard */,
+				52DDA99E23007FA0005373FB /* Assets.xcassets */,
+				52DDA9A023007FA0005373FB /* LaunchScreen.storyboard */,
+				52DDA9A323007FA0005373FB /* Info.plist */,
+			);
+			path = UnityUser;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -308,6 +366,25 @@
 			productReference = 523C40CF22F8836300143BFD /* Example.app */;
 			productType = "com.apple.product-type.application";
 		};
+		52DDA99423007F9E005373FB /* UnityUser */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 52DDA9A423007FA0005373FB /* Build configuration list for PBXNativeTarget "UnityUser" */;
+			buildPhases = (
+				52DDA99123007F9E005373FB /* Sources */,
+				52DDA99223007F9E005373FB /* Frameworks */,
+				52DDA99323007F9E005373FB /* Resources */,
+				52DDA9AB230083BB005373FB /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				52DDA9AA230083BB005373FB /* PBXTargetDependency */,
+			);
+			name = UnityUser;
+			productName = UnityUser;
+			productReference = 52DDA99523007F9E005373FB /* UnityUser.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -335,6 +412,9 @@
 					523C40CE22F8836300143BFD = {
 						CreatedOnToolsVersion = 10.2.1;
 					};
+					52DDA99423007F9E005373FB = {
+						CreatedOnToolsVersion = 10.2.1;
+					};
 				};
 			};
 			buildConfigurationList = 523C40BA22F8834400143BFD /* Build configuration list for PBXProject "VideoCreator" */;
@@ -354,6 +434,7 @@
 				523B1DA02300290A00CC451E /* VideoCreatorMacOS */,
 				523C40CE22F8836300143BFD /* Example */,
 				523B1D8B2300288500CC451E /* ExampleMacOS */,
+				52DDA99423007F9E005373FB /* UnityUser */,
 			);
 		};
 /* End PBXProject section */
@@ -392,6 +473,16 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		52DDA99323007F9E005373FB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				52DDA9A223007FA0005373FB /* LaunchScreen.storyboard in Resources */,
+				52DDA99F23007FA0005373FB /* Assets.xcassets in Resources */,
+				52DDA99D23007F9F005373FB /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -417,6 +508,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				523B1D7E22FFBC2400CC451E /* VideoCreator.swift in Sources */,
+				52DDA99023007C40005373FB /* VideoCreatorUser.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -427,6 +519,15 @@
 				523C40D422F8836300143BFD /* ViewController.swift in Sources */,
 				523C40D222F8836300143BFD /* AppDelegate.swift in Sources */,
 				523B1D8022FFD8AD00CC451E /* tmp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		52DDA99123007F9E005373FB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				52DDA99A23007F9F005373FB /* ViewController.swift in Sources */,
+				52DDA99823007F9F005373FB /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -442,6 +543,11 @@
 			isa = PBXTargetDependency;
 			target = 523B1DA02300290A00CC451E /* VideoCreatorMacOS */;
 			targetProxy = 523B1DA62300290A00CC451E /* PBXContainerItemProxy */;
+		};
+		52DDA9AA230083BB005373FB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 523C40BF22F8834400143BFD /* VideoCreator */;
+			targetProxy = 52DDA9A9230083BB005373FB /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -466,6 +572,22 @@
 			isa = PBXVariantGroup;
 			children = (
 				523C40DB22F8836500143BFD /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		52DDA99B23007F9F005373FB /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				52DDA99C23007F9F005373FB /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		52DDA9A023007FA0005373FB /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				52DDA9A123007FA0005373FB /* Base */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -783,6 +905,44 @@
 			};
 			name = Release;
 		};
+		52DDA9A523007FA0005373FB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = NT88A3VRE2;
+				INFOPLIST_FILE = UnityUser/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = fuziki.factory.UnityUser;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		52DDA9A623007FA0005373FB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = NT88A3VRE2;
+				INFOPLIST_FILE = UnityUser/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = fuziki.factory.UnityUser;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -827,6 +987,15 @@
 			buildConfigurations = (
 				523C40DF22F8836500143BFD /* Debug */,
 				523C40E022F8836500143BFD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		52DDA9A423007FA0005373FB /* Build configuration list for PBXNativeTarget "UnityUser" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				52DDA9A523007FA0005373FB /* Debug */,
+				52DDA9A623007FA0005373FB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
