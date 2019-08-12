@@ -166,13 +166,23 @@ extension ViewController: AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
             
             let width = CVPixelBufferGetWidth(imageBuffer)
             let height = CVPixelBufferGetHeight(imageBuffer)
-            
-            let iosurface: Unmanaged<IOSurfaceRef>? = CVPixelBufferGetIOSurface(imageBuffer)
-            
+            let ci = CIImage(cvPixelBuffer: imageBuffer)
 //            print("0: ", imageBuffer)
 
+            let mtlcontext = CIContext(mtlDevice: ViewController.sharedMtlDevive)
+            let colorSpace = CGColorSpaceCreateDeviceRGB()
+            let textureDescriptor = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: .bgra8Unorm,
+                                                                             width: width,
+                                                                             height: height,
+                                                                             mipmapped: false)
+            textureDescriptor.usage = .unknown
+            let toTexture = ViewController.sharedMtlDevive.makeTexture(descriptor: textureDescriptor)!
+            mtlcontext.render(ci, to: toTexture, commandBuffer: nil, bounds: ci.extent, colorSpace: colorSpace)
             
-            let ci = CIImage(cvPixelBuffer: imageBuffer)
+            let ci2 = CIImage(mtlTexture: toTexture, options: nil)!
+            
+            
+            
             
             let options = [
 //                kCVPixelBufferCGImageCompatibilityKey: true,
@@ -191,7 +201,7 @@ extension ViewController: AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
                                              &tmpRecodePixelBuffer)
             let recodePixelBuffer = tmpRecodePixelBuffer!
             CVPixelBufferLockBaseAddress(recodePixelBuffer, CVPixelBufferLockFlags(rawValue: 0))
-            factory.context.render(ci, to: recodePixelBuffer)
+            factory.context.render(ci2, to: recodePixelBuffer)
             
 //            print("1", recodePixelBuffer)
             
