@@ -36,6 +36,7 @@ public class VideoCreator {
     private var assetWriter: AVAssetWriter
     private var videoAssetWriterInput: AVAssetWriterInput
     private var audioAssetWriterInput: AVAssetWriterInput
+    public var startTime: CMTime? = nil
     
     public init?(url: String, videoConfig: VideoConfig, audioConfig: AudioConfig) {
         guard let assetWriter = try? AVAssetWriter(outputURL: URL(fileURLWithPath: url), fileType: AVFileType.mov) else {
@@ -71,6 +72,7 @@ public class VideoCreator {
             let startTime = CMSampleBufferGetPresentationTimeStamp(sample)
             assetWriter.startWriting()
             assetWriter.startSession(atSourceTime: startTime)
+            self.startTime = startTime
             print("assetWriter startWriting")
         }
 

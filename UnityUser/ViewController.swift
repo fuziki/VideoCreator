@@ -176,6 +176,8 @@ class ViewController: UIViewController {
     var factory = CMSampleBuffer.VideoFactory()
     
     var testTex: MTLTexture!
+    
+    var offset: CMTime? = nil
 }
 
 extension ViewController: AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptureAudioDataOutputSampleBufferDelegate {
@@ -183,10 +185,24 @@ extension ViewController: AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
         if !self.isRecording {
             return
         }
+        
         if output is AVCaptureAudioDataOutput {
             self.videoCreator?.write(sample: sampleBuffer,
                                      isVideo: false)
             return
+        }
+        
+        guard let startTime = videoCreator?.startTime else {
+            return
+        }
+        
+        let t1 = CMTime(value: CMTimeValue(Int(Date().timeIntervalSince1970 * 1000000000)),
+                        timescale: 1000000000,
+                        flags: .init(rawValue: 3),
+                        epoch: 0)
+        
+        if self.offset == nil {
+            self.offset = CMTimeSubtract(t1, startTime)
         }
         
         let time: CMTime = CMSampleBufferGetPresentationTimeStamp(sampleBuffer)
@@ -258,7 +274,7 @@ extension ViewController: AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
             
             var tmp: CMSampleBuffer? = nil
             var sampleTiming = CMSampleTimingInfo()
-            sampleTiming.presentationTimeStamp = time
+            sampleTiming.presentationTimeStamp = CMTimeSubtract(t1, offset ?? CMTime())
             let _ = CMSampleBufferCreateForImageBuffer(allocator: kCFAllocatorDefault,
                                                        imageBuffer: recodePixelBuffer,
                                                         dataReady: true,
@@ -271,22 +287,6 @@ extension ViewController: AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
                                      isVideo: true)
             CVPixelBufferUnlockBaseAddress(recodePixelBuffer, CVPixelBufferLockFlags(rawValue: 0))
         }
-    }
-
-    func printCVPixelBuffer(buff imageBuffer: CVPixelBuffer) {
-        let type = CVPixelBufferGetPixelFormatType(imageBuffer)
-        let width = CVPixelBufferGetWidth(imageBuffer)
-        let height = CVPixelBufferGetHeight(imageBuffer)
-        let dataSize = CVPixelBufferGetDataSize(imageBuffer)
-        let planeCount = CVPixelBufferGetPlaneCount(imageBuffer)
-        let bytesPerRow = CVPixelBufferGetBytesPerRow(imageBuffer)
-        let widthOfPlane0 = CVPixelBufferGetWidthOfPlane(imageBuffer, 0)
-        let widthOfPlane1 = CVPixelBufferGetWidthOfPlane(imageBuffer, 1)
-        let heightOfPlane0 = CVPixelBufferGetHeightOfPlane(imageBuffer, 0)
-        let heightOfPlane1 = CVPixelBufferGetHeightOfPlane(imageBuffer, 1)
-        let bytesPerRowOfPlane0 = CVPixelBufferGetBytesPerRowOfPlane(imageBuffer, 0)
-        let bytesPerRowOfPlane1 = CVPixelBufferGetBytesPerRowOfPlane(imageBuffer, 1)
-        print("type: \(type), width: \(width), height: \(height), dataSize: \(dataSize), planeCount: \(planeCount), bytesPerRow: \(bytesPerRow), widthOfPlane0: \(widthOfPlane0), \(widthOfPlane1), heightOfPlane: \(heightOfPlane0), \(heightOfPlane1), bytesPerRowOfPlane: \(bytesPerRowOfPlane0), \(bytesPerRowOfPlane1)")
     }
 }
 
