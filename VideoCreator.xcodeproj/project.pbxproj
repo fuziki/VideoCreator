@@ -33,6 +33,7 @@
 		52DDA9A223007FA0005373FB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 52DDA9A023007FA0005373FB /* LaunchScreen.storyboard */; };
 		52DDA9A7230083BB005373FB /* VideoCreator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 523C40C022F8834400143BFD /* VideoCreator.framework */; };
 		52DDA9A8230083BB005373FB /* VideoCreator.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 523C40C022F8834400143BFD /* VideoCreator.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		52DDA9F12301CF02005373FB /* test.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 52DDA9F02301CF01005373FB /* test.jpeg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -126,6 +127,7 @@
 		52DDA99E23007FA0005373FB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		52DDA9A123007FA0005373FB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		52DDA9A323007FA0005373FB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		52DDA9F02301CF01005373FB /* test.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = test.jpeg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -262,6 +264,7 @@
 			children = (
 				52DDA99723007F9F005373FB /* AppDelegate.swift */,
 				52DDA99923007F9F005373FB /* ViewController.swift */,
+				52DDA9F02301CF01005373FB /* test.jpeg */,
 				52DDA99B23007F9F005373FB /* Main.storyboard */,
 				52DDA99E23007FA0005373FB /* Assets.xcassets */,
 				52DDA9A023007FA0005373FB /* LaunchScreen.storyboard */,
@@ -478,6 +481,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				52DDA9A223007FA0005373FB /* LaunchScreen.storyboard in Resources */,
+				52DDA9F12301CF02005373FB /* test.jpeg in Resources */,
 				52DDA99F23007FA0005373FB /* Assets.xcassets in Resources */,
 				52DDA99D23007F9F005373FB /* Main.storyboard in Resources */,
 			);

@@ -10,6 +10,8 @@ import UIKit
 import AVFoundation
 import AssetsLibrary
 import VideoCreator
+import MetalKit
+import Metal
 
 class ViewController: UIViewController {
     
@@ -89,10 +91,27 @@ class ViewController: UIViewController {
         }
         self.tmpFilePath = "\(dir)/tmpVideo.mov"
         
+        let loader = MTKTextureLoader(device: ViewController.sharedMtlDevive)
+//         testTex: MTLTexture
+        do {
+            let ui: UIImage = UIImage(named: "test.jpeg")!
+            let cg: CGImage = ui.cgImage!
+            testTex = try loader.newTexture(cgImage: cg, options: nil)
+        } catch let error {
+            print("erro: \(error)")
+            return
+        }
+        
+        var textureCache: CVMetalTextureCache?
+        CVMetalTextureCacheCreate(nil, nil, ViewController.sharedMtlDevive, nil, &textureCache)
+        capturedImageTextureCache = textureCache
+        
         self.makeVideoCreator()
         self.captureSession.startRunning()
         print("start running")
     }
+    
+    var capturedImageTextureCache: CVMetalTextureCache!
     
     @IBAction func start(_ sender: Any) {
         print("start recording")
@@ -138,7 +157,25 @@ class ViewController: UIViewController {
         self.videoCreator = VideoCreator(url: self.tmpFilePath, videoConfig: self.videoConfig, audioConfig: self.audioConfig)
     }
     
+    func createTexture(fromPixelBuffer pixelBuffer: CVPixelBuffer, pixelFormat: MTLPixelFormat, planeIndex: Int) -> CVMetalTexture? {
+        let width = CVPixelBufferGetWidthOfPlane(pixelBuffer, planeIndex)
+        let height = CVPixelBufferGetHeightOfPlane(pixelBuffer, planeIndex)
+        
+        var texture: CVMetalTexture? = nil
+        let status = CVMetalTextureCacheCreateTextureFromImage(nil, capturedImageTextureCache, pixelBuffer, nil, pixelFormat, width, height, planeIndex, &texture)
+        
+        if status != kCVReturnSuccess {
+            texture = nil
+        }
+        
+        return texture
+    }
+    
+    var timer = BagotTimer()
+    
     var factory = CMSampleBuffer.VideoFactory()
+    
+    var testTex: MTLTexture!
 }
 
 extension ViewController: AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptureAudioDataOutputSampleBufferDelegate {
@@ -163,16 +200,27 @@ extension ViewController: AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
             let sampleBufferByCVPixelBuffer = factory.createSampleBufferBy(pixelBuffer: imageBuffer, timeStamp: time)!  //ok
             
 
-            
+            let ci = CIImage(cvPixelBuffer: imageBuffer)
+
             let width = CVPixelBufferGetWidth(imageBuffer)
             let height = CVPixelBufferGetHeight(imageBuffer)
             
-            let iosurface: Unmanaged<IOSurfaceRef>? = CVPixelBufferGetIOSurface(imageBuffer)
-            
-//            print("0: ", imageBuffer)
 
             
-            let ci = CIImage(cvPixelBuffer: imageBuffer)
+            let mtlcontext = CIContext(mtlDevice: ViewController.sharedMtlDevive)
+            let colorSpace = CGColorSpaceCreateDeviceRGB()
+            let textureDescriptor = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: .bgra8Unorm,
+                                                                             width: width,
+                                                                             height: height,
+                                                                             mipmapped: false)
+            textureDescriptor.usage = .unknown
+            let toTexture = ViewController.sharedMtlDevive.makeTexture(descriptor: textureDescriptor)!
+            mtlcontext.render(ci, to: toTexture, commandBuffer: nil, bounds: ci.extent, colorSpace: colorSpace)
+            
+            
+//            print("testTex: \(testTex)")
+            
+            let ci2 = CIImage(mtlTexture: testTex, options: nil)!
             
             let options = [
 //                kCVPixelBufferCGImageCompatibilityKey: true,
@@ -191,7 +239,7 @@ extension ViewController: AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
                                              &tmpRecodePixelBuffer)
             let recodePixelBuffer = tmpRecodePixelBuffer!
             CVPixelBufferLockBaseAddress(recodePixelBuffer, CVPixelBufferLockFlags(rawValue: 0))
-            factory.context.render(ci, to: recodePixelBuffer)
+            factory.context.render(ci2, to: recodePixelBuffer)
             
 //            print("1", recodePixelBuffer)
             
@@ -355,3 +403,65 @@ extension CMSampleBuffer {
         }
     }
 }
+
+public class BagotTimer {
+    public var startTime: Double!
+    public var stopTime: Double? = nil
+    public init() {
+        self.startTime = self.timeSec
+    }
+    
+    @inlinable var timeSec: Double {
+        var tb = mach_timebase_info()
+        mach_timebase_info(&tb)
+        let tsc = mach_absolute_time()
+        return Double(tsc) * Double(tb.numer) / Double(tb.denom) / 1000000000.0
+    }
+    
+    @inlinable public func startTimer() {
+        self.startTime = self.timeSec
+    }
+    
+    @inlinable public func stopTimer() {
+        self.stopTime = self.timeSec
+    }
+    
+    @inlinable public var intervalSec: Double {
+        guard let stopTime = self.stopTime else { return -1.0 }
+        return stopTime - self.startTime
+    }
+    
+    @inlinable public var intervalSecAsString: String {
+        return String(format: "%lf sec", self.intervalSec)
+    }
+    
+    @inlinable public var intervalmSecAsString: String {
+        return String(format: "%lf milli sec", self.intervalSec * 1000)
+    }
+    
+    @inlinable public var secFromStartTime: Double {
+        return self.timeSec - self.startTime
+    }
+    
+    @inlinable public var secFromStartTimeAsString: String {
+        return String(format: "%lf sec", self.secFromStartTime)
+    }
+    
+    @inlinable public var msecFromStartTime: Double {
+        return secFromStartTime * 1000.0
+    }
+    
+    @inlinable public var msecFromStartTimeAsString: String {
+        return String(format: "%lf milli sec", msecFromStartTime)
+    }
+    
+    @inlinable public var usecFromStartTime: Double {
+        return secFromStartTime * 1000.0 * 1000.0
+    }
+    
+    @inlinable public var usecFromStartTimeAsString: String {
+        return String(format: "%lf micro sec", usecFromStartTime)
+    }
+}
+
+
