@@ -72,9 +72,9 @@ class ViewController: UIViewController {
         videoOutput.setSampleBufferDelegate(self, queue: DispatchQueue.main)
         videoOutput.alwaysDiscardsLateVideoFrames = true
         videoOutput.videoSettings
-//            = [kCVPixelBufferPixelFormatTypeKey : Int(kCVPixelFormatType_422YpCbCr8FullRange)] as [String : Any]
+            //            = [kCVPixelBufferPixelFormatTypeKey : Int(kCVPixelFormatType_422YpCbCr8FullRange)] as [String : Any]
             = [kCVPixelBufferPixelFormatTypeKey : Int(kCVPixelFormatType_420YpCbCr8BiPlanarVideoRange)] as [String : Any]
-//            = [kCVPixelBufferPixelFormatTypeKey : Int(kCVPixelFormatType_32BGRA)] as [String : Any]
+        //            = [kCVPixelBufferPixelFormatTypeKey : Int(kCVPixelFormatType_32BGRA)] as [String : Any]
         captureSession.addOutput(videoOutput)
         
         let audioOutput = AVCaptureAudioDataOutput()
@@ -92,7 +92,7 @@ class ViewController: UIViewController {
         self.tmpFilePath = "\(dir)/tmpVideo.mov"
         
         let loader = MTKTextureLoader(device: ViewController.sharedMtlDevive)
-//         testTex: MTLTexture
+        //         testTex: MTLTexture
         do {
             let ui: UIImage = UIImage(named: "test.jpeg")!
             let cg: CGImage = ui.cgImage!
@@ -173,7 +173,7 @@ class ViewController: UIViewController {
     
     var timer = BagotTimer()
     
-    var factory = CMSampleBuffer.VideoFactory()
+    var context = CIContext()
     
     var testTex: MTLTexture!
     
@@ -204,205 +204,58 @@ extension ViewController: AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
         if self.offset == nil {
             self.offset = CMTimeSubtract(t1, startTime)
         }
+
         
-        let time: CMTime = CMSampleBufferGetPresentationTimeStamp(sampleBuffer)
-        if let tex: MTLTexture = sampleBuffer.toMtlTexture,
-            let newBuff = factory.createSampleBufferBy(mtlTexture: tex, timeStamp: time) {
-            CMSampleBufferSetOutputPresentationTimeStamp(newBuff, newValue: time)
-            CMSampleBufferSetDataReady(newBuff)
-            
-            let imageBuffer: CVPixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer)!
-            
-            let sampleBufferByCVPixelBuffer = factory.createSampleBufferBy(pixelBuffer: imageBuffer, timeStamp: time)!  //ok
-            
-
-            let ci = CIImage(cvPixelBuffer: imageBuffer)
-
-            let width = CVPixelBufferGetWidth(imageBuffer)
-            let height = CVPixelBufferGetHeight(imageBuffer)
-            
-
-            
-            let mtlcontext = CIContext(mtlDevice: ViewController.sharedMtlDevive)
-            let colorSpace = CGColorSpaceCreateDeviceRGB()
-            let textureDescriptor = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: .bgra8Unorm,
-                                                                             width: width,
-                                                                             height: height,
-                                                                             mipmapped: false)
-            textureDescriptor.usage = .unknown
-            let toTexture = ViewController.sharedMtlDevive.makeTexture(descriptor: textureDescriptor)!
-            mtlcontext.render(ci, to: toTexture, commandBuffer: nil, bounds: ci.extent, colorSpace: colorSpace)
-            
-            
-//            print("testTex: \(testTex)")
-            
-            let ci2 = CIImage(mtlTexture: testTex, options: nil)!
-            
-            let options = [
-//                kCVPixelBufferCGImageCompatibilityKey: true,
-//                kCVPixelBufferCGBitmapContextCompatibilityKey: true,
-                kCVPixelBufferIOSurfacePropertiesKey: [:]
-                ] as [String : Any]
-            
-            var tmpRecodePixelBuffer: CVPixelBuffer? = nil
-            let _ = CVPixelBufferCreate(nil,
-                                             width,
-                                             height,
-//                                             kCVPixelFormatType_422YpCbCr8FullRange,
-                                             kCVPixelFormatType_420YpCbCr8BiPlanarVideoRange,
-//                                             kCVPixelFormatType_32BGRA,
-                                        options as CFDictionary,
-                                             &tmpRecodePixelBuffer)
-            let recodePixelBuffer = tmpRecodePixelBuffer!
-            CVPixelBufferLockBaseAddress(recodePixelBuffer, CVPixelBufferLockFlags(rawValue: 0))
-            factory.context.render(ci2, to: recodePixelBuffer)
-            
-//            print("1", recodePixelBuffer)
-            
-            var opDescription: CMVideoFormatDescription?
-            let status2 =
-                CMVideoFormatDescriptionCreateForImageBuffer(allocator: kCFAllocatorDefault,
-                                                             imageBuffer: recodePixelBuffer,
-                                                             formatDescriptionOut: &opDescription)
-            if status2 != noErr {
-                print("\(#line)")
-            }
-            guard let description: CMVideoFormatDescription = opDescription else {
-                print("\(#line)")
-                return
-            }
-            
-            var tmp: CMSampleBuffer? = nil
-            var sampleTiming = CMSampleTimingInfo()
-            sampleTiming.presentationTimeStamp = CMTimeSubtract(t1, offset ?? CMTime())
-            let _ = CMSampleBufferCreateForImageBuffer(allocator: kCFAllocatorDefault,
-                                                       imageBuffer: recodePixelBuffer,
-                                                        dataReady: true,
-                                                        makeDataReadyCallback: nil,
-                                                        refcon: nil,
-                                                        formatDescription: description,
-                                                        sampleTiming: &sampleTiming,
-                                                        sampleBufferOut: &tmp)
-            self.videoCreator?.write(sample: tmp!,
-                                     isVideo: true)
-            CVPixelBufferUnlockBaseAddress(recodePixelBuffer, CVPixelBufferLockFlags(rawValue: 0))
+        guard let ci2 = CIImage(mtlTexture: testTex, options: nil) else {
+            return
         }
+        
+        let options = [ kCVPixelBufferIOSurfacePropertiesKey: [:] ] as [String : Any]
+        var tmpRecodePixelBuffer: CVPixelBuffer? = nil
+        let _ = CVPixelBufferCreate(nil,
+                                    testTex.width,
+                                    testTex.height,
+                                    kCVPixelFormatType_420YpCbCr8BiPlanarVideoRange,
+                                    options as CFDictionary,
+                                    &tmpRecodePixelBuffer)
+        guard let recodePixelBuffer = tmpRecodePixelBuffer else {
+            return
+        }
+
+        CVPixelBufferLockBaseAddress(recodePixelBuffer, CVPixelBufferLockFlags(rawValue: 0))
+        context.render(ci2, to: recodePixelBuffer)
+
+        
+        var opDescription: CMVideoFormatDescription?
+        let status2 =
+            CMVideoFormatDescriptionCreateForImageBuffer(allocator: kCFAllocatorDefault,
+                                                         imageBuffer: recodePixelBuffer,
+                                                         formatDescriptionOut: &opDescription)
+        if status2 != noErr {
+            print("\(#line)")
+        }
+        guard let description: CMVideoFormatDescription = opDescription else {
+            print("\(#line)")
+            return
+        }
+        
+        var tmp: CMSampleBuffer? = nil
+        var sampleTiming = CMSampleTimingInfo()
+        sampleTiming.presentationTimeStamp = CMTimeSubtract(t1, offset ?? CMTime())
+        let _ = CMSampleBufferCreateForImageBuffer(allocator: kCFAllocatorDefault,
+                                                   imageBuffer: recodePixelBuffer,
+                                                   dataReady: true,
+                                                   makeDataReadyCallback: nil,
+                                                   refcon: nil,
+                                                   formatDescription: description,
+                                                   sampleTiming: &sampleTiming,
+                                                   sampleBufferOut: &tmp)
+        self.videoCreator?.write(sample: tmp!,
+                                 isVideo: true)
+        CVPixelBufferUnlockBaseAddress(recodePixelBuffer, CVPixelBufferLockFlags(rawValue: 0))
     }
 }
 
-extension CMSampleBuffer {
-    var toMtlTexture: MTLTexture? {
-        guard let imageBuffer: CVPixelBuffer = CMSampleBufferGetImageBuffer(self) else {
-            print("failed CMSampleBufferGetImageBuffer")
-            return nil
-        }
-        let width = CVPixelBufferGetWidth(imageBuffer)
-        let height = CVPixelBufferGetHeight(imageBuffer)
-        let inputImage = CIImage(cvPixelBuffer: imageBuffer)
-        let context = CIContext(mtlDevice: ViewController.sharedMtlDevive)
-        let colorSpace = CGColorSpaceCreateDeviceRGB()
-        let textureDescriptor = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: .bgra8Unorm,
-                                                                         width: width,
-                                                                         height: height,
-                                                                         mipmapped: false)
-        textureDescriptor.usage = .unknown
-        let toTexture = ViewController.sharedMtlDevive.makeTexture(descriptor: textureDescriptor)
-        context.render(inputImage, to: toTexture!, commandBuffer: nil, bounds: inputImage.extent, colorSpace: colorSpace)
-        return toTexture!
-    }
-}
-
-extension CMSampleBuffer {
-    public class VideoFactory {
-        public let context = CIContext()
-        
-        init() {
-        }
-        
-        public static func createPixelBuffer(width: Int, height: Int) -> CVPixelBuffer? {
-            var pixelBuffer: CVPixelBuffer?
-            let status = CVPixelBufferCreate(nil,
-                                             width,
-                                             height,
-//                                             kCVPixelFormatType_420YpCbCr8BiPlanarVideoRange,
-                                             kCVPixelFormatType_32BGRA,
-                                             nil,
-                                             &pixelBuffer)
-            if status != kCVReturnSuccess {
-                return nil
-            }
-            return pixelBuffer
-        }
-        
-        public func createSampleBufferBy(mtlTexture: MTLTexture, timeStamp: CMTime) -> CMSampleBuffer? {
-            guard let pixelBuffer = VideoFactory.createPixelBuffer(width: mtlTexture.width, height: mtlTexture.height) else {
-                return nil
-            }
-            CVPixelBufferLockBaseAddress(pixelBuffer, CVPixelBufferLockFlags(rawValue: 0))
-            let ci = CIImage(mtlTexture: mtlTexture, options: nil)!
-            context.render(ci, to: pixelBuffer)
-            var opDescription: CMVideoFormatDescription?
-            var status =
-                CMVideoFormatDescriptionCreateForImageBuffer(allocator: kCFAllocatorDefault,
-                                                             imageBuffer: pixelBuffer,
-                                                             formatDescriptionOut: &opDescription)
-            if status != noErr {
-                return nil
-            }
-            guard let description: CMVideoFormatDescription = opDescription else {
-                return nil
-            }
-            var sampleBufferOut: CMSampleBuffer?
-            var sampleTiming = CMSampleTimingInfo()
-            sampleTiming.presentationTimeStamp = CMTime(value: CMTimeValue(Int(Date().timeIntervalSince1970 * 30000.0)),
-                                                        timescale: 30000,
-                                                        flags: .init(rawValue: 3),
-                                                        epoch: 0)
-            sampleTiming.presentationTimeStamp = timeStamp
-            status = CMSampleBufferCreateForImageBuffer(allocator: kCFAllocatorDefault,
-                                                        imageBuffer: pixelBuffer,
-                                                        dataReady: true,
-                                                        makeDataReadyCallback: nil,
-                                                        refcon: nil,
-                                                        formatDescription: description,
-                                                        sampleTiming: &sampleTiming,
-                                                        sampleBufferOut: &sampleBufferOut)
-            CVPixelBufferUnlockBaseAddress(pixelBuffer, CVPixelBufferLockFlags(rawValue: 0))
-            return sampleBufferOut
-        }
-        
-        public func createSampleBufferBy(pixelBuffer: CVPixelBuffer, timeStamp: CMTime) -> CMSampleBuffer? {
-            var opDescription: CMVideoFormatDescription?
-            var status =
-                CMVideoFormatDescriptionCreateForImageBuffer(allocator: kCFAllocatorDefault,
-                                                             imageBuffer: pixelBuffer,
-                                                             formatDescriptionOut: &opDescription)
-            if status != noErr {
-                return nil
-            }
-            guard let description: CMVideoFormatDescription = opDescription else {
-                return nil
-            }
-            var sampleBufferOut: CMSampleBuffer?
-            var sampleTiming = CMSampleTimingInfo()
-            sampleTiming.presentationTimeStamp = CMTime(value: CMTimeValue(Int(Date().timeIntervalSince1970 * 30000.0)),
-                                                        timescale: 30000,
-                                                        flags: .init(rawValue: 3),
-                                                        epoch: 0)
-            sampleTiming.presentationTimeStamp = timeStamp
-            status = CMSampleBufferCreateForImageBuffer(allocator: kCFAllocatorDefault,
-                                                        imageBuffer: pixelBuffer,
-                                                        dataReady: true,
-                                                        makeDataReadyCallback: nil,
-                                                        refcon: nil,
-                                                        formatDescription: description,
-                                                        sampleTiming: &sampleTiming,
-                                                        sampleBufferOut: &sampleBufferOut)
-            CVPixelBufferUnlockBaseAddress(pixelBuffer, CVPixelBufferLockFlags(rawValue: 0))
-            return sampleBufferOut
-        }
-    }
-}
 
 public class BagotTimer {
     public var startTime: Double!
@@ -463,5 +316,6 @@ public class BagotTimer {
         return String(format: "%lf micro sec", usecFromStartTime)
     }
 }
+
 
 
