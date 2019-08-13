@@ -10,6 +10,8 @@ import UIKit
 import AVFoundation
 import AssetsLibrary
 import VideoCreator
+import MetalKit
+import Metal
 
 class ViewController: UIViewController {
     
@@ -89,10 +91,16 @@ class ViewController: UIViewController {
         }
         self.tmpFilePath = "\(dir)/tmpVideo.mov"
         
+        var textureCache: CVMetalTextureCache?
+        CVMetalTextureCacheCreate(nil, nil, ViewController.sharedMtlDevive, nil, &textureCache)
+        capturedImageTextureCache = textureCache
+        
         self.makeVideoCreator()
         self.captureSession.startRunning()
         print("start running")
     }
+    
+    var capturedImageTextureCache: CVMetalTextureCache!
     
     @IBAction func start(_ sender: Any) {
         print("start recording")
@@ -138,6 +146,20 @@ class ViewController: UIViewController {
         self.videoCreator = VideoCreator(url: self.tmpFilePath, videoConfig: self.videoConfig, audioConfig: self.audioConfig)
     }
     
+    func createTexture(fromPixelBuffer pixelBuffer: CVPixelBuffer, pixelFormat: MTLPixelFormat, planeIndex: Int) -> CVMetalTexture? {
+        let width = CVPixelBufferGetWidthOfPlane(pixelBuffer, planeIndex)
+        let height = CVPixelBufferGetHeightOfPlane(pixelBuffer, planeIndex)
+        
+        var texture: CVMetalTexture? = nil
+        let status = CVMetalTextureCacheCreateTextureFromImage(nil, capturedImageTextureCache, pixelBuffer, nil, pixelFormat, width, height, planeIndex, &texture)
+        
+        if status != kCVReturnSuccess {
+            texture = nil
+        }
+        
+        return texture
+    }
+    
     var factory = CMSampleBuffer.VideoFactory()
 }
 
@@ -163,16 +185,38 @@ extension ViewController: AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
             let sampleBufferByCVPixelBuffer = factory.createSampleBufferBy(pixelBuffer: imageBuffer, timeStamp: time)!  //ok
             
 
-            
+            let ci = CIImage(cvPixelBuffer: imageBuffer)
+
             let width = CVPixelBufferGetWidth(imageBuffer)
             let height = CVPixelBufferGetHeight(imageBuffer)
             
-            let iosurface: Unmanaged<IOSurfaceRef>? = CVPixelBufferGetIOSurface(imageBuffer)
-            
-//            print("0: ", imageBuffer)
 
             
-            let ci = CIImage(cvPixelBuffer: imageBuffer)
+            let mtlcontext = CIContext(mtlDevice: ViewController.sharedMtlDevive)
+            let colorSpace = CGColorSpaceCreateDeviceRGB()
+            let textureDescriptor = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: .bgra8Unorm,
+                                                                             width: width,
+                                                                             height: height,
+                                                                             mipmapped: false)
+            textureDescriptor.usage = .unknown
+            let toTexture = ViewController.sharedMtlDevive.makeTexture(descriptor: textureDescriptor)!
+            mtlcontext.render(ci, to: toTexture, commandBuffer: nil, bounds: ci.extent, colorSpace: colorSpace)
+            
+            
+            let loader = MTKTextureLoader(device: ViewController.sharedMtlDevive)
+            var testTex: MTLTexture
+            do {
+                let ui: UIImage = UIImage(named: "test.jpeg")!
+                let cg: CGImage = ui.cgImage!
+                testTex = try loader.newTexture(cgImage: cg, options: nil)
+            } catch let error {
+                print("erro: \(error)")
+                return
+            }
+            
+//            print("testTex: \(testTex)")
+            
+            let ci2 = CIImage(mtlTexture: testTex, options: nil)!
             
             let options = [
 //                kCVPixelBufferCGImageCompatibilityKey: true,
@@ -191,7 +235,7 @@ extension ViewController: AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
                                              &tmpRecodePixelBuffer)
             let recodePixelBuffer = tmpRecodePixelBuffer!
             CVPixelBufferLockBaseAddress(recodePixelBuffer, CVPixelBufferLockFlags(rawValue: 0))
-            factory.context.render(ci, to: recodePixelBuffer)
+            factory.context.render(ci2, to: recodePixelBuffer)
             
 //            print("1", recodePixelBuffer)
             
