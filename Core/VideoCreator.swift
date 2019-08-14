@@ -36,7 +36,14 @@ public class VideoCreator {
     private var assetWriter: AVAssetWriter
     private var videoAssetWriterInput: AVAssetWriterInput
     private var audioAssetWriterInput: AVAssetWriterInput
-    public var startTime: CMTime? = nil
+    
+    private var offset: CMTime? = nil
+    public var nowTime: CMTime? {
+        guard let offset = self.offset else {
+            return nil
+        }
+        return CMTimeSubtract(self.cmTimeSec, offset)
+    }
     
     public init?(url: String, videoConfig: VideoConfig, audioConfig: AudioConfig) {
         guard let assetWriter = try? AVAssetWriter(outputURL: URL(fileURLWithPath: url), fileType: AVFileType.mov) else {
@@ -72,7 +79,8 @@ public class VideoCreator {
             let startTime = CMSampleBufferGetPresentationTimeStamp(sample)
             assetWriter.startWriting()
             assetWriter.startSession(atSourceTime: startTime)
-            self.startTime = startTime
+            
+            offset = CMTimeSubtract(self.cmTimeSec, startTime)
             print("assetWriter startWriting")
         }
 
@@ -89,5 +97,19 @@ public class VideoCreator {
     
     public func finish(completionHandler: @escaping () -> Void){
         assetWriter.finishWriting(completionHandler: completionHandler)
+    }
+    
+    private var timeSec: Double {
+        var tb = mach_timebase_info()
+        mach_timebase_info(&tb)
+        let tsc = mach_absolute_time()
+        return Double(tsc) * Double(tb.numer) / Double(tb.denom) / 1000000000.0
+    }
+    
+    private var cmTimeSec: CMTime {
+        return CMTime(value: CMTimeValue(Int(timeSec * 1000000000)),
+                      timescale: 1000000000,
+                      flags: .init(rawValue: 3),
+                      epoch: 0)
     }
 }

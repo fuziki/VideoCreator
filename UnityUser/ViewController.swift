@@ -171,13 +171,9 @@ class ViewController: UIViewController {
         return texture
     }
     
-    var timer = BagotTimer()
-    
     var context = CIContext()
     
     var testTex: MTLTexture!
-    
-    var offset: CMTime? = nil
 }
 
 extension ViewController: AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptureAudioDataOutputSampleBufferDelegate {
@@ -187,24 +183,15 @@ extension ViewController: AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
         }
         
         if output is AVCaptureAudioDataOutput {
-            self.videoCreator?.write(sample: sampleBuffer,
-                                     isVideo: false)
+            self.videoCreator?.write(sample: sampleBuffer, isVideo: false)
             return
         }
         
-        guard let startTime = videoCreator?.startTime else {
+        testTex = sampleBuffer.toMtlTexture!
+        
+        guard let nowTime = videoCreator?.nowTime else {
             return
         }
-        
-        let t1 = CMTime(value: CMTimeValue(Int(Date().timeIntervalSince1970 * 1000000000)),
-                        timescale: 1000000000,
-                        flags: .init(rawValue: 3),
-                        epoch: 0)
-        
-        if self.offset == nil {
-            self.offset = CMTimeSubtract(t1, startTime)
-        }
-
         
         guard let ci2 = CIImage(mtlTexture: testTex, options: nil) else {
             return
@@ -224,13 +211,11 @@ extension ViewController: AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
 
         CVPixelBufferLockBaseAddress(recodePixelBuffer, CVPixelBufferLockFlags(rawValue: 0))
         context.render(ci2, to: recodePixelBuffer)
-
         
         var opDescription: CMVideoFormatDescription?
-        let status2 =
-            CMVideoFormatDescriptionCreateForImageBuffer(allocator: kCFAllocatorDefault,
-                                                         imageBuffer: recodePixelBuffer,
-                                                         formatDescriptionOut: &opDescription)
+        let status2 = CMVideoFormatDescriptionCreateForImageBuffer(allocator: kCFAllocatorDefault,
+                                                                   imageBuffer: recodePixelBuffer,
+                                                                   formatDescriptionOut: &opDescription)
         if status2 != noErr {
             print("\(#line)")
         }
@@ -241,7 +226,7 @@ extension ViewController: AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
         
         var tmp: CMSampleBuffer? = nil
         var sampleTiming = CMSampleTimingInfo()
-        sampleTiming.presentationTimeStamp = CMTimeSubtract(t1, offset ?? CMTime())
+        sampleTiming.presentationTimeStamp = nowTime
         let _ = CMSampleBufferCreateForImageBuffer(allocator: kCFAllocatorDefault,
                                                    imageBuffer: recodePixelBuffer,
                                                    dataReady: true,
@@ -256,66 +241,24 @@ extension ViewController: AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
     }
 }
 
-
-public class BagotTimer {
-    public var startTime: Double!
-    public var stopTime: Double? = nil
-    public init() {
-        self.startTime = self.timeSec
-    }
-    
-    @inlinable var timeSec: Double {
-        var tb = mach_timebase_info()
-        mach_timebase_info(&tb)
-        let tsc = mach_absolute_time()
-        return Double(tsc) * Double(tb.numer) / Double(tb.denom) / 1000000000.0
-    }
-    
-    @inlinable public func startTimer() {
-        self.startTime = self.timeSec
-    }
-    
-    @inlinable public func stopTimer() {
-        self.stopTime = self.timeSec
-    }
-    
-    @inlinable public var intervalSec: Double {
-        guard let stopTime = self.stopTime else { return -1.0 }
-        return stopTime - self.startTime
-    }
-    
-    @inlinable public var intervalSecAsString: String {
-        return String(format: "%lf sec", self.intervalSec)
-    }
-    
-    @inlinable public var intervalmSecAsString: String {
-        return String(format: "%lf milli sec", self.intervalSec * 1000)
-    }
-    
-    @inlinable public var secFromStartTime: Double {
-        return self.timeSec - self.startTime
-    }
-    
-    @inlinable public var secFromStartTimeAsString: String {
-        return String(format: "%lf sec", self.secFromStartTime)
-    }
-    
-    @inlinable public var msecFromStartTime: Double {
-        return secFromStartTime * 1000.0
-    }
-    
-    @inlinable public var msecFromStartTimeAsString: String {
-        return String(format: "%lf milli sec", msecFromStartTime)
-    }
-    
-    @inlinable public var usecFromStartTime: Double {
-        return secFromStartTime * 1000.0 * 1000.0
-    }
-    
-    @inlinable public var usecFromStartTimeAsString: String {
-        return String(format: "%lf micro sec", usecFromStartTime)
+extension CMSampleBuffer {
+    var toMtlTexture: MTLTexture? {
+        guard let imageBuffer: CVPixelBuffer = CMSampleBufferGetImageBuffer(self) else {
+            print("failed CMSampleBufferGetImageBuffer")
+            return nil
+        }
+        let width = CVPixelBufferGetWidth(imageBuffer)
+        let height = CVPixelBufferGetHeight(imageBuffer)
+        let inputImage = CIImage(cvPixelBuffer: imageBuffer)
+        let context = CIContext(mtlDevice: ViewController.sharedMtlDevive)
+        let colorSpace = CGColorSpaceCreateDeviceRGB()
+        let textureDescriptor = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: .bgra8Unorm,
+                                                                         width: width,
+                                                                         height: height,
+                                                                         mipmapped: false)
+        textureDescriptor.usage = .unknown
+        let toTexture = ViewController.sharedMtlDevive.makeTexture(descriptor: textureDescriptor)
+        context.render(inputImage, to: toTexture!, commandBuffer: nil, bounds: inputImage.extent, colorSpace: colorSpace)
+        return toTexture!
     }
 }
-
-
-
