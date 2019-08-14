@@ -25,7 +25,6 @@
 		523C40D722F8836300143BFD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 523C40D522F8836300143BFD /* Main.storyboard */; };
 		523C40D922F8836500143BFD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 523C40D822F8836500143BFD /* Assets.xcassets */; };
 		523C40DC22F8836500143BFD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 523C40DA22F8836500143BFD /* LaunchScreen.storyboard */; };
-		52DDA99023007C40005373FB /* VideoCreatorUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52DDA98F23007C40005373FB /* VideoCreatorUser.swift */; };
 		52DDA99823007F9F005373FB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52DDA99723007F9F005373FB /* AppDelegate.swift */; };
 		52DDA99A23007F9F005373FB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52DDA99923007F9F005373FB /* ViewController.swift */; };
 		52DDA99D23007F9F005373FB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 52DDA99B23007F9F005373FB /* Main.storyboard */; };
@@ -34,6 +33,8 @@
 		52DDA9A7230083BB005373FB /* VideoCreator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 523C40C022F8834400143BFD /* VideoCreator.framework */; };
 		52DDA9A8230083BB005373FB /* VideoCreator.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 523C40C022F8834400143BFD /* VideoCreator.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		52DDA9F12301CF02005373FB /* test.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 52DDA9F02301CF01005373FB /* test.jpeg */; };
+		52DDA9F323043D0C005373FB /* CMSampleBuffer+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52DDA9F223043D0C005373FB /* CMSampleBuffer+Extension.swift */; };
+		52DDA9F523044071005373FB /* VideoCreatorUnity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52DDA9F423044071005373FB /* VideoCreatorUnity.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -119,7 +120,6 @@
 		523C40DB22F8836500143BFD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		523C40DD22F8836500143BFD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		523C40E122F883A700143BFD /* VideoCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCreator.swift; sourceTree = "<group>"; };
-		52DDA98F23007C40005373FB /* VideoCreatorUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCreatorUser.swift; sourceTree = "<group>"; };
 		52DDA99523007F9E005373FB /* UnityUser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UnityUser.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		52DDA99723007F9F005373FB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		52DDA99923007F9F005373FB /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -128,6 +128,8 @@
 		52DDA9A123007FA0005373FB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		52DDA9A323007FA0005373FB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		52DDA9F02301CF01005373FB /* test.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = test.jpeg; sourceTree = "<group>"; };
+		52DDA9F223043D0C005373FB /* CMSampleBuffer+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CMSampleBuffer+Extension.swift"; sourceTree = "<group>"; };
+		52DDA9F423044071005373FB /* VideoCreatorUnity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCreatorUnity.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -239,7 +241,6 @@
 			isa = PBXGroup;
 			children = (
 				523C40C322F8834400143BFD /* VideoCreator.h */,
-				52DDA98F23007C40005373FB /* VideoCreatorUser.swift */,
 				523C40C422F8834400143BFD /* Info.plist */,
 			);
 			path = VideoCreator;
@@ -264,6 +265,8 @@
 			children = (
 				52DDA99723007F9F005373FB /* AppDelegate.swift */,
 				52DDA99923007F9F005373FB /* ViewController.swift */,
+				52DDA9F423044071005373FB /* VideoCreatorUnity.swift */,
+				52DDA9F223043D0C005373FB /* CMSampleBuffer+Extension.swift */,
 				52DDA9F02301CF01005373FB /* test.jpeg */,
 				52DDA99B23007F9F005373FB /* Main.storyboard */,
 				52DDA99E23007FA0005373FB /* Assets.xcassets */,
@@ -512,7 +515,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				523B1D7E22FFBC2400CC451E /* VideoCreator.swift in Sources */,
-				52DDA99023007C40005373FB /* VideoCreatorUser.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -532,6 +534,8 @@
 			files = (
 				52DDA99A23007F9F005373FB /* ViewController.swift in Sources */,
 				52DDA99823007F9F005373FB /* AppDelegate.swift in Sources */,
+				52DDA9F523044071005373FB /* VideoCreatorUnity.swift in Sources */,
+				52DDA9F323043D0C005373FB /* CMSampleBuffer+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
