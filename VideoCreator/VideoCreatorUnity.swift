@@ -7,11 +7,38 @@
 //
 
 import AVFoundation
-import VideoCreator
 import AssetsLibrary
+
 
 @objcMembers
 public class VideoCreatorUnity: NSObject {
+    private var creator: MyVideoCreatorUnity!
+    public init(tmpFilePath: String, enableMic: Bool, videoWidth: Int, videoHeight: Int) {
+        super.init()
+        creator = MyVideoCreatorUnity(tmpFilePath: tmpFilePath,
+                                      enableMic: enableMic,
+                                      videoWidth: videoWidth,
+                                      videoHeight: videoHeight)
+    }
+
+    public var isRecording: Bool {
+        return creator.isRecording
+    }
+
+    public func startRecording() {
+        creator.startRecording()
+    }
+    
+    public func append(mtlTexture: MTLTexture) {
+        creator.append(mtlTexture: mtlTexture)
+    }
+    
+    public func finishRecording() {
+        creator.finishRecording()
+    }
+}
+
+private class MyVideoCreatorUnity: NSObject {
     private var captureSession: AVCaptureSession? = nil
     private var audioDevice: AVCaptureDevice? = nil
 
@@ -109,7 +136,7 @@ public class VideoCreatorUnity: NSObject {
     
 }
 
-extension VideoCreatorUnity: AVCaptureAudioDataOutputSampleBufferDelegate {
+extension MyVideoCreatorUnity: AVCaptureAudioDataOutputSampleBufferDelegate {
     public func captureOutput(_ output: AVCaptureOutput,
                               didOutput sampleBuffer: CMSampleBuffer,
                               from connection: AVCaptureConnection) {

@@ -33,8 +33,9 @@
 		52DDA9A7230083BB005373FB /* VideoCreator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 523C40C022F8834400143BFD /* VideoCreator.framework */; };
 		52DDA9A8230083BB005373FB /* VideoCreator.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 523C40C022F8834400143BFD /* VideoCreator.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		52DDA9F12301CF02005373FB /* test.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 52DDA9F02301CF01005373FB /* test.jpeg */; };
-		52DDA9F323043D0C005373FB /* CMSampleBuffer+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52DDA9F223043D0C005373FB /* CMSampleBuffer+Extension.swift */; };
-		52DDA9F523044071005373FB /* VideoCreatorUnity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52DDA9F423044071005373FB /* VideoCreatorUnity.swift */; };
+		52DDA9F623044980005373FB /* VideoCreatorUnity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52DDA9F423044071005373FB /* VideoCreatorUnity.swift */; };
+		52DDA9F723044984005373FB /* CMSampleBuffer+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52DDA9F223043D0C005373FB /* CMSampleBuffer+Extension.swift */; };
+		52DDA9FA23044A0D005373FB /* VideoCreatorUnity.mm in Sources */ = {isa = PBXBuildFile; fileRef = 52DDA9F923044A0D005373FB /* VideoCreatorUnity.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -130,6 +131,8 @@
 		52DDA9F02301CF01005373FB /* test.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = test.jpeg; sourceTree = "<group>"; };
 		52DDA9F223043D0C005373FB /* CMSampleBuffer+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CMSampleBuffer+Extension.swift"; sourceTree = "<group>"; };
 		52DDA9F423044071005373FB /* VideoCreatorUnity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCreatorUnity.swift; sourceTree = "<group>"; };
+		52DDA9F823044A0C005373FB /* UnityUser-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UnityUser-Bridging-Header.h"; sourceTree = "<group>"; };
+		52DDA9F923044A0D005373FB /* VideoCreatorUnity.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = VideoCreatorUnity.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -241,6 +244,8 @@
 			isa = PBXGroup;
 			children = (
 				523C40C322F8834400143BFD /* VideoCreator.h */,
+				52DDA9F423044071005373FB /* VideoCreatorUnity.swift */,
+				52DDA9F223043D0C005373FB /* CMSampleBuffer+Extension.swift */,
 				523C40C422F8834400143BFD /* Info.plist */,
 			);
 			path = VideoCreator;
@@ -265,13 +270,13 @@
 			children = (
 				52DDA99723007F9F005373FB /* AppDelegate.swift */,
 				52DDA99923007F9F005373FB /* ViewController.swift */,
-				52DDA9F423044071005373FB /* VideoCreatorUnity.swift */,
-				52DDA9F223043D0C005373FB /* CMSampleBuffer+Extension.swift */,
+				52DDA9F923044A0D005373FB /* VideoCreatorUnity.mm */,
 				52DDA9F02301CF01005373FB /* test.jpeg */,
 				52DDA99B23007F9F005373FB /* Main.storyboard */,
 				52DDA99E23007FA0005373FB /* Assets.xcassets */,
 				52DDA9A023007FA0005373FB /* LaunchScreen.storyboard */,
 				52DDA9A323007FA0005373FB /* Info.plist */,
+				52DDA9F823044A0C005373FB /* UnityUser-Bridging-Header.h */,
 			);
 			path = UnityUser;
 			sourceTree = "<group>";
@@ -420,6 +425,7 @@
 					};
 					52DDA99423007F9E005373FB = {
 						CreatedOnToolsVersion = 10.2.1;
+						LastSwiftMigration = 1020;
 					};
 				};
 			};
@@ -514,7 +520,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				52DDA9F623044980005373FB /* VideoCreatorUnity.swift in Sources */,
 				523B1D7E22FFBC2400CC451E /* VideoCreator.swift in Sources */,
+				52DDA9F723044984005373FB /* CMSampleBuffer+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -532,10 +540,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				52DDA9FA23044A0D005373FB /* VideoCreatorUnity.mm in Sources */,
 				52DDA99A23007F9F005373FB /* ViewController.swift in Sources */,
 				52DDA99823007F9F005373FB /* AppDelegate.swift in Sources */,
-				52DDA9F523044071005373FB /* VideoCreatorUnity.swift in Sources */,
-				52DDA9F323043D0C005373FB /* CMSampleBuffer+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -918,6 +925,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = NT88A3VRE2;
 				INFOPLIST_FILE = UnityUser/Info.plist;
@@ -927,6 +935,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = fuziki.factory.UnityUser;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "UnityUser/UnityUser-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -937,6 +947,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = NT88A3VRE2;
 				INFOPLIST_FILE = UnityUser/Info.plist;
@@ -946,6 +957,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = fuziki.factory.UnityUser;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "UnityUser/UnityUser-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
