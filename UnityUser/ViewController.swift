@@ -29,6 +29,7 @@ class ViewController: UIViewController {
             return
         }
         let tmpFilePath = "\(dir)/tmpVideo.mov"
+        print("tmpfile: \(tmpFilePath)")
         
         let device = MTLCreateSystemDefaultDevice()!
         let loader = MTKTextureLoader(device: device)

@@ -25,6 +25,7 @@ VideoCreatorUnity* videoCreator_init(char* tmpFilePath, bool enableAudio, int vi
                                              enableMic: enableAudio
                                             videoWidth: videoWidth
                                            videoHeight: videoHeight];
+    CFRetain((CFTypeRef)creator);
     return creator;
 }
 
@@ -43,4 +44,8 @@ void videoCreator_append(VideoCreatorUnity* creator, unsigned char* mtlTexture) 
 
 void videoCreator_finishRecording(VideoCreatorUnity* creator) {
     [creator finishRecording];
+}
+
+void videoCreator_release(VideoCreatorUnity* creator) {
+    CFRelease((CFTypeRef)creator);
 }
