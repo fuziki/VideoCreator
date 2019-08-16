@@ -17,6 +17,7 @@ extern "C" {
     void videoCreator_startRecording(VideoCreatorUnity* creator);
     void videoCreator_append(VideoCreatorUnity* creator, unsigned char* mtlTexture);
     void videoCreator_finishRecording(VideoCreatorUnity* creator);
+    void videoCreator_release(VideoCreatorUnity* creator);
 }
 
 VideoCreatorUnity* videoCreator_init(char* tmpFilePath, bool enableAudio, int videoWidth, int videoHeight) {
@@ -25,6 +26,7 @@ VideoCreatorUnity* videoCreator_init(char* tmpFilePath, bool enableAudio, int vi
                                          enableMic: enableAudio
                                         videoWidth: videoWidth
                                        videoHeight: videoHeight];
+    CFRetain((CFTypeRef)creator);
     return creator;
 }
 
@@ -38,6 +40,9 @@ void videoCreator_startRecording(VideoCreatorUnity* creator) {
 
 void videoCreator_append(VideoCreatorUnity* creator, unsigned char* mtlTexture) {
     id<MTLTexture> tex = (__bridge id<MTLTexture>) (void*) mtlTexture;
+    if (tex.pixelFormat != MTLPixelFormatBGRA8Unorm_sRGB) {
+        tex = [tex newTextureViewWithPixelFormat: MTLPixelFormatBGRA8Unorm_sRGB];
+    }
     [creator appendWithMtlTexture: tex];
 }
 

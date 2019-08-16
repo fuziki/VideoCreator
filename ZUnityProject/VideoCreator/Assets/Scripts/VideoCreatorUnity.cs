@@ -22,9 +22,14 @@ public class VideoCreatorUnity {
     [DllImport("__Internal")]
     private static extern void videoCreator_release(IntPtr creator);
 
+    private int width;
+    private int height;
+
     private IntPtr creatorObject;
     public VideoCreatorUnity(string tmpFilePath, bool enableAudio, int videoWidth, int videoHeight)
     {
+        this.width = videoWidth;
+        this.height = videoHeight;
         creatorObject = videoCreator_init(tmpFilePath, enableAudio, videoWidth, videoHeight);
     }
 
@@ -55,6 +60,9 @@ public class VideoCreatorUnity {
 
     public void append(RenderTexture texture)
     {
+        if (texture.width != this.width || texture.height != this.height) return;
+        videoCreator_append(creatorObject, texture.GetNativeTexturePtr());
+        return;
         if (texture2D == null) texture2D = new Texture2D((int)texture.width, (int)texture.height, TextureFormat.ARGB32, false);
         RenderTexture currentRT = RenderTexture.active;
         RenderTexture.active = texture;
