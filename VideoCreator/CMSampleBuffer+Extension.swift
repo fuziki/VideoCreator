@@ -27,7 +27,8 @@ extension CMSampleBuffer {
             let status1 = CVPixelBufferCreate(nil,
                                               width,
                                               height,
-                                              kCVPixelFormatType_420YpCbCr8BiPlanarVideoRange,
+                                              kCVPixelFormatType_32BGRA,
+//                                              kCVPixelFormatType_420YpCbCr8BiPlanarVideoRange,
                                               options as CFDictionary,
                                               &pixelBuffer)
             guard status1 == noErr, let buff = pixelBuffer else {

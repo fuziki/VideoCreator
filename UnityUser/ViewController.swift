@@ -42,6 +42,9 @@ class ViewController: UIViewController {
             return
         }
         
+        print("testTex: \(testTex)")
+        testTex.pixelFormat
+        
         unity = VideoCreatorUnity(tmpFilePath: tmpFilePath,
                                   enableMic: true,
                                   videoWidth: testTex.width,

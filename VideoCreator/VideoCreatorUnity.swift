@@ -78,7 +78,6 @@ private class MyVideoCreatorUnity: NSObject {
             print("failed init aduio session error: \(error)")
         }
         captureSession = AVCaptureSession()
-        captureSession?.sessionPreset = .hd1920x1080
         guard let audioDevice = AVCaptureDevice.default(for: AVMediaType.audio),
             let audioInput = try? AVCaptureDeviceInput(device: audioDevice) else {
                 print("failed init capture device")
@@ -133,14 +132,12 @@ private class MyVideoCreatorUnity: NSObject {
         })
         self._isRecording = false
     }
-    
 }
 
 extension MyVideoCreatorUnity: AVCaptureAudioDataOutputSampleBufferDelegate {
     public func captureOutput(_ output: AVCaptureOutput,
                               didOutput sampleBuffer: CMSampleBuffer,
                               from connection: AVCaptureConnection) {
-
         if self.isRecording,
             output is AVCaptureAudioDataOutput {
             self.videoCreator?.write(sample: sampleBuffer, isVideo: false)
