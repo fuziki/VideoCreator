@@ -56,6 +56,7 @@ private class MyVideoCreatorUnity: NSObject {
     
     public init(tmpFilePath: String, enableMic: Bool, videoWidth: Int, videoHeight: Int) {
         super.init()
+        print("VideoCreator init with tmpFilePath: \(tmpFilePath), \(enableMic), \(videoWidth), \(videoHeight)")
         self.tmpFilePath = tmpFilePath
         videoFactory = CMSampleBuffer.VideoFactory(width: videoWidth, height: videoHeight)
         videoConfig = VideoCreator.VideoConfig(codec: AVVideoCodecType.h264,

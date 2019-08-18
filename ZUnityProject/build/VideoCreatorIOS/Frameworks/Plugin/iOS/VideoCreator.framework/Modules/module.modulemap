@@ -1,0 +1,11 @@
+framework module VideoCreator {
+  umbrella header "VideoCreator.h"
+
+  export *
+  module * { export * }
+}
+
+module VideoCreator.Swift {
+    header "VideoCreator-Swift.h"
+    requires objc
+}
