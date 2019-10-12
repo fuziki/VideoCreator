@@ -10,7 +10,7 @@ namespace VideoCreator
 #if UNITY_EDITOR
             videoCreator = null;
 #elif UNITY_IOS
-        videoCreator = VideoCreatorUnityIOS(tmpFilePath, enableAudio, videoWidth, videoHeight);
+            videoCreator = new VideoCreatorUnityIOS(tmpFilePath, enableAudio, videoWidth, videoHeight);
 #endif
         }
         public bool IsRecording

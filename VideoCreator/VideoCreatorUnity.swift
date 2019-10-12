@@ -124,12 +124,12 @@ private class MyVideoCreatorUnity: NSObject {
             guard let me = self else {
                 return
             }
-            ALAssetsLibrary().writeVideoAtPath(toSavedPhotosAlbum: URL(fileURLWithPath: me.tmpFilePath),
-                                               completionBlock: { (url: URL?, error: Error?) -> Void in
-                                                print("url: \(url), error: \(error)")
-                                                me.videoCreator = nil
-                                                me.makeVideoCreator()
-            })
+//            ALAssetsLibrary().writeVideoAtPath(toSavedPhotosAlbum: URL(fileURLWithPath: me.tmpFilePath),
+//                                               completionBlock: { (url: URL?, error: Error?) -> Void in
+//                                                print("url: \(url), error: \(error)")
+//                                                me.videoCreator = nil
+//                                                me.makeVideoCreator()
+//            })
         })
         self._isRecording = false
     }
