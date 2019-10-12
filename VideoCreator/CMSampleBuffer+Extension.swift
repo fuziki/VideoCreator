@@ -23,13 +23,13 @@ extension CMSampleBuffer {
         private func makePixelBuffer(width: Int, height: Int) {
             self.width = width
             self.height = height
-            let options = [ kCVPixelBufferIOSurfacePropertiesKey: [:] ] as [String : Any]
+//            let options = [ kCVPixelBufferIOSurfacePropertiesKey: [:] ] as [String : Any]
             let status1 = CVPixelBufferCreate(nil,
                                               width,
                                               height,
                                               kCVPixelFormatType_32BGRA,
 //                                              kCVPixelFormatType_420YpCbCr8BiPlanarVideoRange,
-                                              options as CFDictionary,
+                                              nil,
                                               &pixelBuffer)
             guard status1 == noErr, let buff = pixelBuffer else {
                 return
