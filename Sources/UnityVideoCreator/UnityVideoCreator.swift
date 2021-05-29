@@ -48,6 +48,6 @@ public func videoCreator_release(_ creator: UnsafePointer<VideoCreatorUnity>?) {
 }
 
 // UnsafeRawPointer == UnsafePointer<Void> == (void*)
-public func __bridge<T : AnyObject>(_ ptr: UnsafeRawPointer) -> T {
+func __bridge<T : AnyObject>(_ ptr: UnsafeRawPointer) -> T {
     return Unmanaged.fromOpaque(ptr).takeUnretainedValue()
 }
