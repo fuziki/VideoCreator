@@ -9,7 +9,6 @@
 import AVFoundation
 import AssetsLibrary
 
-@objcMembers
 public class VideoCreatorUnity: NSObject {
     private var creator: MyVideoCreatorUnity!
     public init(tmpFilePath: String, enableMic: Bool, videoWidth: Int, videoHeight: Int) {
