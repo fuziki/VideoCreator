@@ -2,3 +2,12 @@
 Example/tmp.swift
 test.jpeg
 UserInterfaceState.xcuserstate
+
+.DS_Store
+Build
+/Packages
+/*.xcodeproj
+xcuserdata/
+DerivedData/
+.swiftpm/
+.swiftpm/xcode/package.xcworkspace/contents.xcworkspacedata
