@@ -10,11 +10,26 @@ public func videoCreator_init(_ tmpFilePath: UnsafePointer<CChar>?,
                               _ enableAudio: Bool,
                               _ videoWidth: Int64,
                               _ videoHeight: Int64) -> UnsafePointer<VideoCreatorUnity> {
+    return videoCreator_initWithVideoCodec(tmpFilePath,
+                                           enableAudio,
+                                           videoWidth,
+                                           videoHeight,
+                                           "h264")
+}
+
+@_cdecl("videoCreator_initWithVideoCodec")
+public func videoCreator_initWithVideoCodec(_ tmpFilePath: UnsafePointer<CChar>?,
+                                            _ enableAudio: Bool,
+                                            _ videoWidth: Int64,
+                                            _ videoHeight: Int64,
+                                            _ videoCodec: UnsafePointer<CChar>?) -> UnsafePointer<VideoCreatorUnity> {
     let tmpFilePath = String(cString: tmpFilePath!)
+    let videoCodec = String(cString: videoCodec!)
     let i = VideoCreatorUnity(tmpFilePath: tmpFilePath,
                               enableMic: enableAudio,
                               videoWidth: Int(videoWidth),
-                              videoHeight: Int(videoHeight))
+                              videoHeight: Int(videoHeight),
+                              videoCodec: videoCodec)
     let pointer = UnsafeMutablePointer<VideoCreatorUnity>.allocate(capacity: 1)
     pointer.initialize(to: i)
     return UnsafePointer(pointer)

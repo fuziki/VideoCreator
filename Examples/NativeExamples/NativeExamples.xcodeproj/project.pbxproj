@@ -3,23 +3,184 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		52623ABA266BDC110012EC57 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52623AB9266BDC110012EC57 /* AppDelegate.swift */; };
+		52623ABC266BDC110012EC57 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52623ABB266BDC110012EC57 /* GameViewController.swift */; };
+		52623ABF266BDC110012EC57 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 52623ABD266BDC110012EC57 /* Main.storyboard */; };
+		52623AC2266BDC110012EC57 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 52623AC0266BDC110012EC57 /* LaunchScreen.storyboard */; };
+		52623ACB266BDC110012EC57 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52623ACA266BDC110012EC57 /* AppDelegate.swift */; };
+		52623ACD266BDC110012EC57 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52623ACC266BDC110012EC57 /* GameViewController.swift */; };
+		52623AD0266BDC110012EC57 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 52623ACE266BDC110012EC57 /* Main.storyboard */; };
+		52623AD3266BDC110012EC57 /* Shaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = 52623AAE266BDC100012EC57 /* Shaders.metal */; };
+		52623AD4266BDC110012EC57 /* Shaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = 52623AAE266BDC100012EC57 /* Shaders.metal */; };
+		52623AD5266BDC110012EC57 /* Renderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52623AAF266BDC100012EC57 /* Renderer.swift */; };
+		52623AD6266BDC110012EC57 /* Renderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52623AAF266BDC100012EC57 /* Renderer.swift */; };
+		52623AD7266BDC110012EC57 /* ShaderTypes.h in Resources */ = {isa = PBXBuildFile; fileRef = 52623AB0266BDC100012EC57 /* ShaderTypes.h */; };
+		52623AD8266BDC110012EC57 /* ShaderTypes.h in Resources */ = {isa = PBXBuildFile; fileRef = 52623AB0266BDC100012EC57 /* ShaderTypes.h */; };
+		52623AD9266BDC110012EC57 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 52623AB1266BDC110012EC57 /* Assets.xcassets */; };
+		52623ADA266BDC110012EC57 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 52623AB1266BDC110012EC57 /* Assets.xcassets */; };
+		52623AE3266C57CA0012EC57 /* UnityVideoCreator in Frameworks */ = {isa = PBXBuildFile; productRef = 52623AE2266C57CA0012EC57 /* UnityVideoCreator */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		52623AAE266BDC100012EC57 /* Shaders.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = Shaders.metal; sourceTree = "<group>"; };
+		52623AAF266BDC100012EC57 /* Renderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Renderer.swift; sourceTree = "<group>"; };
+		52623AB0266BDC100012EC57 /* ShaderTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShaderTypes.h; sourceTree = "<group>"; };
+		52623AB1266BDC110012EC57 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		52623AB6266BDC110012EC57 /* CrossMetal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CrossMetal.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		52623AB9266BDC110012EC57 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		52623ABB266BDC110012EC57 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
+		52623ABE266BDC110012EC57 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		52623AC1266BDC110012EC57 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		52623AC3266BDC110012EC57 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		52623AC8266BDC110012EC57 /* CrossMetal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CrossMetal.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		52623ACA266BDC110012EC57 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		52623ACC266BDC110012EC57 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
+		52623ACF266BDC110012EC57 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		52623AD1266BDC110012EC57 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		52623AD2266BDC110012EC57 /* CrossMetal_macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CrossMetal_macOS.entitlements; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		52623AB3266BDC110012EC57 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				52623AE3266C57CA0012EC57 /* UnityVideoCreator in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		52623AC5266BDC110012EC57 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
 /* Begin PBXGroup section */
+		52623AAD266BDC100012EC57 /* CrossMetal Shared */ = {
+			isa = PBXGroup;
+			children = (
+				52623AAE266BDC100012EC57 /* Shaders.metal */,
+				52623AAF266BDC100012EC57 /* Renderer.swift */,
+				52623AB0266BDC100012EC57 /* ShaderTypes.h */,
+				52623AB1266BDC110012EC57 /* Assets.xcassets */,
+			);
+			path = "CrossMetal Shared";
+			sourceTree = "<group>";
+		};
+		52623AB7266BDC110012EC57 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				52623AB6266BDC110012EC57 /* CrossMetal.app */,
+				52623AC8266BDC110012EC57 /* CrossMetal.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		52623AB8266BDC110012EC57 /* CrossMetal iOS */ = {
+			isa = PBXGroup;
+			children = (
+				52623AB9266BDC110012EC57 /* AppDelegate.swift */,
+				52623ABB266BDC110012EC57 /* GameViewController.swift */,
+				52623ABD266BDC110012EC57 /* Main.storyboard */,
+				52623AC0266BDC110012EC57 /* LaunchScreen.storyboard */,
+				52623AC3266BDC110012EC57 /* Info.plist */,
+			);
+			path = "CrossMetal iOS";
+			sourceTree = "<group>";
+		};
+		52623AC9266BDC110012EC57 /* CrossMetal macOS */ = {
+			isa = PBXGroup;
+			children = (
+				52623ACA266BDC110012EC57 /* AppDelegate.swift */,
+				52623ACC266BDC110012EC57 /* GameViewController.swift */,
+				52623ACE266BDC110012EC57 /* Main.storyboard */,
+				52623AD1266BDC110012EC57 /* Info.plist */,
+				52623AD2266BDC110012EC57 /* CrossMetal_macOS.entitlements */,
+			);
+			path = "CrossMetal macOS";
+			sourceTree = "<group>";
+		};
+		52623AE1266C57CA0012EC57 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		52BD83332662162D0017506E = {
 			isa = PBXGroup;
 			children = (
+				52623AAD266BDC100012EC57 /* CrossMetal Shared */,
+				52623AB8266BDC110012EC57 /* CrossMetal iOS */,
+				52623AC9266BDC110012EC57 /* CrossMetal macOS */,
+				52623AB7266BDC110012EC57 /* Products */,
+				52623AE1266C57CA0012EC57 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
+/* Begin PBXNativeTarget section */
+		52623AB5266BDC110012EC57 /* CrossMetal iOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 52623ADF266BDC110012EC57 /* Build configuration list for PBXNativeTarget "CrossMetal iOS" */;
+			buildPhases = (
+				52623AB2266BDC110012EC57 /* Sources */,
+				52623AB3266BDC110012EC57 /* Frameworks */,
+				52623AB4266BDC110012EC57 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "CrossMetal iOS";
+			packageProductDependencies = (
+				52623AE2266C57CA0012EC57 /* UnityVideoCreator */,
+			);
+			productName = "CrossMetal iOS";
+			productReference = 52623AB6266BDC110012EC57 /* CrossMetal.app */;
+			productType = "com.apple.product-type.application";
+		};
+		52623AC7266BDC110012EC57 /* CrossMetal macOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 52623AE0266BDC110012EC57 /* Build configuration list for PBXNativeTarget "CrossMetal macOS" */;
+			buildPhases = (
+				52623AC4266BDC110012EC57 /* Sources */,
+				52623AC5266BDC110012EC57 /* Frameworks */,
+				52623AC6266BDC110012EC57 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "CrossMetal macOS";
+			productName = "CrossMetal macOS";
+			productReference = 52623AC8266BDC110012EC57 /* CrossMetal.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
 /* Begin PBXProject section */
 		52BD83342662162D0017506E /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 1250;
 				LastUpgradeCheck = 1250;
+				TargetAttributes = {
+					52623AB5266BDC110012EC57 = {
+						CreatedOnToolsVersion = 12.5;
+					};
+					52623AC7266BDC110012EC57 = {
+						CreatedOnToolsVersion = 12.5;
+					};
+				};
 			};
 			buildConfigurationList = 52BD83372662162D0017506E /* Build configuration list for PBXProject "NativeExamples" */;
 			compatibilityVersion = "Xcode 9.3";
@@ -30,14 +191,380 @@
 				Base,
 			);
 			mainGroup = 52BD83332662162D0017506E;
+			productRefGroup = 52623AB7266BDC110012EC57 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
+				52623AB5266BDC110012EC57 /* CrossMetal iOS */,
+				52623AC7266BDC110012EC57 /* CrossMetal macOS */,
 			);
 		};
 /* End PBXProject section */
 
+/* Begin PBXResourcesBuildPhase section */
+		52623AB4266BDC110012EC57 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				52623AD7266BDC110012EC57 /* ShaderTypes.h in Resources */,
+				52623ABF266BDC110012EC57 /* Main.storyboard in Resources */,
+				52623AD9266BDC110012EC57 /* Assets.xcassets in Resources */,
+				52623AC2266BDC110012EC57 /* LaunchScreen.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		52623AC6266BDC110012EC57 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				52623AD0266BDC110012EC57 /* Main.storyboard in Resources */,
+				52623ADA266BDC110012EC57 /* Assets.xcassets in Resources */,
+				52623AD8266BDC110012EC57 /* ShaderTypes.h in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		52623AB2266BDC110012EC57 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				52623AD5266BDC110012EC57 /* Renderer.swift in Sources */,
+				52623AD3266BDC110012EC57 /* Shaders.metal in Sources */,
+				52623ABC266BDC110012EC57 /* GameViewController.swift in Sources */,
+				52623ABA266BDC110012EC57 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		52623AC4266BDC110012EC57 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				52623AD6266BDC110012EC57 /* Renderer.swift in Sources */,
+				52623AD4266BDC110012EC57 /* Shaders.metal in Sources */,
+				52623ACD266BDC110012EC57 /* GameViewController.swift in Sources */,
+				52623ACB266BDC110012EC57 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		52623ABD266BDC110012EC57 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				52623ABE266BDC110012EC57 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		52623AC0266BDC110012EC57 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				52623AC1266BDC110012EC57 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		52623ACE266BDC110012EC57 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				52623ACF266BDC110012EC57 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
 /* Begin XCBuildConfiguration section */
+		52623ADB266BDC110012EC57 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = N8B2B6D2KS;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "CrossMetal iOS/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = factory.fuziki.example2;
+				PRODUCT_NAME = CrossMetal;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OBJC_BRIDGING_HEADER = "CrossMetal Shared/ShaderTypes.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		52623ADC266BDC110012EC57 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = N8B2B6D2KS;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "CrossMetal iOS/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = factory.fuziki.example2;
+				PRODUCT_NAME = CrossMetal;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OBJC_BRIDGING_HEADER = "CrossMetal Shared/ShaderTypes.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		52623ADD266BDC110012EC57 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = "CrossMetal macOS/CrossMetal_macOS.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "CrossMetal macOS/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 11.3;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = hogehogehoge.CrossMetal;
+				PRODUCT_NAME = CrossMetal;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OBJC_BRIDGING_HEADER = "CrossMetal Shared/ShaderTypes.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		52623ADE266BDC110012EC57 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = "CrossMetal macOS/CrossMetal_macOS.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "CrossMetal macOS/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 11.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = hogehogehoge.CrossMetal;
+				PRODUCT_NAME = CrossMetal;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OBJC_BRIDGING_HEADER = "CrossMetal Shared/ShaderTypes.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
 		52BD83382662162D0017506E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -53,6 +580,24 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		52623ADF266BDC110012EC57 /* Build configuration list for PBXNativeTarget "CrossMetal iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				52623ADB266BDC110012EC57 /* Debug */,
+				52623ADC266BDC110012EC57 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		52623AE0266BDC110012EC57 /* Build configuration list for PBXNativeTarget "CrossMetal macOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				52623ADD266BDC110012EC57 /* Debug */,
+				52623ADE266BDC110012EC57 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		52BD83372662162D0017506E /* Build configuration list for PBXProject "NativeExamples" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -63,6 +608,13 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		52623AE2266C57CA0012EC57 /* UnityVideoCreator */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = UnityVideoCreator;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 52BD83342662162D0017506E /* Project object */;
 }
