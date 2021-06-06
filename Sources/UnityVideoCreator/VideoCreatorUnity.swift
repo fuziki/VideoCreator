@@ -9,14 +9,29 @@
 import AVFoundation
 import AssetsLibrary
 
+public enum VideoCreatorVideoCodec: String {
+    case h264
+    case hevcWithAlpha
+    var avVideoCodecType: AVVideoCodecType {
+        switch self {
+        case .h264:
+            return .h264
+        case .hevcWithAlpha:
+            return .hevcWithAlpha
+        }
+    }
+}
+
 public class VideoCreatorUnity: NSObject {
     private var creator: MyVideoCreatorUnity!
-    public init(tmpFilePath: String, enableMic: Bool, videoWidth: Int, videoHeight: Int) {
+    public init(tmpFilePath: String, enableMic: Bool, videoWidth: Int, videoHeight: Int, videoCodec: String) {
         super.init()
+        let videoCodec = VideoCreatorVideoCodec(rawValue: videoCodec) ?? .h264
         creator = MyVideoCreatorUnity(tmpFilePath: tmpFilePath,
                                       enableMic: enableMic,
                                       videoWidth: videoWidth,
-                                      videoHeight: videoHeight)
+                                      videoHeight: videoHeight,
+                                      videoCodec: videoCodec)
     }
 
     public var isRecording: Bool {
@@ -52,17 +67,17 @@ private class MyVideoCreatorUnity: NSObject {
     private var _isRecording: Bool = false
     private var videoFactory: CMSampleBuffer.VideoFactory!
     
-    public init(tmpFilePath: String, enableMic: Bool, videoWidth: Int, videoHeight: Int) {
+    public init(tmpFilePath: String, enableMic: Bool, videoWidth: Int, videoHeight: Int, videoCodec: VideoCreatorVideoCodec) {
         super.init()
         print("VideoCreator init with tmpFilePath: \(tmpFilePath), \(enableMic), \(videoWidth), \(videoHeight)")
         self.tmpFilePath = tmpFilePath
         videoFactory = CMSampleBuffer.VideoFactory(width: videoWidth, height: videoHeight)
-        videoConfig = VideoCreator.VideoConfig(codec: AVVideoCodecType.h264,
+        videoConfig = VideoCreator.VideoConfig(codec: videoCodec.avVideoCodecType,
                                                width: videoWidth,
                                                height: videoHeight)
         audioConfig = VideoCreator.AudioConfig(format: kAudioFormatMPEG4AAC,
                                                channel: 1,
-                                               samplingRate: 44100.0,
+                                               samplingRate: 48000,
                                                bitRate: 128000)
         self.startMic()
         self.makeVideoCreator()
@@ -70,9 +85,9 @@ private class MyVideoCreatorUnity: NSObject {
     
     private func startMic() {
         do {
+            try AVAudioSession.sharedInstance().setPreferredSampleRate(48000)
+//            try AVAudioSession.sharedInstance().setPreferredInputNumberOfChannels(1)
             try AVAudioSession.sharedInstance().setActive(true, options: [])
-            try AVAudioSession.sharedInstance().setPreferredSampleRate(44100.0)
-            try AVAudioSession.sharedInstance().setPreferredInputNumberOfChannels(1)
         } catch let error {
             print("failed init aduio session error: \(error)")
         }
@@ -91,7 +106,7 @@ private class MyVideoCreatorUnity: NSObject {
     }
 
     private func makeVideoCreator() {
-        let fileManager = FileManager()
+        let fileManager = FileManager.default
         if fileManager.fileExists(atPath: self.tmpFilePath) {
             do {
                 try fileManager.removeItem(atPath: self.tmpFilePath)
@@ -124,7 +139,7 @@ private class MyVideoCreatorUnity: NSObject {
             }
             ALAssetsLibrary().writeVideoAtPath(toSavedPhotosAlbum: URL(fileURLWithPath: me.tmpFilePath),
                                                completionBlock: { (url: URL?, error: Error?) -> Void in
-                                                print("url: \(url), error: \(error)")
+                                                print("url: \(String(describing: url)), error: \(String(describing: error))")
                                                 me.videoCreator = nil
                                                 me.makeVideoCreator()
             })
