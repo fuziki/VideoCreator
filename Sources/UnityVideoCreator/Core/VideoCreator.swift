@@ -55,7 +55,7 @@ public class VideoCreator {
         let videoConfigs: [String: Any] = [AVVideoCodecKey : videoConfig.codec,
                                            AVVideoWidthKey : videoConfig.width,
                                            AVVideoHeightKey : videoConfig.height]
-        videoAssetWriterInput = AVAssetWriterInput(mediaType: AVMediaType.video, outputSettings: videoConfigs)
+        videoAssetWriterInput = AVAssetWriterInput(mediaType: .video, outputSettings: videoConfigs)
         videoAssetWriterInput.expectsMediaDataInRealTime = true
         assetWriter.add(videoAssetWriterInput)
         
@@ -63,7 +63,7 @@ public class VideoCreator {
                                            AVNumberOfChannelsKey : audioConfig.channel,
                                            AVSampleRateKey : audioConfig.samplingRate,
                                            AVEncoderBitRateKey : audioConfig.bitRate]
-        audioAssetWriterInput = AVAssetWriterInput(mediaType: AVMediaType.audio, outputSettings: audioConfigs)
+        audioAssetWriterInput = AVAssetWriterInput(mediaType: .audio, outputSettings: audioConfigs)
         audioAssetWriterInput.expectsMediaDataInRealTime = true
         assetWriter.add(audioAssetWriterInput)
     }
@@ -88,7 +88,7 @@ public class VideoCreator {
         if input.isReadyForMoreMediaData {
             let ret = input.append(sample)
             if !ret {
-                print("input append sample, ret: \(ret), isVideo: \(isVideo), error: \(assetWriter.error)")
+                print("input append sample, ret: \(ret), isVideo: \(isVideo), error: \(String(describing: assetWriter.error))")
             }
         } else {
             print("input is NOT ReadyForMoreMediaData, isVideo: \(isVideo)")
