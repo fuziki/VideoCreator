@@ -5,10 +5,10 @@
 //  Created by fuziki on 2021/06/13.
 //
 
-import AssetsLibrary
 import AVFoundation
 import Foundation
 import Metal
+import os
 
 class UnityMediaCreator {
     public static var shared: UnityMediaCreator = UnityMediaCreator()
@@ -71,7 +71,7 @@ class UnityMediaCreator {
             do {
                 try fileManager.removeItem(at: url)
             } catch let error {
-                print("makeVideoCreator \(error)")
+                os_log(.error, log: .default, "failed clean file %@", [error])
             }
         }
     }
@@ -88,10 +88,6 @@ class UnityMediaCreator {
         self.creator?.finish { [weak self] in
             self?.creator = nil
             semaphore.signal()
-//            ALAssetsLibrary()
-//                .writeVideoAtPath(toSavedPhotosAlbum: self.url!) { [weak self] (url: URL?, error: Error?) in
-//                    print("url: \(String(describing: url)), error: \(String(describing: error))")
-//                }
         }
         semaphore.wait()
     }
