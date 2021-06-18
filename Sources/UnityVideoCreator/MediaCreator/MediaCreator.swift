@@ -13,14 +13,14 @@ class MediaCreator {
     
     private let writer: MediaWriter
     
-    private let videoFactory: CMSampleBuffer.VideoFactory?
-    private let audioFactory: CMSampleBufferAudioFactory = CMSampleBufferAudioFactory()
+    private let videoFactory: SampleBufferVideoFactory?
+    private let audioFactory: SampleBufferAudioFactory = SampleBufferAudioFactory()
     
     init(config: MediaWriterConfig) throws {
         writer = try MediaWriter(url: config.url, fileType: config.fileType, inputConfigs: config.inputConfigs)
         
         if let config = config as? MovMediaWriterConfig {
-            videoFactory = CMSampleBuffer.VideoFactory(width: config.video.width, height: config.video.height)
+            videoFactory = SampleBufferVideoFactory(width: config.video.width, height: config.video.height)
         } else {
             videoFactory = nil
         }
