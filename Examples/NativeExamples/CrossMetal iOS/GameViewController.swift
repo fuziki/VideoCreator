@@ -54,11 +54,17 @@ class GameViewController: UIViewController {
         
         let tmpDir = FileManager.default.temporaryDirectory.appendingPathComponent("tmpDri")
         try! FileManager.default.createDirectory(at: tmpDir, withIntermediateDirectories: true, attributes: nil)
-        let tmpFile = tmpDir.appendingPathComponent("tmp.mov", isDirectory: false).path as NSString
+        let tmpFile = tmpDir.appendingPathComponent("tmp.mov", isDirectory: false).absoluteString as NSString
         
-        vc = videoCreator_initWithVideoCodec(tmpFile.utf8String!, true,
-                                             Int64(view.frame.width), Int64(view.frame.height),
-                                             "hevcWithAlpha")
+//        vc = videoCreator_initWithVideoCodec(tmpFile.utf8String!, true,
+//                                             Int64(view.frame.width), Int64(view.frame.height),
+//                                             "hevcWithAlpha")
+        
+        
+        UnityMediaCreator_initAsMovWithNoAudio(tmpFile.utf8String!,
+                                               "h264",
+                                               Int64(view.frame.width),
+                                               Int64(view.frame.height))
     }
     
     var link: CADisplayLink?
@@ -68,12 +74,15 @@ class GameViewController: UIViewController {
     @objc private func update(displayLink: CADisplayLink) {
         if !recording { return }
         
-        if !videoCreator_isRecording(vc) { return }
+//        if !videoCreator_isRecording(vc) { return }
+        if !UnityMediaCreator_isRecording() { return }
         
         print("append texture")
         
         let tex = mtkView.currentDrawable!.texture
-        videoCreator_append(vc, Unmanaged.passUnretained(tex).toOpaque())
+//        videoCreator_append(vc, Unmanaged.passUnretained(tex).toOpaque())
+        
+        UnityMediaCreator_writeVideo(Unmanaged.passUnretained(tex).toOpaque(), Int64(timeSec * 1_000_000))
     }
     
     @IBAction func actButton(_ sender: Any) {
@@ -88,15 +97,23 @@ class GameViewController: UIViewController {
 
         if recording {
             recording = false
-            videoCreator_finishRecording(vc)
+//            videoCreator_finishRecording(vc)
+            UnityMediaCreator_finishSync()
             link!.isPaused = true
         } else {
             recording = true
-            videoCreator_startRecording(vc)
+//            videoCreator_startRecording(vc)
+            UnityMediaCreator_start(Int64(timeSec * 1_000_000))
             link!.isPaused = false
         }
         
         
     }
     
+    private var timeSec: Double {
+        var tb = mach_timebase_info()
+        mach_timebase_info(&tb)
+        let tsc = mach_absolute_time()
+        return Double(tsc) * Double(tb.numer) / Double(tb.denom) / 1000000000.0
+    }
 }
