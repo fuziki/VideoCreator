@@ -38,3 +38,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 }
 
+struct AppConfig {
+    static let fs: Double = 48_000
+}

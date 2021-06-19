@@ -36,6 +36,8 @@
 		52F0A8D5267E4E27009AF389 /* Shaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = 52F0A8D4267E4E27009AF389 /* Shaders.metal */; };
 		52F0A8D8267E4E27009AF389 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 52F0A8D6267E4E27009AF389 /* Main.storyboard */; };
 		52F0A8DA267E4E2A009AF389 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 52F0A8D9267E4E2A009AF389 /* Assets.xcassets */; };
+		52F0A8E0267E5A8A009AF389 /* UnityVideoCreator in Frameworks */ = {isa = PBXBuildFile; productRef = 52F0A8DF267E5A8A009AF389 /* UnityVideoCreator */; };
+		52F0A8E2267E60D0009AF389 /* AudioEngineService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F0A8E1267E60D0009AF389 /* AudioEngineService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -72,6 +74,7 @@
 		52F0A8D7267E4E27009AF389 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		52F0A8D9267E4E2A009AF389 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		52F0A8DB267E4E2A009AF389 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		52F0A8E1267E60D0009AF389 /* AudioEngineService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioEngineService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +105,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				52F0A8E0267E5A8A009AF389 /* UnityVideoCreator in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -203,6 +207,7 @@
 				52F0A8CF267E4E27009AF389 /* ShaderTypes.h */,
 				52F0A8D0267E4E27009AF389 /* Renderer.swift */,
 				52F0A8D2267E4E27009AF389 /* GameViewController.swift */,
+				52F0A8E1267E60D0009AF389 /* AudioEngineService.swift */,
 				52F0A8D4267E4E27009AF389 /* Shaders.metal */,
 				52F0A8D6267E4E27009AF389 /* Main.storyboard */,
 				52F0A8D9267E4E2A009AF389 /* Assets.xcassets */,
@@ -284,6 +289,9 @@
 			dependencies = (
 			);
 			name = MovExample;
+			packageProductDependencies = (
+				52F0A8DF267E5A8A009AF389 /* UnityVideoCreator */,
+			);
 			productName = MovExample;
 			productReference = 52F0A8CB267E4E27009AF389 /* MovExample.app */;
 			productType = "com.apple.product-type.application";
@@ -414,6 +422,7 @@
 			files = (
 				52F0A8D5267E4E27009AF389 /* Shaders.metal in Sources */,
 				52F0A8D1267E4E27009AF389 /* Renderer.swift in Sources */,
+				52F0A8E2267E60D0009AF389 /* AudioEngineService.swift in Sources */,
 				52F0A8D3267E4E27009AF389 /* GameViewController.swift in Sources */,
 				52F0A8CE267E4E27009AF389 /* AppDelegate.swift in Sources */,
 			);
@@ -940,6 +949,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = N8B2B6D2KS;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -957,7 +967,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = MovExample/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -965,7 +975,7 @@
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = hogehogehoge.MovExample;
+				PRODUCT_BUNDLE_IDENTIFIER = factory.fuziki.example2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
@@ -1014,6 +1024,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = N8B2B6D2KS;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -1025,14 +1036,14 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = MovExample/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = hogehogehoge.MovExample;
+				PRODUCT_BUNDLE_IDENTIFIER = factory.fuziki.example2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -1100,6 +1111,10 @@
 			productName = UnityVideoCreator;
 		};
 		52F0A8C1267E11F3009AF389 /* UnityVideoCreator */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = UnityVideoCreator;
+		};
+		52F0A8DF267E5A8A009AF389 /* UnityVideoCreator */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = UnityVideoCreator;
 		};
