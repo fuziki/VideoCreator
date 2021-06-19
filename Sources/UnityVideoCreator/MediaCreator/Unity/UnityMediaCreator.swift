@@ -1,0 +1,127 @@
+//
+//  UnityMediaCreator.swift
+//  
+//
+//  Created by fuziki on 2021/06/13.
+//
+
+import AVFoundation
+import Foundation
+import Metal
+import os
+
+protocol MediaCreatorProvider {
+    func make(config: MediaWriterConfig) throws -> MediaCreator
+}
+
+class DefualtMediaCreatorProvider: MediaCreatorProvider {
+    func make(config: MediaWriterConfig) throws -> MediaCreator {
+        return try DefaultMediaCreator(config: config)
+    }
+}
+
+class UnityMediaCreator {
+    public static var shared: UnityMediaCreator = UnityMediaCreator(provider: DefualtMediaCreatorProvider())
+    
+    private let provider: MediaCreatorProvider
+    init(provider: MediaCreatorProvider) {
+        self.provider = provider
+    }
+    
+    private var samplingRate: Float? = nil
+    private var channel: Int? = nil
+    private var creator: MediaCreator? = nil
+
+    public func initAsMovWithAudio(url: String, codec: String, width: Int, height: Int, channel: Int, samplingRate: Float) {
+        finishSync()
+        let url = URL(string: url)!
+        clean(url: url)
+        let video = AnyVideoWriterInput(codec: codec == "hevcWithAlpha" ? .hevcWithAlpha : .h264,
+                                        width: width,
+                                        height: height,
+                                        expectsMediaDataInRealTime: true)
+        let audio = AacAudioWriterInput(channel: channel,
+                                        samplingRate: samplingRate,
+                                        bitRate: 128000,
+                                        expectsMediaDataInRealTime: true)
+        let config = MovMediaWriterConfig(url: url, video: video, audio: audio)
+        self.samplingRate = samplingRate
+        self.channel = channel
+        self.creator = try! provider.make(config: config)
+    }
+    
+    public func initAsMovWithNoAudio(url: String, codec: String, width: Int, height: Int) {
+        finishSync()
+        let url = URL(string: url)!
+        clean(url: url)
+        let video = AnyVideoWriterInput(codec: codec == "hevcWithAlpha" ? .hevcWithAlpha : .h264,
+                                        width: width,
+                                        height: height,
+                                        expectsMediaDataInRealTime: true)
+        let config = MovMediaWriterConfig(url: url, video: video, audio: nil)
+        self.creator = try! provider.make(config: config)
+    }
+    
+    public func initAsWav(url: String, channel: Int, samplingRate: Float, bitDepth: Int) {
+        finishSync()
+        let url = URL(string: url)!
+        clean(url: url)
+        let audio = WavLinerAudioWriterInput(channel: channel,
+                                             samplingRate: samplingRate,
+                                             bitDepth: bitDepth,
+                                             expectsMediaDataInRealTime: true)
+        let config = WavMediaWriterConfig(url: url, audio: audio)
+        self.samplingRate = samplingRate
+        self.channel = channel
+        self.creator = try! provider.make(config: config)
+    }
+    
+    private func clean(url: URL) {
+        let fileManager = FileManager.default
+        if fileManager.fileExists(atPath: url.path) {
+            do {
+                try fileManager.removeItem(at: url)
+            } catch let error {
+                os_log(.error, log: .default, "failed clean file %@", [error])
+            }
+        }
+    }
+    
+    public func start(microSec: Int) {
+        try! self.creator?.start(microSec: microSec)
+    }
+    
+    public func finishSync() {
+        self.samplingRate = nil
+        self.channel = nil
+        if creator == nil { return }
+        let semaphore = DispatchSemaphore(value: 0)
+        self.creator?.finish { [weak self] in
+            self?.creator = nil
+            semaphore.signal()
+        }
+        semaphore.wait()
+    }
+    
+    public var isRecording: Bool {
+        return creator?.isRecording ?? false
+    }
+    
+    public func write(texture: MTLTexture, microSec: Int) {
+        try! creator?.write(texture: texture, microSec: microSec)
+    }
+    
+    public func write(pcm: UnsafePointer<Float>, frame: Int, microSec: Int) {
+        guard let samplingRate = self.samplingRate,
+              let channel = self.channel else {
+            return
+        }
+        let format = AVAudioFormat(commonFormat: .pcmFormatFloat32,
+                                   sampleRate: Double(samplingRate),
+                                   channels: AVAudioChannelCount(channel),
+                                   interleaved: false)!
+        let buffer = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: AVAudioFrameCount(frame))!
+        memcpy(buffer.floatChannelData![0], pcm, MemoryLayout<Float>.size * frame)
+        try! creator?.write(pcm: buffer, microSec: microSec)
+    }
+}

@@ -65,13 +65,13 @@ private class MyVideoCreatorUnity: NSObject {
         return _isRecording
     }
     private var _isRecording: Bool = false
-    private var videoFactory: CMSampleBuffer.VideoFactory!
+    private var videoFactory: SampleBufferVideoFactory!
     
     public init(tmpFilePath: String, enableMic: Bool, videoWidth: Int, videoHeight: Int, videoCodec: VideoCreatorVideoCodec) {
         super.init()
         print("VideoCreator init with tmpFilePath: \(tmpFilePath), \(enableMic), \(videoWidth), \(videoHeight)")
         self.tmpFilePath = tmpFilePath
-        videoFactory = CMSampleBuffer.VideoFactory(width: videoWidth, height: videoHeight)
+        videoFactory = SampleBufferVideoFactory(width: videoWidth, height: videoHeight)
         videoConfig = VideoCreator.VideoConfig(codec: videoCodec.avVideoCodecType,
                                                width: videoWidth,
                                                height: videoHeight)
@@ -134,15 +134,10 @@ private class MyVideoCreatorUnity: NSObject {
             return
         }
         self.videoCreator?.finish(completionHandler: { [weak self] in
-            guard let me = self else {
-                return
-            }
-            ALAssetsLibrary().writeVideoAtPath(toSavedPhotosAlbum: URL(fileURLWithPath: me.tmpFilePath),
-                                               completionBlock: { (url: URL?, error: Error?) -> Void in
-                                                print("url: \(String(describing: url)), error: \(String(describing: error))")
-                                                me.videoCreator = nil
-                                                me.makeVideoCreator()
-            })
+            guard let self = self else { return }
+            UnityMediaSaver_saveVideo((self.tmpFilePath as NSString).utf8String!)
+            self.videoCreator = nil
+            self.makeVideoCreator()
         })
         self._isRecording = false
     }
