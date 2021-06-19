@@ -29,6 +29,7 @@
 		52F0A8BC267E11C0009AF389 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 52F0A8BB267E11C0009AF389 /* Preview Assets.xcassets */; };
 		52F0A8C2267E11F3009AF389 /* UnityVideoCreator in Frameworks */ = {isa = PBXBuildFile; productRef = 52F0A8C1267E11F3009AF389 /* UnityVideoCreator */; };
 		52F0A8C4267E1207009AF389 /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F0A8C3267E1207009AF389 /* ContentViewModel.swift */; };
+		52F0A8C6267E460C009AF389 /* AudioEngineService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F0A8C5267E460C009AF389 /* AudioEngineService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -55,6 +56,7 @@
 		52F0A8BB267E11C0009AF389 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		52F0A8BD267E11C0009AF389 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		52F0A8C3267E1207009AF389 /* ContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewModel.swift; sourceTree = "<group>"; };
+		52F0A8C5267E460C009AF389 /* AudioEngineService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioEngineService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -154,6 +156,7 @@
 				52F0A8B4267E11BD009AF389 /* WavExampleApp.swift */,
 				52F0A8B6267E11BD009AF389 /* ContentView.swift */,
 				52F0A8C3267E1207009AF389 /* ContentViewModel.swift */,
+				52F0A8C5267E460C009AF389 /* AudioEngineService.swift */,
 				52F0A8B8267E11C0009AF389 /* Assets.xcassets */,
 				52F0A8BD267E11C0009AF389 /* Info.plist */,
 				52F0A8BA267E11C0009AF389 /* Preview Content */,
@@ -329,6 +332,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				52F0A8C6267E460C009AF389 /* AudioEngineService.swift in Sources */,
 				52F0A8B7267E11BD009AF389 /* ContentView.swift in Sources */,
 				52F0A8B5267E11BD009AF389 /* WavExampleApp.swift in Sources */,
 				52F0A8C4267E1207009AF389 /* ContentViewModel.swift in Sources */,

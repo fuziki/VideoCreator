@@ -15,3 +15,7 @@ struct WavExampleApp: App {
         }
     }
 }
+
+struct AppConfig {
+    static let fs: Double = 44_100
+}

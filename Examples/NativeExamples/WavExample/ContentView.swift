@@ -10,8 +10,16 @@ import SwiftUI
 struct ContentView: View {
     @ObservedObject private var viewModel = ContentViewModel()
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+        VStack {
+            Text("Hello, world!")
+                .padding()
+            Text(viewModel.label)
+            Button(action: {
+                viewModel.tapButton()
+            }, label: {
+                Text("Button")
+            })
+        }
     }
 }
 
