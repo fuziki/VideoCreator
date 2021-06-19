@@ -79,7 +79,7 @@ class GameViewController: UIViewController {
     }
     
     @IBAction func actButton(_ sender: Any) {
-// check uiimage if need
+        // check uiimage if need
 //        let tex = mtkView.currentDrawable!.texture
 //        let ci = CIImage(mtlTexture: tex, options: nil)!
 //        let context = CIContext()
