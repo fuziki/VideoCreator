@@ -36,3 +36,19 @@ videoCreatorUnity.FinishRecording();
 # Installation
 
 * Copy `Examples/UnityExample/Assets/Plugin/VideoCreator` to your project
+
+# Examples
+## UnityExample
+* Example for Unity
+* Unity Version: 2020.3.5
+* Build for iOS
+
+## NativeExamples
+### CrossMetal iOS
+* Export Metal Texture to movie file.
+
+### WavExample
+* Export PCM data to wav file.
+
+### MovExample
+* Export Metal Texture & PCM data to movie file.
