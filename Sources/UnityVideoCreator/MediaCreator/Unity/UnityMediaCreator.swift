@@ -120,7 +120,9 @@ class UnityMediaCreator {
                                    sampleRate: Double(samplingRate),
                                    channels: AVAudioChannelCount(channel),
                                    interleaved: false)!
-        let buffer = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: AVAudioFrameCount(frame))!
+        let frameLength = AVAudioFrameCount(frame)
+        let buffer = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: frameLength)!
+        buffer.frameLength = frameLength
         memcpy(buffer.floatChannelData![0], pcm, MemoryLayout<Float>.size * frame)
         try! creator?.write(pcm: buffer, microSec: microSec)
     }

@@ -23,6 +23,13 @@
 		52623AD9266BDC110012EC57 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 52623AB1266BDC110012EC57 /* Assets.xcassets */; };
 		52623ADA266BDC110012EC57 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 52623AB1266BDC110012EC57 /* Assets.xcassets */; };
 		52623AE3266C57CA0012EC57 /* UnityVideoCreator in Frameworks */ = {isa = PBXBuildFile; productRef = 52623AE2266C57CA0012EC57 /* UnityVideoCreator */; };
+		52F0A8B5267E11BD009AF389 /* WavExampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F0A8B4267E11BD009AF389 /* WavExampleApp.swift */; };
+		52F0A8B7267E11BD009AF389 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F0A8B6267E11BD009AF389 /* ContentView.swift */; };
+		52F0A8B9267E11C0009AF389 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 52F0A8B8267E11C0009AF389 /* Assets.xcassets */; };
+		52F0A8BC267E11C0009AF389 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 52F0A8BB267E11C0009AF389 /* Preview Assets.xcassets */; };
+		52F0A8C2267E11F3009AF389 /* UnityVideoCreator in Frameworks */ = {isa = PBXBuildFile; productRef = 52F0A8C1267E11F3009AF389 /* UnityVideoCreator */; };
+		52F0A8C4267E1207009AF389 /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F0A8C3267E1207009AF389 /* ContentViewModel.swift */; };
+		52F0A8C6267E460C009AF389 /* AudioEngineService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F0A8C5267E460C009AF389 /* AudioEngineService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +49,14 @@
 		52623ACF266BDC110012EC57 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		52623AD1266BDC110012EC57 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		52623AD2266BDC110012EC57 /* CrossMetal_macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CrossMetal_macOS.entitlements; sourceTree = "<group>"; };
+		52F0A8B2267E11BD009AF389 /* WavExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WavExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		52F0A8B4267E11BD009AF389 /* WavExampleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WavExampleApp.swift; sourceTree = "<group>"; };
+		52F0A8B6267E11BD009AF389 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		52F0A8B8267E11C0009AF389 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		52F0A8BB267E11C0009AF389 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		52F0A8BD267E11C0009AF389 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		52F0A8C3267E1207009AF389 /* ContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewModel.swift; sourceTree = "<group>"; };
+		52F0A8C5267E460C009AF389 /* AudioEngineService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioEngineService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +72,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		52F0A8AF267E11BD009AF389 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				52F0A8C2267E11F3009AF389 /* UnityVideoCreator in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -79,6 +102,7 @@
 			children = (
 				52623AB6266BDC110012EC57 /* CrossMetal.app */,
 				52623AC8266BDC110012EC57 /* CrossMetal.app */,
+				52F0A8B2267E11BD009AF389 /* WavExample.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -120,9 +144,32 @@
 				52623AAD266BDC100012EC57 /* CrossMetal Shared */,
 				52623AB8266BDC110012EC57 /* CrossMetal iOS */,
 				52623AC9266BDC110012EC57 /* CrossMetal macOS */,
+				52F0A8B3267E11BD009AF389 /* WavExample */,
 				52623AB7266BDC110012EC57 /* Products */,
 				52623AE1266C57CA0012EC57 /* Frameworks */,
 			);
+			sourceTree = "<group>";
+		};
+		52F0A8B3267E11BD009AF389 /* WavExample */ = {
+			isa = PBXGroup;
+			children = (
+				52F0A8B4267E11BD009AF389 /* WavExampleApp.swift */,
+				52F0A8B6267E11BD009AF389 /* ContentView.swift */,
+				52F0A8C3267E1207009AF389 /* ContentViewModel.swift */,
+				52F0A8C5267E460C009AF389 /* AudioEngineService.swift */,
+				52F0A8B8267E11C0009AF389 /* Assets.xcassets */,
+				52F0A8BD267E11C0009AF389 /* Info.plist */,
+				52F0A8BA267E11C0009AF389 /* Preview Content */,
+			);
+			path = WavExample;
+			sourceTree = "<group>";
+		};
+		52F0A8BA267E11C0009AF389 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				52F0A8BB267E11C0009AF389 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -165,6 +212,26 @@
 			productReference = 52623AC8266BDC110012EC57 /* CrossMetal.app */;
 			productType = "com.apple.product-type.application";
 		};
+		52F0A8B1267E11BD009AF389 /* WavExample */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 52F0A8C0267E11C0009AF389 /* Build configuration list for PBXNativeTarget "WavExample" */;
+			buildPhases = (
+				52F0A8AE267E11BD009AF389 /* Sources */,
+				52F0A8AF267E11BD009AF389 /* Frameworks */,
+				52F0A8B0267E11BD009AF389 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = WavExample;
+			packageProductDependencies = (
+				52F0A8C1267E11F3009AF389 /* UnityVideoCreator */,
+			);
+			productName = WavExample;
+			productReference = 52F0A8B2267E11BD009AF389 /* WavExample.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -178,6 +245,9 @@
 						CreatedOnToolsVersion = 12.5;
 					};
 					52623AC7266BDC110012EC57 = {
+						CreatedOnToolsVersion = 12.5;
+					};
+					52F0A8B1267E11BD009AF389 = {
 						CreatedOnToolsVersion = 12.5;
 					};
 				};
@@ -197,6 +267,7 @@
 			targets = (
 				52623AB5266BDC110012EC57 /* CrossMetal iOS */,
 				52623AC7266BDC110012EC57 /* CrossMetal macOS */,
+				52F0A8B1267E11BD009AF389 /* WavExample */,
 			);
 		};
 /* End PBXProject section */
@@ -223,6 +294,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		52F0A8B0267E11BD009AF389 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				52F0A8BC267E11C0009AF389 /* Preview Assets.xcassets in Resources */,
+				52F0A8B9267E11C0009AF389 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -245,6 +325,17 @@
 				52623AD4266BDC110012EC57 /* Shaders.metal in Sources */,
 				52623ACD266BDC110012EC57 /* GameViewController.swift in Sources */,
 				52623ACB266BDC110012EC57 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		52F0A8AE267E11BD009AF389 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				52F0A8C6267E460C009AF389 /* AudioEngineService.swift in Sources */,
+				52F0A8B7267E11BD009AF389 /* ContentView.swift in Sources */,
+				52F0A8B5267E11BD009AF389 /* WavExampleApp.swift in Sources */,
+				52F0A8C4267E1207009AF389 /* ContentViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -577,6 +668,152 @@
 			};
 			name = Release;
 		};
+		52F0A8BE267E11C0009AF389 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_ASSET_PATHS = "\"WavExample/Preview Content\"";
+				DEVELOPMENT_TEAM = N8B2B6D2KS;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = WavExample/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = factory.fuziki.example2;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		52F0A8BF267E11C0009AF389 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_ASSET_PATHS = "\"WavExample/Preview Content\"";
+				DEVELOPMENT_TEAM = N8B2B6D2KS;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = WavExample/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = factory.fuziki.example2;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -607,10 +844,23 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		52F0A8C0267E11C0009AF389 /* Build configuration list for PBXNativeTarget "WavExample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				52F0A8BE267E11C0009AF389 /* Debug */,
+				52F0A8BF267E11C0009AF389 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
 		52623AE2266C57CA0012EC57 /* UnityVideoCreator */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = UnityVideoCreator;
+		};
+		52F0A8C1267E11F3009AF389 /* UnityVideoCreator */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = UnityVideoCreator;
 		};
