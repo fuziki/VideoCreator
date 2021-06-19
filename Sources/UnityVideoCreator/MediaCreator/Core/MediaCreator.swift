@@ -7,9 +7,20 @@
 
 import AVFoundation
 
-class MediaCreator {
+protocol MediaCreator {
+    var isRecording: Bool { get }
+    func start(microSec: Int) throws
+    func start(time: CMTime) throws
+    func finish(completionHandler: @escaping () -> Void)
+    func write(texture: MTLTexture, microSec: Int) throws
+    func write(texture: MTLTexture, time: CMTime) throws
+    func write(pcm: AVAudioPCMBuffer, microSec: Int) throws
+    func write(pcm: AVAudioPCMBuffer, time: CMTime) throws
+}
+
+class DefaultMediaCreator: MediaCreator {
     
-    public var isRecording = false
+    public var isRecording: Bool = false
     
     private let writer: MediaWriter
     
@@ -36,7 +47,7 @@ class MediaCreator {
         isRecording = true
     }
     
-    public func finish(completionHandler: @escaping () -> Void){
+    public func finish(completionHandler: @escaping () -> Void) {
         isRecording = false
         writer.finish(completionHandler: completionHandler)
     }

@@ -10,10 +10,24 @@ import Foundation
 import Metal
 import os
 
+protocol MediaCreatorProvider {
+    func make(config: MediaWriterConfig) throws -> MediaCreator
+}
+
+class DefualtMediaCreatorProvider: MediaCreatorProvider {
+    func make(config: MediaWriterConfig) throws -> MediaCreator {
+        return try DefaultMediaCreator(config: config)
+    }
+}
+
 class UnityMediaCreator {
-    public static var shared: UnityMediaCreator = UnityMediaCreator()
+    public static var shared: UnityMediaCreator = UnityMediaCreator(provider: DefualtMediaCreatorProvider())
     
-    private var url: URL? = nil
+    private let provider: MediaCreatorProvider
+    init(provider: MediaCreatorProvider) {
+        self.provider = provider
+    }
+    
     private var samplingRate: Float? = nil
     private var channel: Int? = nil
     private var creator: MediaCreator? = nil
@@ -22,7 +36,6 @@ class UnityMediaCreator {
         finishSync()
         let url = URL(string: url)!
         clean(url: url)
-        self.url = url
         let video = AnyVideoWriterInput(codec: codec == "hevcWithAlpha" ? .hevcWithAlpha : .h264,
                                         width: width,
                                         height: height,
@@ -34,27 +47,25 @@ class UnityMediaCreator {
         let config = MovMediaWriterConfig(url: url, video: video, audio: audio)
         self.samplingRate = samplingRate
         self.channel = channel
-        self.creator = try! MediaCreator(config: config)
+        self.creator = try! provider.make(config: config)
     }
     
     public func initAsMovWithNoAudio(url: String, codec: String, width: Int, height: Int) {
         finishSync()
         let url = URL(string: url)!
         clean(url: url)
-        self.url = url
         let video = AnyVideoWriterInput(codec: codec == "hevcWithAlpha" ? .hevcWithAlpha : .h264,
                                         width: width,
                                         height: height,
                                         expectsMediaDataInRealTime: true)
         let config = MovMediaWriterConfig(url: url, video: video, audio: nil)
-        self.creator = try! MediaCreator(config: config)
+        self.creator = try! provider.make(config: config)
     }
     
     public func initAsWav(url: String, channel: Int, samplingRate: Float, bitDepth: Int) {
         finishSync()
         let url = URL(string: url)!
         clean(url: url)
-        self.url = url
         let audio = WavLinerAudioWriterInput(channel: channel,
                                              samplingRate: samplingRate,
                                              bitDepth: bitDepth,
@@ -62,7 +73,7 @@ class UnityMediaCreator {
         let config = WavMediaWriterConfig(url: url, audio: audio)
         self.samplingRate = samplingRate
         self.channel = channel
-        self.creator = try! MediaCreator(config: config)
+        self.creator = try! provider.make(config: config)
     }
     
     private func clean(url: URL) {
