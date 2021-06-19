@@ -6,6 +6,7 @@
 //
 
 import AVFoundation
+import os
 
 protocol MediaCreator {
     var isRecording: Bool { get }
@@ -69,6 +70,7 @@ class DefaultMediaCreator: MediaCreator {
 
     public func write(pcm: AVAudioPCMBuffer, time: CMTime) throws {
         guard let buff = audioFactory.make(pcmBuffer: pcm, time: time) else {
+            os_log(.error, log: .default, "failed make sample buffer from pcm")
             return
         }
         try writer.write(mediaType: .audio, sample: buff)
