@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using VideoCreator;
 
 public class NewBehaviourScript : MonoBehaviour {
-
-    private VideoCreator.VideoCreatorUnity videoCreatorUnity;
 
     public RenderTexture texture = null;
 
@@ -13,15 +12,29 @@ public class NewBehaviourScript : MonoBehaviour {
 
     private bool isRecording = false;
 
+    private string cachePath = "";
+
+    private long amountFrame = 0;
+
     // Use this for initialization
     void Start () {
-        videoCreatorUnity = new VideoCreator.VideoCreatorUnity(Application.temporaryCachePath + "/tmp.mov", true, 1920, 1080);
-	}
+        cachePath = "file://" + Application.temporaryCachePath + "/tmp.wav";
+
+        Debug.Log($"cachePath: {cachePath}");
+
+        var source = gameObject.AddComponent<AudioSource>();
+        var clip = Microphone.Start(null, true, 1, 48000);
+        source.clip = clip;
+        source.loop = true;
+        while (Microphone.GetPosition(null) < 0) { }
+
+        source.Play();
+    }
 	
 	// Update is called once per frame
 	void Update () {
 
-        if(this.transform.position.y < 0)
+        if (this.transform.position.y < 0)
         {
             vy = 0.0f;
             this.transform.position = new Vector3(0, 0, 0);
@@ -39,14 +52,16 @@ public class NewBehaviourScript : MonoBehaviour {
 
         if (texture == null) return;
 
-        videoCreatorUnity.Append(texture);
-
-	}
+        //MediaCreator.writeVideo(texture, 0);
+    }
 
     public void StartRecord()
     {
         if (isRecording) return;
-        videoCreatorUnity.StartRecording();
+
+        MediaCreator.initAsWav(cachePath, 1, 48000, 32);
+        MediaCreator.start(0);
+
         isRecording = true;
 
         text.text = "start recording !!";
@@ -55,10 +70,28 @@ public class NewBehaviourScript : MonoBehaviour {
     public void FinishRecord()
     {
         if (!isRecording) return;
-        videoCreatorUnity.FinishRecording();
+        MediaCreator.finishSync();
         isRecording = false;
 
         text.text = "finish recording !!";
+
+
+    }
+
+    void OnAudioFilterRead(float[] data, int channels)
+    {
+
+        if (!isRecording) return;
+        if (!MediaCreator.isRecording()) return;
+
+        MediaCreator.writeAudio(data, amountFrame * 1_000_000 / 48_000);
+
+        amountFrame += data.Length;
+
+        for (int i = 0; i < data.Length; i++)
+        {
+            data[i] = 0;
+        }
     }
 
     private float vy = 0.0f;
