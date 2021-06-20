@@ -206,17 +206,18 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 # pragma pop_macro("any")
 #endif
 
-@class NSString;
-@class NSNumber;
-@protocol MTLTexture;
+void UnityMediaCreator_finishSync(void);
+void UnityMediaCreator_initAsMovWithAudio(char const * _Nullable url, char const * _Nullable codec, int64_t width, int64_t height, int64_t channel, float samplingRate);
+void UnityMediaCreator_initAsMovWithNoAudio(char const * _Nullable url, char const * _Nullable codec, int64_t width, int64_t height);
+void UnityMediaCreator_initAsWav(char const * _Nullable url, int64_t channel, float samplingRate, NSInteger bitDepth);
+BOOL UnityMediaCreator_isRecording(void) SWIFT_WARN_UNUSED_RESULT;
+void UnityMediaCreator_start(int64_t microSec);
+void UnityMediaCreator_writeAudio(float const * _Nonnull pcm, int64_t frame, int64_t microSec);
+void UnityMediaCreator_writeVideo(void const * _Nullable texturePtr, int64_t microSec);
+void UnityMediaSaver_saveVideo(char const * _Nullable url);
 
 SWIFT_CLASS("_TtC17UnityVideoCreator17VideoCreatorUnity")
 @interface VideoCreatorUnity : NSObject
-- (nonnull instancetype)initWithTmpFilePath:(NSString * _Nonnull)tmpFilePath enableMic:(BOOL)enableMic videoWidth:(NSInteger)videoWidth videoHeight:(NSInteger)videoHeight OBJC_DESIGNATED_INITIALIZER;
-@property (nonatomic, readonly) BOOL isRecording;
-- (void)startRecording;
-- (void)appendWithMtlTexture:(id <MTLTexture> _Nonnull)mtlTexture;
-- (void)finishRecording;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
@@ -224,6 +225,7 @@ SWIFT_CLASS("_TtC17UnityVideoCreator17VideoCreatorUnity")
 void videoCreator_append(VideoCreatorUnity * _Nonnull const * _Nullable creator, void const * _Nullable texturePtr);
 void videoCreator_finishRecording(VideoCreatorUnity * _Nonnull const * _Nullable creator);
 VideoCreatorUnity * _Nonnull const * _Nonnull videoCreator_init(char const * _Nullable tmpFilePath, BOOL enableAudio, int64_t videoWidth, int64_t videoHeight) SWIFT_WARN_UNUSED_RESULT;
+VideoCreatorUnity * _Nonnull const * _Nonnull videoCreator_initWithVideoCodec(char const * _Nullable tmpFilePath, BOOL enableAudio, int64_t videoWidth, int64_t videoHeight, char const * _Nullable videoCodec) SWIFT_WARN_UNUSED_RESULT;
 BOOL videoCreator_isRecording(VideoCreatorUnity * _Nonnull const * _Nullable creator) SWIFT_WARN_UNUSED_RESULT;
 void videoCreator_release(VideoCreatorUnity * _Nonnull const * _Nullable creator);
 void videoCreator_startRecording(VideoCreatorUnity * _Nonnull const * _Nullable creator);
