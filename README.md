@@ -2,14 +2,17 @@
 
 * This plugin helps you to implement the recording of wav and mov files in your Unity app.
 * Writing textures creates a video, and writing float arrays creates an audio.
-* You can easily get support for [AVAssetWriter](https://developer.apple.com/documentation/avfoundation/avassetwriter), a powerful framework created by apple.
+* You can get support for [AVAssetWriter](https://developer.apple.com/documentation/avfoundation/avassetwriter), a powerful framework created by apple.
 
 # Installation
 
 * Copy `Examples/UnityExample/Assets/Plugin/VideoCreator` to your project
 
 # Features
-## movie
+
+<details>
+<summary>Export movie file</summary>
+
 * Video
   * Codec
     * [x] h264
@@ -24,14 +27,16 @@
 * Container
   * [x] mov
   * [ ] mp4
+</details>
 
-## audio
-* Codec
-  * [x] liner
+<details>
+<summary>Export audio file</summary>
+
 * Source
   * [x] float array
 * Container
   * [x] wav
+</details>
 
 # Usage
 ## Setup
