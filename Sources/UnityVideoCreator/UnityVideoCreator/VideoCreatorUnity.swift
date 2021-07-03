@@ -7,7 +7,6 @@
 //
 
 import AVFoundation
-import AssetsLibrary
 
 public enum VideoCreatorVideoCodec: String {
     case h264
@@ -84,6 +83,7 @@ private class MyVideoCreatorUnity: NSObject {
     }
     
     private func startMic() {
+        #if os(iOS)
         do {
             try AVAudioSession.sharedInstance().setPreferredSampleRate(48000)
 //            try AVAudioSession.sharedInstance().setPreferredInputNumberOfChannels(1)
@@ -91,6 +91,7 @@ private class MyVideoCreatorUnity: NSObject {
         } catch let error {
             print("failed init aduio session error: \(error)")
         }
+        #endif
         captureSession = AVCaptureSession()
         guard let audioDevice = AVCaptureDevice.default(for: AVMediaType.audio),
             let audioInput = try? AVCaptureDeviceInput(device: audioDevice) else {
