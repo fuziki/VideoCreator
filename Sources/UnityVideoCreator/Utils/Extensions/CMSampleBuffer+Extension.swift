@@ -7,7 +7,6 @@
 //
 
 import AVFoundation
-import UIKit
 
 class SampleBufferVideoFactory {
     let context = CIContext()
