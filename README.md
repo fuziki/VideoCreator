@@ -4,6 +4,10 @@
 * Writing textures creates a video, and writing float arrays creates an audio.
 * You can get support for [AVAssetWriter](https://developer.apple.com/documentation/avfoundation/avassetwriter), a powerful framework created by apple.
 
+# Example
+
+![example](docs/videos/example.gif)  
+
 # Installation
 
 * Copy `Examples/UnityExample/Assets/Plugin/VideoCreator` to your project
