@@ -207,13 +207,14 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 #endif
 
 void UnityMediaCreator_finishSync(void);
-void UnityMediaCreator_initAsMovWithAudio(char const * _Nullable url, char const * _Nullable codec, int64_t width, int64_t height, int64_t channel, float samplingRate);
-void UnityMediaCreator_initAsMovWithNoAudio(char const * _Nullable url, char const * _Nullable codec, int64_t width, int64_t height);
+void UnityMediaCreator_initAsMovWithAudio(char const * _Nullable url, char const * _Nullable codec, int64_t width, int64_t height, int64_t channel, float samplingRate, char const * _Nullable contentIdentifier);
+void UnityMediaCreator_initAsMovWithNoAudio(char const * _Nullable url, char const * _Nullable codec, int64_t width, int64_t height, char const * _Nullable contentIdentifier);
 void UnityMediaCreator_initAsWav(char const * _Nullable url, int64_t channel, float samplingRate, NSInteger bitDepth);
 BOOL UnityMediaCreator_isRecording(void) SWIFT_WARN_UNUSED_RESULT;
 void UnityMediaCreator_start(int64_t microSec);
 void UnityMediaCreator_writeAudio(float const * _Nonnull pcm, int64_t frame, int64_t microSec);
 void UnityMediaCreator_writeVideo(void const * _Nullable texturePtr, int64_t microSec);
+void UnityMediaSaver_saveLivePhotos(void const * _Nullable texturePtr, char const * _Nullable contentIdentifier, char const * _Nullable url);
 void UnityMediaSaver_saveVideo(char const * _Nullable url);
 
 SWIFT_CLASS("_TtC17UnityVideoCreator17VideoCreatorUnity")

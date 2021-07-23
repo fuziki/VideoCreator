@@ -32,7 +32,10 @@ class UnityMediaCreator {
     private var channel: Int? = nil
     private var creator: MediaCreator? = nil
 
-    public func initAsMovWithAudio(url: String, codec: String, width: Int, height: Int, channel: Int, samplingRate: Float) {
+    public func initAsMovWithAudio(url: String,
+                                   codec: String, width: Int, height: Int,
+                                   channel: Int, samplingRate: Float,
+                                   contentIdentifier: String) {
         finishSync()
         let url = URL(string: url)!
         clean(url: url)
@@ -44,13 +47,13 @@ class UnityMediaCreator {
                                         samplingRate: samplingRate,
                                         bitRate: 128000,
                                         expectsMediaDataInRealTime: true)
-        let config = MovMediaWriterConfig(url: url, video: video, audio: audio)
+        let config = MovMediaWriterConfig(url: url, video: video, audio: audio, contentIdentifier: contentIdentifier)
         self.samplingRate = samplingRate
         self.channel = channel
         self.creator = try! provider.make(config: config)
     }
     
-    public func initAsMovWithNoAudio(url: String, codec: String, width: Int, height: Int) {
+    public func initAsMovWithNoAudio(url: String, codec: String, width: Int, height: Int, contentIdentifier: String) {
         finishSync()
         let url = URL(string: url)!
         clean(url: url)
@@ -58,7 +61,7 @@ class UnityMediaCreator {
                                         width: width,
                                         height: height,
                                         expectsMediaDataInRealTime: true)
-        let config = MovMediaWriterConfig(url: url, video: video, audio: nil)
+        let config = MovMediaWriterConfig(url: url, video: video, audio: nil, contentIdentifier: contentIdentifier)
         self.creator = try! provider.make(config: config)
     }
     

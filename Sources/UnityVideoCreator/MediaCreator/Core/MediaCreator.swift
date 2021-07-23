@@ -29,7 +29,10 @@ class DefaultMediaCreator: MediaCreator {
     private let audioFactory: SampleBufferAudioFactory = SampleBufferAudioFactory()
     
     init(config: MediaWriterConfig) throws {
-        writer = try MediaWriter(url: config.url, fileType: config.fileType, inputConfigs: config.inputConfigs)
+        writer = try MediaWriter(url: config.url,
+                                 fileType: config.fileType,
+                                 inputConfigs: config.inputConfigs,
+                                 contentIdentifier: config.contentIdentifier)
         
         if let config = config as? MovMediaWriterConfig {
             videoFactory = SampleBufferVideoFactory(width: config.video.width, height: config.video.height)
