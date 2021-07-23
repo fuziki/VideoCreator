@@ -10,9 +10,17 @@ namespace VideoCreator
         [DllImport("__Internal")]
         private static extern void UnityMediaSaver_saveVideo(string url);
 
+        [DllImport("__Internal")]
+        private static extern void UnityMediaSaver_saveLivePhotos(IntPtr texturePtr, string contentIdentifier, string url);
+
         public static void SaveVideo(string url)
         {
             UnityMediaSaver_saveVideo(url);
+        }
+
+        public static void SaveLivePhotos(Texture texture, string contentIdentifier, string url)
+        {
+            UnityMediaSaver_saveLivePhotos(texture.GetNativeTexturePtr(), contentIdentifier, url);
         }
 #endif
     }
@@ -21,10 +29,10 @@ namespace VideoCreator
     {
 #if UNITY_IOS
         [DllImport("__Internal")]
-        private static extern void UnityMediaCreator_initAsMovWithNoAudio(string url, string codec, long width, long height);
+        private static extern void UnityMediaCreator_initAsMovWithNoAudio(string url, string codec, long width, long height, string contentIdentifier);
 
         [DllImport("__Internal")]
-        private static extern void UnityMediaCreator_initAsMovWithAudio(string url, string codec, long width, long height, long channel, float samplingRate);
+        private static extern void UnityMediaCreator_initAsMovWithAudio(string url, string codec, long width, long height, long channel, float samplingRate, string contentIdentifier);
 
         [DllImport("__Internal")]
         private static extern void UnityMediaCreator_initAsWav(string url, long channel, float samplingRate, long bitDepth);
@@ -45,17 +53,17 @@ namespace VideoCreator
         private static extern void UnityMediaCreator_writeAudio(float[] pcm, long frame, long microSec);
 #endif
 
-        public static void InitAsMovWithNoAudio(string url, string codec, long width, long height)
+        public static void InitAsMovWithNoAudio(string url, string codec, long width, long height, string contentIdentifier = "")
         {
 #if UNITY_IOS
-            UnityMediaCreator_initAsMovWithNoAudio(url, codec, width, height);
+            UnityMediaCreator_initAsMovWithNoAudio(url, codec, width, height, contentIdentifier);
 #endif
         }
 
-        public static void InitAsMovWithAudio(string url, string codec, long width, long height, long channel, float samplingRate)
+        public static void InitAsMovWithAudio(string url, string codec, long width, long height, long channel, float samplingRate, string contentIdentifier = "")
         {
 #if UNITY_IOS
-            UnityMediaCreator_initAsMovWithAudio(url, codec, width, height, channel, samplingRate);
+            UnityMediaCreator_initAsMovWithAudio(url, codec, width, height, channel, samplingRate, contentIdentifier);
 #endif
         }
 
