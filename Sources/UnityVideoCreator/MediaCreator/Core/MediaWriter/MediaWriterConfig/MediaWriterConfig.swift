@@ -12,6 +12,7 @@ protocol MediaWriterConfig {
     var url: URL { get }
     var fileType: AVFileType { get }
     var inputConfigs: [MediaWriter.InputConfig] { get }
+    var contentIdentifier: String { get }
 }
 
 struct MovMediaWriterConfig: MediaWriterConfig {
@@ -22,6 +23,7 @@ struct MovMediaWriterConfig: MediaWriterConfig {
     var inputConfigs: [MediaWriter.InputConfig] {
         return [video.config, audio?.config].compactMap { $0 }
     }
+    let contentIdentifier: String
 }
 
 struct WavMediaWriterConfig: MediaWriterConfig {
@@ -31,4 +33,5 @@ struct WavMediaWriterConfig: MediaWriterConfig {
     var inputConfigs: [MediaWriter.InputConfig] {
         return [audio.config]
     }
+    let contentIdentifier: String = ""
 }

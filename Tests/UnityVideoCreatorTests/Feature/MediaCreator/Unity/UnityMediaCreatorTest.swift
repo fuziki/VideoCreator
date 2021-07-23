@@ -22,7 +22,8 @@ final class UnityMediaCreatorTest: XCTestCase {
         let testCreator = UnityMediaCreator(provider: provider)
         
         testCreator.initAsMovWithAudio(url: url.absoluteString, codec: "h264", width: 1920, height: 1080,
-                                       channel: 1, samplingRate: 48_000)
+                                       channel: 1, samplingRate: 48_000,
+                                       contentIdentifier: "")
         
         let pcm = [Float](repeating: 0, count: 1024)
         testCreator.write(pcm: pcm, frame: pcm.count, microSec: 0)
@@ -39,7 +40,7 @@ final class UnityMediaCreatorTest: XCTestCase {
         
         let testCreator = UnityMediaCreator(provider: provider)
         
-        testCreator.initAsMovWithNoAudio(url: url.absoluteString, codec: "h264", width: 1920, height: 1080)
+        testCreator.initAsMovWithNoAudio(url: url.absoluteString, codec: "h264", width: 1920, height: 1080, contentIdentifier: "")
         
         let pcm = [Float](repeating: 0, count: 1024)
         testCreator.write(pcm: pcm, frame: pcm.count, microSec: 0)
@@ -94,7 +95,8 @@ final class UnityMediaCreatorTest: XCTestCase {
         let testCreator = UnityMediaCreator(provider: provider)
         
         testCreator.initAsMovWithAudio(url: url.absoluteString, codec: "h264", width: 1920, height: 1080,
-                                       channel: 1, samplingRate: 48_000)
+                                       channel: 1, samplingRate: 48_000,
+                                       contentIdentifier: "")
 
         XCTAssertEqual(deinitCallCount, 0)
 

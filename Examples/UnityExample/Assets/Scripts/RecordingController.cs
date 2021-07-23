@@ -13,7 +13,9 @@ public class RecordingController : MonoBehaviour
     private bool recordTexture = false;
     private bool recordAudio = false;
     private bool saveAfterFinish = false;
+    private int livePhotosRecording = -1;
 
+    private string uuid = "";
     private string cachePath = "";
 
     private long amountFrame = 0;
@@ -42,6 +44,32 @@ public class RecordingController : MonoBehaviour
         Debug.Log($"write texture: {time}");
 
         MediaCreator.WriteVideo(texture, time);
+
+        if (livePhotosRecording < 0) return;
+        livePhotosRecording += 1;
+        if (livePhotosRecording > 60) FinishRec();
+    }
+
+    public void RecLivePhotos()
+    {
+        if (isRecording) return;
+        text.text = "start rec live photo!";
+
+        cachePath = "file://" + Application.temporaryCachePath + "/tmp.mov";
+        Debug.Log($"cachePath: {cachePath}, {texture.width}x{texture.height}");
+
+        uuid = System.Guid.NewGuid().ToString();
+        MediaCreator.InitAsMovWithNoAudio(cachePath, "h264", texture.width, texture.height, uuid);
+        MediaCreator.Start(startTimeOffset);
+
+        startTime = Time.time;
+
+        isRecording = true;
+        recordTexture = true;
+        recordAudio = false;
+        saveAfterFinish = false;
+        amountFrame = 0;
+        livePhotosRecording = 1;
     }
 
     public void StartRecMovWithAudio()
@@ -63,11 +91,13 @@ public class RecordingController : MonoBehaviour
 
         startTime = Time.time;
 
+        uuid = "";
         isRecording = true;
         recordTexture = true;
         recordAudio = true;
         saveAfterFinish = true;
         amountFrame = 0;
+        livePhotosRecording = -1;
 
         source.Play();
     }
@@ -85,11 +115,13 @@ public class RecordingController : MonoBehaviour
 
         startTime = Time.time;
 
+        uuid = "";
         isRecording = true;
         recordTexture = true;
         recordAudio = false;
         saveAfterFinish = true;
         amountFrame = 0;
+        livePhotosRecording = -1;
     }
 
     public void StartRecWav()
@@ -111,11 +143,13 @@ public class RecordingController : MonoBehaviour
 
         startTime = Time.time;
 
+        uuid = "";
         isRecording = true;
         recordTexture = false;
         recordAudio = true;
         saveAfterFinish = false;
         amountFrame = 0;
+        livePhotosRecording = -1;
 
         source.Play();
     }
@@ -134,10 +168,16 @@ public class RecordingController : MonoBehaviour
             MediaSaver.SaveVideo(cachePath);
         }
 
+        if (livePhotosRecording > 0)
+        {
+            MediaSaver.SaveLivePhotos(texture, uuid, cachePath);
+        }
+
         isRecording = false;
         recordTexture = false;
         recordAudio = false;
         saveAfterFinish = false;
+        livePhotosRecording = -1;
     }
 
     void OnAudioFilterRead(float[] data, int channels)

@@ -12,13 +12,16 @@ import Metal
 public func UnityMediaCreator_initAsMovWithNoAudio(_ url: UnsafePointer<CChar>?,
                                                    _ codec: UnsafePointer<CChar>?,
                                                    _ width: Int64,
-                                                   _ height: Int64) {
+                                                   _ height: Int64,
+                                                   _ contentIdentifier: UnsafePointer<CChar>?) {
     let url = String(cString: url!)
     let codec = String(cString: codec!)
+    let contentIdentifier = String(cString: contentIdentifier!)
     UnityMediaCreator.shared.initAsMovWithNoAudio(url: url,
                                                   codec: codec,
                                                   width: Int(width),
-                                                  height: Int(height))
+                                                  height: Int(height),
+                                                  contentIdentifier: contentIdentifier)
 }
 
 @_cdecl("UnityMediaCreator_initAsMovWithAudio")
@@ -27,11 +30,14 @@ public func UnityMediaCreator_initAsMovWithAudio(_ url: UnsafePointer<CChar>?,
                                                  _ width: Int64,
                                                  _ height: Int64,
                                                  _ channel: Int64,
-                                                 _ samplingRate: Float) {
+                                                 _ samplingRate: Float,
+                                                 _ contentIdentifier: UnsafePointer<CChar>?) {
     let url = String(cString: url!)
     let codec = String(cString: codec!)
+    let contentIdentifier = String(cString: contentIdentifier!)
     UnityMediaCreator.shared.initAsMovWithAudio(url: url, codec: codec, width: Int(width), height: Int(height),
-                                                channel: Int(channel), samplingRate: samplingRate)
+                                                channel: Int(channel), samplingRate: samplingRate,
+                                                contentIdentifier: contentIdentifier)
 }
 
 @_cdecl("UnityMediaCreator_initAsWav")
