@@ -7,6 +7,7 @@
 //
 
 import AVFoundation
+import CoreImage
 
 class SampleBufferVideoFactory {
     let context = CIContext()

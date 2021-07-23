@@ -54,9 +54,9 @@ class GameViewController: UIViewController {
         link?.add(to: RunLoop.main, forMode: .common)
         link?.isPaused = true
         
-        audioEngine.onBufferPublisher.sink { [weak self] (buffer: AVAudioPCMBuffer, timeSec: Double) in
-            self?.write(buffer: buffer, timeSec: timeSec)
-        }.store(in: &cancellables)
+//        audioEngine.onBufferPublisher.sink { [weak self] (buffer: AVAudioPCMBuffer, timeSec: Double) in
+//            self?.write(buffer: buffer, timeSec: timeSec)
+//        }.store(in: &cancellables)
         
         let tmpDir = FileManager.default.temporaryDirectory.appendingPathComponent("tmpDri")
         try! FileManager.default.createDirectory(at: tmpDir, withIntermediateDirectories: true, attributes: nil)
@@ -67,24 +67,37 @@ class GameViewController: UIViewController {
     var recording: Bool = false
     var tmpUrl: NSString?
     var sentFirstFrame: Bool = false
-    let audioEngine = AudioEngineService()
+//    let audioEngine = AudioEngineService()
+    
+    var uuid: NSString = ""
     
     @IBAction func onTapButton(_ sender: Any) {
         recording.toggle()
         if recording {
             print("start recording")
-            UnityMediaCreator_initAsMovWithAudio(tmpUrl?.utf8String,
-                                                 "h264",
-                                                 Int64(view.frame.width),
-                                                 Int64(view.frame.height), 1, Float(AppConfig.fs))
+            uuid = UUID().uuidString as NSString
+//            UnityMediaCreator_initAsMovWithAudio(tmpUrl?.utf8String,
+//                                                 "h264", Int64(view.frame.width), Int64(view.frame.height), 1, Float(AppConfig.fs),
+//                                                 uuid.utf8String)
+            let tex = mtkView.currentDrawable!.texture
+            print("init \(tex.width) x \(tex.height)")
+            UnityMediaCreator_initAsMovWithNoAudio(tmpUrl?.utf8String, "h264",
+                                                   Int64(tex.width), Int64(tex.height),
+//                                                   "")
+                                                   uuid.utf8String)
             sentFirstFrame = false
             link!.isPaused = false
-            audioEngine.start()
+//            audioEngine.start()
         } else {
             link!.isPaused = true
-            audioEngine.stop()
+//            audioEngine.stop()
             UnityMediaCreator_finishSync()
-            UnityMediaSaver_saveVideo(tmpUrl?.utf8String)
+//            UnityMediaSaver_saveVideo(tmpUrl?.utf8String)
+            
+            let tex = mtkView.currentDrawable!.texture
+            UnityMediaSaver_saveLivePhotos(Unmanaged.passUnretained(tex).toOpaque(),
+                                           uuid.utf8String,
+                                           tmpUrl?.utf8String)
             print("finish recording")
         }        
     }
