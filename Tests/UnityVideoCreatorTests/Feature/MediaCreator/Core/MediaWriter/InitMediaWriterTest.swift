@@ -20,15 +20,15 @@ final class InitMediaWriterTest: XCTestCase {
     func testCorrectConfig() {
         
         let configs: [MediaWriterConfig] = [
-            MovMediaWriterConfig(url: url, video: h264, audio: nil),
-            MovMediaWriterConfig(url: url, video: h265, audio: nil),
-            MovMediaWriterConfig(url: url, video: h264, audio: aac),
-            MovMediaWriterConfig(url: url, video: h265, audio: aac),
+            MovMediaWriterConfig(url: url, video: h264, audio: nil, contentIdentifier: ""),
+            MovMediaWriterConfig(url: url, video: h265, audio: nil, contentIdentifier: ""),
+            MovMediaWriterConfig(url: url, video: h264, audio: aac, contentIdentifier: ""),
+            MovMediaWriterConfig(url: url, video: h265, audio: aac, contentIdentifier: ""),
             WavMediaWriterConfig(url: url, audio: liner)
         ]
         
         for config in configs {
-            XCTAssertNoThrow(try MediaWriter(url: config.url, fileType: config.fileType, inputConfigs: config.inputConfigs))
+            XCTAssertNoThrow(try MediaWriter(url: config.url, fileType: config.fileType, inputConfigs: config.inputConfigs, contentIdentifier: config.contentIdentifier))
         }
     }
     
