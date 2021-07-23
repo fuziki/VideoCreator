@@ -30,6 +30,7 @@
     * [x] float array
 * Container
   * [x] mov
+  * [x] Live Photos
   * [ ] mp4
 </details>
 
@@ -61,6 +62,15 @@ MediaCreator.InitAsMovWithAudio(cachePath, "h264", width, height);
 ```c#
 string cachePath = "file://" + Application.temporaryCachePath + "/tmp.mov";
 MediaCreator.InitAsMovWithAudio(cachePath, "h264", texture.width, texture.height, 1, 48_000);
+```
+
+### Setup MediaCreator for Live Photos
+* In addition to the usual mov, set Content Identifier.
+
+```c#
+string uuid = System.Guid.NewGuid().ToString();
+string cachePath = "file://" + Application.temporaryCachePath + "/tmp.mov";
+MediaCreator.InitAsMovWithAudio(cachePath, "h264", width, height, uuid);
 ```
 
 ### Setup MediaCreator for wav file
@@ -112,12 +122,21 @@ MediaCreator.WriteAudio(pcm, time);
 MediaCreator.FinishSync();
 ```
 
-## Save to album app (optional)
+## Save mov to album app (optional)
 
 * If you want to save your recorded videos to an album, you can use MediaSaver to do so.
 
 ```c#
 MediaSaver.SaveVideo(cachePath);
+```
+
+## Save Live Photos to album app (optional)
+
+* If you want to save your recorded Live Photos to an album, you can use MediaSaver to do so.
+* Set the thumbnail and the same Content Identifier as the video.
+
+```c#
+MediaSaver.SaveLivePhotos(texture, uuid, cachePath);
 ```
 
 # Examples
