@@ -154,3 +154,6 @@ MediaSaver.SaveLivePhotos(texture, uuid, cachePath);
 
 ### MovExample
 * Export Metal Texture & PCM data to movie file.
+
+# Inside Plugin
+* [Make Video with Alpha Channel](https://medium.com/@f_yuki/ios-make-video-with-alpha-channel-d83a2cefe69c)
