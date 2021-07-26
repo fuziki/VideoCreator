@@ -20,6 +20,29 @@ public func UnityMediaSaver_saveVideo(_ url: UnsafePointer<CChar>?) {
     }
 }
 
+@_cdecl("UnityMediaSaver_saveImage")
+public func UnityMediaSaver_saveImage(_ texturePtr: UnsafeRawPointer?,
+                                      _ type: UnsafePointer<CChar>?) {
+    let brideged: MTLTexture = __bridge(texturePtr!)
+    let srgb = brideged.makeTextureView(pixelFormat: .rgba8Unorm_srgb)!
+    let ci = CIImage(mtlTexture: srgb, options: [:])!
+    let context = CIContext()
+    let data: Data
+    let type = String(cString: type!)
+    switch type {
+    case "jpeg", "jpg":
+        data = context.jpegRepresentation(of: ci, colorSpace: CGColorSpace(name: CGColorSpace.sRGB)!, options: [:])!
+    case "heif":
+        data = context.heifRepresentation(of: ci, format: .RGBA8, colorSpace: CGColorSpace(name: CGColorSpace.sRGB)!, options: [:])!
+    case "png", _:
+        data = context.pngRepresentation(of: ci, format: .RGBA8, colorSpace: CGColorSpace(name: CGColorSpace.sRGB)!, options: [:])!
+    }
+    try! PHPhotoLibrary.shared().performChangesAndWait {
+        let request = PHAssetCreationRequest.forAsset()
+        request.addResource(with: .photo, data: data, options: nil)
+    }
+}
+
 @_cdecl("UnityMediaSaver_saveLivePhotos")
 public func UnityMediaSaver_saveLivePhotos(_ texturePtr: UnsafeRawPointer?,
                                            _ contentIdentifier: UnsafePointer<CChar>?,
@@ -47,4 +70,3 @@ public func UnityMediaSaver_saveLivePhotos(_ texturePtr: UnsafeRawPointer?,
         os_log(.error, log: .default, "failed save as livephotos. error: %@", [error])
     }
 }
-
