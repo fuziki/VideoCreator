@@ -214,6 +214,7 @@ BOOL UnityMediaCreator_isRecording(void) SWIFT_WARN_UNUSED_RESULT;
 void UnityMediaCreator_start(int64_t microSec);
 void UnityMediaCreator_writeAudio(float const * _Nonnull pcm, int64_t frame, int64_t microSec);
 void UnityMediaCreator_writeVideo(void const * _Nullable texturePtr, int64_t microSec);
+void UnityMediaSaver_saveImage(void const * _Nullable texturePtr, char const * _Nullable type);
 void UnityMediaSaver_saveLivePhotos(void const * _Nullable texturePtr, char const * _Nullable contentIdentifier, char const * _Nullable url);
 void UnityMediaSaver_saveVideo(char const * _Nullable url);
 
