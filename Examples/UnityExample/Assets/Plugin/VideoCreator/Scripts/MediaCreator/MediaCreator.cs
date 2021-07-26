@@ -13,6 +13,9 @@ namespace VideoCreator
         [DllImport("__Internal")]
         private static extern void UnityMediaSaver_saveLivePhotos(IntPtr texturePtr, string contentIdentifier, string url);
 
+        [DllImport("__Internal")]
+        private static extern void UnityMediaSaver_saveImage(IntPtr texturePtr, string type);
+
         public static void SaveVideo(string url)
         {
             UnityMediaSaver_saveVideo(url);
@@ -21,6 +24,11 @@ namespace VideoCreator
         public static void SaveLivePhotos(Texture texture, string contentIdentifier, string url)
         {
             UnityMediaSaver_saveLivePhotos(texture.GetNativeTexturePtr(), contentIdentifier, url);
+        }
+
+        public static void SaveImage(Texture texture, string type)
+        {
+            UnityMediaSaver_saveImage(texture.GetNativeTexturePtr(), type);
         }
 #endif
     }
