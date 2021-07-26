@@ -50,6 +50,11 @@ public class RecordingController : MonoBehaviour
         if (livePhotosRecording > 60) FinishRec();
     }
 
+    public void TakeFrame()
+    {
+        MediaSaver.SaveImage(texture, "png");
+    }
+
     public void RecLivePhotos()
     {
         if (isRecording) return;
