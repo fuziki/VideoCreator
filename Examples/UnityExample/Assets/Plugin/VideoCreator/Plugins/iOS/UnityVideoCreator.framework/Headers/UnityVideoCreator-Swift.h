@@ -188,7 +188,6 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 #if __has_warning("-Watimport-in-framework-header")
 #pragma clang diagnostic ignored "-Watimport-in-framework-header"
 #endif
-@import ObjectiveC;
 #endif
 
 #pragma clang diagnostic ignored "-Wproperty-attribute-mismatch"
@@ -217,20 +216,6 @@ void UnityMediaCreator_writeVideo(void const * _Nullable texturePtr, int64_t mic
 void UnityMediaSaver_saveImage(void const * _Nullable texturePtr, char const * _Nullable type);
 void UnityMediaSaver_saveLivePhotos(void const * _Nullable texturePtr, char const * _Nullable contentIdentifier, char const * _Nullable url);
 void UnityMediaSaver_saveVideo(char const * _Nullable url);
-
-SWIFT_CLASS("_TtC17UnityVideoCreator17VideoCreatorUnity")
-@interface VideoCreatorUnity : NSObject
-- (nonnull instancetype)init SWIFT_UNAVAILABLE;
-+ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
-@end
-
-void videoCreator_append(VideoCreatorUnity * _Nonnull const * _Nullable creator, void const * _Nullable texturePtr);
-void videoCreator_finishRecording(VideoCreatorUnity * _Nonnull const * _Nullable creator);
-VideoCreatorUnity * _Nonnull const * _Nonnull videoCreator_init(char const * _Nullable tmpFilePath, BOOL enableAudio, int64_t videoWidth, int64_t videoHeight) SWIFT_WARN_UNUSED_RESULT;
-VideoCreatorUnity * _Nonnull const * _Nonnull videoCreator_initWithVideoCodec(char const * _Nullable tmpFilePath, BOOL enableAudio, int64_t videoWidth, int64_t videoHeight, char const * _Nullable videoCodec) SWIFT_WARN_UNUSED_RESULT;
-BOOL videoCreator_isRecording(VideoCreatorUnity * _Nonnull const * _Nullable creator) SWIFT_WARN_UNUSED_RESULT;
-void videoCreator_release(VideoCreatorUnity * _Nonnull const * _Nullable creator);
-void videoCreator_startRecording(VideoCreatorUnity * _Nonnull const * _Nullable creator);
 #if __has_attribute(external_source_symbol)
 # pragma clang attribute pop
 #endif
