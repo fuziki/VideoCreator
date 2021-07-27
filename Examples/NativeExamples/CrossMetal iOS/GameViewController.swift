@@ -56,7 +56,6 @@ class GameViewController: UIViewController {
     }
     
     var link: CADisplayLink?
-    var vc: UnsafePointer<VideoCreatorUnity>?
     var recording: Bool = false
     var tmpUrl: NSString?
     var sentFirstFrame: Bool = false
@@ -98,7 +97,8 @@ class GameViewController: UIViewController {
             UnityMediaCreator_initAsMovWithNoAudio(tmpUrl?.utf8String,
                                                    "h264",
                                                    Int64(view.frame.width),
-                                                   Int64(view.frame.height))
+                                                   Int64(view.frame.height),
+                                                   "")
             recording = true
             link!.isPaused = false
         }
