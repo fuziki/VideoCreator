@@ -1,4 +1,4 @@
-# UnityVideoCreator
+# VideoCreator
 
 * This plugin helps you to implement the recording of wav and mov files in your Unity app.
 * Writing textures creates a video, and writing float arrays creates an audio.
