@@ -1,4 +1,4 @@
-# UnityVideoCreator
+# VideoCreator
 
 * This plugin helps you to implement the recording of wav and mov files in your Unity app.
 * Writing textures creates a video, and writing float arrays creates an audio.
@@ -10,7 +10,7 @@
 
 # Installation
 
-* Copy `Examples/UnityExample/Assets/Plugin/VideoCreator` to your project
+* Copy [`Examples/UnityExample/Assets/VideoCreator`](Examples/UnityExample/Assets/VideoCreator) to your project
 
 # Features
 
@@ -153,6 +153,13 @@ MediaSaver.SaveImage(texture, "png");
 * Unity Version: 2020.3.5
 * Build for iOS
 
+![camera_layout](docs/images/camera_layout.png)  
+
+* In the scene of the Unity sample project, there are two cameras placed.
+* One is the Main Camera, and the other is the Recording Camera.
+* The video from the main camera is displayed on the screen.
+* Record the video from the recording camera and the audio from the microphone as a .mov file and save it to the Photos app.
+
 ## NativeExamples
 ### CrossMetal iOS
 * Export Metal Texture to movie file.
@@ -164,4 +171,4 @@ MediaSaver.SaveImage(texture, "png");
 * Export Metal Texture & PCM data to movie file.
 
 # Inside Plugin
-* [Make Video with Alpha Channel](https://medium.com/@f_yuki/ios-make-video-with-alpha-channel-d83a2cefe69c)
+* [Make Video with Alpha Channel on iOS](https://medium.com/@f_yuki/ios-make-video-with-alpha-channel-d83a2cefe69c)
