@@ -171,4 +171,5 @@ MediaSaver.SaveImage(texture, "png");
 * Export Metal Texture & PCM data to movie file.
 
 # Inside Plugin
+* [Record Video on Unity iOS App](https://medium.com/@f_yuki/unity-record-video-on-ios-4f4c7defa924)
 * [Make Video with Alpha Channel on iOS](https://medium.com/@f_yuki/ios-make-video-with-alpha-channel-d83a2cefe69c)
