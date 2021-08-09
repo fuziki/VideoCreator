@@ -30,6 +30,10 @@
 		52F09CBF26C10E8100B8B323 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 52F09CBD26C10E8100B8B323 /* Main.storyboard */; };
 		52F09CC126C10E8300B8B323 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 52F09CC026C10E8300B8B323 /* Assets.xcassets */; };
 		52F09CC726C10F1100B8B323 /* UnityVideoCreator in Frameworks */ = {isa = PBXBuildFile; productRef = 52F09CC626C10F1100B8B323 /* UnityVideoCreator */; };
+		52F09CCA26C1166A00B8B323 /* Swifter in Frameworks */ = {isa = PBXBuildFile; productRef = 52F09CC926C1166A00B8B323 /* Swifter */; };
+		52F09CCC26C118F600B8B323 /* IpAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F09CCB26C118F600B8B323 /* IpAddress.swift */; };
+		52F09CCE26C11BA200B8B323 /* HlsCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F09CCD26C11BA200B8B323 /* HlsCreator.swift */; };
+		52F09CD026C11C3E00B8B323 /* GameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F09CCF26C11C3E00B8B323 /* GameViewModel.swift */; };
 		52F0A8B5267E11BD009AF389 /* WavExampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F0A8B4267E11BD009AF389 /* WavExampleApp.swift */; };
 		52F0A8B7267E11BD009AF389 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F0A8B6267E11BD009AF389 /* ContentView.swift */; };
 		52F0A8B9267E11C0009AF389 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 52F0A8B8267E11C0009AF389 /* Assets.xcassets */; };
@@ -73,6 +77,9 @@
 		52F09CBE26C10E8100B8B323 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		52F09CC026C10E8300B8B323 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		52F09CC226C10E8300B8B323 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		52F09CCB26C118F600B8B323 /* IpAddress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IpAddress.swift; sourceTree = "<group>"; };
+		52F09CCD26C11BA200B8B323 /* HlsCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HlsCreator.swift; sourceTree = "<group>"; };
+		52F09CCF26C11C3E00B8B323 /* GameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewModel.swift; sourceTree = "<group>"; };
 		52F0A8B2267E11BD009AF389 /* WavExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WavExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		52F0A8B4267E11BD009AF389 /* WavExampleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WavExampleApp.swift; sourceTree = "<group>"; };
 		52F0A8B6267E11BD009AF389 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -114,6 +121,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				52F09CC726C10F1100B8B323 /* UnityVideoCreator in Frameworks */,
+				52F09CCA26C1166A00B8B323 /* Swifter in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -211,6 +219,9 @@
 				52F09CB626C10E8100B8B323 /* ShaderTypes.h */,
 				52F09CB726C10E8100B8B323 /* Renderer.swift */,
 				52F09CB926C10E8100B8B323 /* GameViewController.swift */,
+				52F09CCF26C11C3E00B8B323 /* GameViewModel.swift */,
+				52F09CCD26C11BA200B8B323 /* HlsCreator.swift */,
+				52F09CCB26C118F600B8B323 /* IpAddress.swift */,
 				52F09CBB26C10E8100B8B323 /* Shaders.metal */,
 				52F09CBD26C10E8100B8B323 /* Main.storyboard */,
 				52F09CC026C10E8300B8B323 /* Assets.xcassets */,
@@ -312,6 +323,7 @@
 			name = HlsExample;
 			packageProductDependencies = (
 				52F09CC626C10F1100B8B323 /* UnityVideoCreator */,
+				52F09CC926C1166A00B8B323 /* Swifter */,
 			);
 			productName = HlsExample;
 			productReference = 52F09CB226C10E8100B8B323 /* HlsExample.app */;
@@ -392,6 +404,9 @@
 				Base,
 			);
 			mainGroup = 52BD83332662162D0017506E;
+			packageReferences = (
+				52F09CC826C1166A00B8B323 /* XCRemoteSwiftPackageReference "swifter" */,
+			);
 			productRefGroup = 52623AB7266BDC110012EC57 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -485,8 +500,11 @@
 			files = (
 				52F09CBC26C10E8100B8B323 /* Shaders.metal in Sources */,
 				52F09CB826C10E8100B8B323 /* Renderer.swift in Sources */,
+				52F09CCE26C11BA200B8B323 /* HlsCreator.swift in Sources */,
 				52F09CBA26C10E8100B8B323 /* GameViewController.swift in Sources */,
+				52F09CCC26C118F600B8B323 /* IpAddress.swift in Sources */,
 				52F09CB526C10E8100B8B323 /* AppDelegate.swift in Sources */,
+				52F09CD026C11C3E00B8B323 /* GameViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1351,6 +1369,17 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCRemoteSwiftPackageReference section */
+		52F09CC826C1166A00B8B323 /* XCRemoteSwiftPackageReference "swifter" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/httpswift/swifter.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.5.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
 /* Begin XCSwiftPackageProductDependency section */
 		52623AE2266C57CA0012EC57 /* UnityVideoCreator */ = {
 			isa = XCSwiftPackageProductDependency;
@@ -1359,6 +1388,11 @@
 		52F09CC626C10F1100B8B323 /* UnityVideoCreator */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = UnityVideoCreator;
+		};
+		52F09CC926C1166A00B8B323 /* Swifter */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 52F09CC826C1166A00B8B323 /* XCRemoteSwiftPackageReference "swifter" */;
+			productName = Swifter;
 		};
 		52F0A8C1267E11F3009AF389 /* UnityVideoCreator */ = {
 			isa = XCSwiftPackageProductDependency;
