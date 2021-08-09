@@ -23,6 +23,13 @@
 		52623AD9266BDC110012EC57 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 52623AB1266BDC110012EC57 /* Assets.xcassets */; };
 		52623ADA266BDC110012EC57 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 52623AB1266BDC110012EC57 /* Assets.xcassets */; };
 		52623AE3266C57CA0012EC57 /* UnityVideoCreator in Frameworks */ = {isa = PBXBuildFile; productRef = 52623AE2266C57CA0012EC57 /* UnityVideoCreator */; };
+		52F09CB526C10E8100B8B323 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F09CB426C10E8100B8B323 /* AppDelegate.swift */; };
+		52F09CB826C10E8100B8B323 /* Renderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F09CB726C10E8100B8B323 /* Renderer.swift */; };
+		52F09CBA26C10E8100B8B323 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F09CB926C10E8100B8B323 /* GameViewController.swift */; };
+		52F09CBC26C10E8100B8B323 /* Shaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = 52F09CBB26C10E8100B8B323 /* Shaders.metal */; };
+		52F09CBF26C10E8100B8B323 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 52F09CBD26C10E8100B8B323 /* Main.storyboard */; };
+		52F09CC126C10E8300B8B323 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 52F09CC026C10E8300B8B323 /* Assets.xcassets */; };
+		52F09CC726C10F1100B8B323 /* UnityVideoCreator in Frameworks */ = {isa = PBXBuildFile; productRef = 52F09CC626C10F1100B8B323 /* UnityVideoCreator */; };
 		52F0A8B5267E11BD009AF389 /* WavExampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F0A8B4267E11BD009AF389 /* WavExampleApp.swift */; };
 		52F0A8B7267E11BD009AF389 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F0A8B6267E11BD009AF389 /* ContentView.swift */; };
 		52F0A8B9267E11C0009AF389 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 52F0A8B8267E11C0009AF389 /* Assets.xcassets */; };
@@ -57,6 +64,15 @@
 		52623ACF266BDC110012EC57 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		52623AD1266BDC110012EC57 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		52623AD2266BDC110012EC57 /* CrossMetal_macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CrossMetal_macOS.entitlements; sourceTree = "<group>"; };
+		52F09CB226C10E8100B8B323 /* HlsExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HlsExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		52F09CB426C10E8100B8B323 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		52F09CB626C10E8100B8B323 /* ShaderTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShaderTypes.h; sourceTree = "<group>"; };
+		52F09CB726C10E8100B8B323 /* Renderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Renderer.swift; sourceTree = "<group>"; };
+		52F09CB926C10E8100B8B323 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
+		52F09CBB26C10E8100B8B323 /* Shaders.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = Shaders.metal; sourceTree = "<group>"; };
+		52F09CBE26C10E8100B8B323 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		52F09CC026C10E8300B8B323 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		52F09CC226C10E8300B8B323 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		52F0A8B2267E11BD009AF389 /* WavExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WavExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		52F0A8B4267E11BD009AF389 /* WavExampleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WavExampleApp.swift; sourceTree = "<group>"; };
 		52F0A8B6267E11BD009AF389 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -90,6 +106,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		52F09CAF26C10E8100B8B323 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				52F09CC726C10F1100B8B323 /* UnityVideoCreator in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -130,6 +154,7 @@
 				52623AC8266BDC110012EC57 /* CrossMetal.app */,
 				52F0A8B2267E11BD009AF389 /* WavExample.app */,
 				52F0A8CB267E4E27009AF389 /* MovExample.app */,
+				52F09CB226C10E8100B8B323 /* HlsExample.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -173,9 +198,25 @@
 				52623AC9266BDC110012EC57 /* CrossMetal macOS */,
 				52F0A8B3267E11BD009AF389 /* WavExample */,
 				52F0A8CC267E4E27009AF389 /* MovExample */,
+				52F09CB326C10E8100B8B323 /* HlsExample */,
 				52623AB7266BDC110012EC57 /* Products */,
 				52623AE1266C57CA0012EC57 /* Frameworks */,
 			);
+			sourceTree = "<group>";
+		};
+		52F09CB326C10E8100B8B323 /* HlsExample */ = {
+			isa = PBXGroup;
+			children = (
+				52F09CB426C10E8100B8B323 /* AppDelegate.swift */,
+				52F09CB626C10E8100B8B323 /* ShaderTypes.h */,
+				52F09CB726C10E8100B8B323 /* Renderer.swift */,
+				52F09CB926C10E8100B8B323 /* GameViewController.swift */,
+				52F09CBB26C10E8100B8B323 /* Shaders.metal */,
+				52F09CBD26C10E8100B8B323 /* Main.storyboard */,
+				52F09CC026C10E8300B8B323 /* Assets.xcassets */,
+				52F09CC226C10E8300B8B323 /* Info.plist */,
+			);
+			path = HlsExample;
 			sourceTree = "<group>";
 		};
 		52F0A8B3267E11BD009AF389 /* WavExample */ = {
@@ -256,6 +297,26 @@
 			productReference = 52623AC8266BDC110012EC57 /* CrossMetal.app */;
 			productType = "com.apple.product-type.application";
 		};
+		52F09CB126C10E8100B8B323 /* HlsExample */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 52F09CC526C10E8400B8B323 /* Build configuration list for PBXNativeTarget "HlsExample" */;
+			buildPhases = (
+				52F09CAE26C10E8100B8B323 /* Sources */,
+				52F09CAF26C10E8100B8B323 /* Frameworks */,
+				52F09CB026C10E8100B8B323 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = HlsExample;
+			packageProductDependencies = (
+				52F09CC626C10F1100B8B323 /* UnityVideoCreator */,
+			);
+			productName = HlsExample;
+			productReference = 52F09CB226C10E8100B8B323 /* HlsExample.app */;
+			productType = "com.apple.product-type.application";
+		};
 		52F0A8B1267E11BD009AF389 /* WavExample */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 52F0A8C0267E11C0009AF389 /* Build configuration list for PBXNativeTarget "WavExample" */;
@@ -311,6 +372,9 @@
 					52623AC7266BDC110012EC57 = {
 						CreatedOnToolsVersion = 12.5;
 					};
+					52F09CB126C10E8100B8B323 = {
+						CreatedOnToolsVersion = 12.5;
+					};
 					52F0A8B1267E11BD009AF389 = {
 						CreatedOnToolsVersion = 12.5;
 					};
@@ -336,6 +400,7 @@
 				52623AC7266BDC110012EC57 /* CrossMetal macOS */,
 				52F0A8B1267E11BD009AF389 /* WavExample */,
 				52F0A8CA267E4E27009AF389 /* MovExample */,
+				52F09CB126C10E8100B8B323 /* HlsExample */,
 			);
 		};
 /* End PBXProject section */
@@ -359,6 +424,15 @@
 				52623AD0266BDC110012EC57 /* Main.storyboard in Resources */,
 				52623ADA266BDC110012EC57 /* Assets.xcassets in Resources */,
 				52623AD8266BDC110012EC57 /* ShaderTypes.h in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		52F09CB026C10E8100B8B323 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				52F09CC126C10E8300B8B323 /* Assets.xcassets in Resources */,
+				52F09CBF26C10E8100B8B323 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -402,6 +476,17 @@
 				52623AD4266BDC110012EC57 /* Shaders.metal in Sources */,
 				52623ACD266BDC110012EC57 /* GameViewController.swift in Sources */,
 				52623ACB266BDC110012EC57 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		52F09CAE26C10E8100B8B323 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				52F09CBC26C10E8100B8B323 /* Shaders.metal in Sources */,
+				52F09CB826C10E8100B8B323 /* Renderer.swift in Sources */,
+				52F09CBA26C10E8100B8B323 /* GameViewController.swift in Sources */,
+				52F09CB526C10E8100B8B323 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -451,6 +536,14 @@
 			isa = PBXVariantGroup;
 			children = (
 				52623ACF266BDC110012EC57 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		52F09CBD26C10E8100B8B323 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				52F09CBE26C10E8100B8B323 /* Base */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -762,6 +855,150 @@
 		52BD83392662162D0017506E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+			};
+			name = Release;
+		};
+		52F09CC326C10E8300B8B323 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = N8B2B6D2KS;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = HlsExample/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = factory.fuziki.example2;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OBJC_BRIDGING_HEADER = "$(TARGET_NAME)/ShaderTypes.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		52F09CC426C10E8300B8B323 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = N8B2B6D2KS;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = HlsExample/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = factory.fuziki.example2;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OBJC_BRIDGING_HEADER = "$(TARGET_NAME)/ShaderTypes.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
@@ -1085,6 +1322,15 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		52F09CC526C10E8400B8B323 /* Build configuration list for PBXNativeTarget "HlsExample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				52F09CC326C10E8300B8B323 /* Debug */,
+				52F09CC426C10E8300B8B323 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		52F0A8C0267E11C0009AF389 /* Build configuration list for PBXNativeTarget "WavExample" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -1107,6 +1353,10 @@
 
 /* Begin XCSwiftPackageProductDependency section */
 		52623AE2266C57CA0012EC57 /* UnityVideoCreator */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = UnityVideoCreator;
+		};
+		52F09CC626C10F1100B8B323 /* UnityVideoCreator */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = UnityVideoCreator;
 		};
