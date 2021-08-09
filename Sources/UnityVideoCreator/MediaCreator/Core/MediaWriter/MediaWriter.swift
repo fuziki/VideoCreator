@@ -15,13 +15,17 @@ enum MediaWriterError: Error {
     case noInput
 }
 
-class MediaWriter {
-    struct InputConfig {
+class MediaWriter: NSObject {
+    public struct InputConfig {
         let mediaType: AVMediaType
         let outputSettings: [String : Any]?
         let expectsMediaDataInRealTime: Bool
     }
     
+    // MARK:- Outputs
+    public var onSegmentData: ((Data) -> Void)?
+    
+    // MARK:- Properties
     private let assetWriter: AVAssetWriter
     private var metadataAdaptor: AVAssetWriterInputMetadataAdaptor?
     private var startTime: CMTime?
@@ -30,23 +34,45 @@ class MediaWriter {
     init(url: URL,
          fileType: AVFileType,
          inputConfigs: [InputConfig],
-         contentIdentifier: String) throws {
+         contentIdentifier: String,
+         segmentDuration: CMTime?) throws {
         
-        let assetWriter = try AVAssetWriter(outputURL: url, fileType: fileType)
+        let assetWriter: AVAssetWriter
+        if #available(iOS 14.0, *),
+           segmentDuration != nil {
+            // setup as hls
+            assetWriter = AVAssetWriter(contentType: UTType(fileType.rawValue)!)
+        } else {
+            // setup as mov or wav
+            assetWriter = try AVAssetWriter(outputURL: url, fileType: fileType)
+        }
         self.assetWriter = assetWriter
-        
+        super.init()
+
         for config in inputConfigs {
             let input = AVAssetWriterInput(mediaType: config.mediaType, outputSettings: config.outputSettings)
             input.expectsMediaDataInRealTime = config.expectsMediaDataInRealTime
             assetWriter.add(input)
         }
         
-        if contentIdentifier.count == 0 { return }
-        assetWriter.metadata = [makeContentIdentifierMetadataItem(identifier: contentIdentifier)]
-        self.metadataAdaptor = makeStillImageTimeMetadataAdaptor()
-        assetWriter.add(metadataAdaptor!.assetWriterInput)
+        // setup as live photos
+        if contentIdentifier.count > 0 {
+            assetWriter.metadata = [makeContentIdentifierMetadataItem(identifier: contentIdentifier)]
+            self.metadataAdaptor = makeStillImageTimeMetadataAdaptor()
+            assetWriter.add(metadataAdaptor!.assetWriterInput)
+        }
+        
+        // setup as hls
+        if #available(iOS 14.0, *),
+           let segmentDuration = segmentDuration {
+            assetWriter.outputFileTypeProfile = .mpeg4AppleHLS
+            assetWriter.preferredOutputSegmentInterval = segmentDuration
+            assetWriter.initialSegmentStartTime = .zero
+            assetWriter.delegate = self
+        }
     }
     
+    // MARK:- Inputs
     public func start(time: CMTime) throws {
         let success = assetWriter.startWriting()
         if !success {
@@ -86,6 +112,7 @@ class MediaWriter {
         self.latestTime = CMSampleBufferGetPresentationTimeStamp(sample)
     }
 
+    // MARK:- privates
     private func makeContentIdentifierMetadataItem(identifier: String) -> AVMetadataItem {
         let item = AVMutableMetadataItem()
         item.key = AVMetadataKey.quickTimeMetadataKeyContentIdentifier as NSString
@@ -118,5 +145,15 @@ class MediaWriter {
                                        outputSettings: nil,
                                        sourceFormatHint: desc)
         return AVAssetWriterInputMetadataAdaptor(assetWriterInput: input)
+    }
+}
+
+@available(iOS 14.0, *)
+extension MediaWriter: AVAssetWriterDelegate {
+    func assetWriter(_ writer: AVAssetWriter,
+                     didOutputSegmentData segmentData: Data,
+                     segmentType: AVAssetSegmentType,
+                     segmentReport: AVAssetSegmentReport?) {
+        self.onSegmentData?(segmentData)
     }
 }

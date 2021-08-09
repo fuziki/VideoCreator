@@ -13,6 +13,20 @@ protocol MediaWriterConfig {
     var fileType: AVFileType { get }
     var inputConfigs: [MediaWriter.InputConfig] { get }
     var contentIdentifier: String { get }
+    var segmentDurationMicroSec: Int? { get }
+}
+
+@available(iOS 14.0, *)
+struct HlsMediaWriterConfig: MediaWriterConfig {
+    let url: URL
+    let fileType: AVFileType = .mp4
+    let video: AnyVideoWriterInput
+    let audio: AacAudioWriterInput?
+    var inputConfigs: [MediaWriter.InputConfig] {
+        return [video.config, audio?.config].compactMap { $0 }
+    }
+    let contentIdentifier: String = ""
+    let segmentDurationMicroSec: Int?
 }
 
 struct MovMediaWriterConfig: MediaWriterConfig {
@@ -24,6 +38,7 @@ struct MovMediaWriterConfig: MediaWriterConfig {
         return [video.config, audio?.config].compactMap { $0 }
     }
     let contentIdentifier: String
+    let segmentDurationMicroSec: Int? = nil
 }
 
 struct WavMediaWriterConfig: MediaWriterConfig {
@@ -34,4 +49,5 @@ struct WavMediaWriterConfig: MediaWriterConfig {
         return [audio.config]
     }
     let contentIdentifier: String = ""
+    let segmentDurationMicroSec: Int? = nil
 }

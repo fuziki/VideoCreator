@@ -10,6 +10,7 @@ import os
 
 protocol MediaCreator {
     var isRecording: Bool { get }
+    func setOnSegmentData(handler: @escaping (Data) -> Void)
     func start(microSec: Int) throws
     func start(time: CMTime) throws
     func finish(completionHandler: @escaping () -> Void)
@@ -29,20 +30,28 @@ class DefaultMediaCreator: MediaCreator {
     private let audioFactory: SampleBufferAudioFactory = SampleBufferAudioFactory()
     
     init(config: MediaWriterConfig) throws {
+        let segmentDuration: CMTime? = config.segmentDurationMicroSec.flatMap { Self.cmTimeFrom(microSec: $0) }
         writer = try MediaWriter(url: config.url,
                                  fileType: config.fileType,
                                  inputConfigs: config.inputConfigs,
-                                 contentIdentifier: config.contentIdentifier)
+                                 contentIdentifier: config.contentIdentifier,
+                                 segmentDuration: segmentDuration)
         
         if let config = config as? MovMediaWriterConfig {
+            videoFactory = SampleBufferVideoFactory(width: config.video.width, height: config.video.height)
+        } else if #available(iOS 14.0, *), let config = config as? HlsMediaWriterConfig {
             videoFactory = SampleBufferVideoFactory(width: config.video.width, height: config.video.height)
         } else {
             videoFactory = nil
         }
     }
     
+    public func setOnSegmentData(handler: @escaping (Data) -> Void) {
+        self.writer.onSegmentData = handler
+    }
+    
     public func start(microSec: Int) throws {
-        try start(time: cmTimeFrom(microSec: microSec))
+        try start(time: Self.cmTimeFrom(microSec: microSec))
         isRecording = true
     }
 
@@ -57,7 +66,7 @@ class DefaultMediaCreator: MediaCreator {
     }
         
     public func write(texture: MTLTexture, microSec: Int) throws {
-        try write(texture: texture, time: cmTimeFrom(microSec: microSec))
+        try write(texture: texture, time: Self.cmTimeFrom(microSec: microSec))
     }
     
     public func write(texture: MTLTexture, time: CMTime) throws {
@@ -68,7 +77,7 @@ class DefaultMediaCreator: MediaCreator {
     }
     
     public func write(pcm: AVAudioPCMBuffer, microSec: Int) throws {
-        try write(pcm: pcm, time: cmTimeFrom(microSec: microSec))
+        try write(pcm: pcm, time: Self.cmTimeFrom(microSec: microSec))
     }
 
     public func write(pcm: AVAudioPCMBuffer, time: CMTime) throws {
@@ -79,7 +88,7 @@ class DefaultMediaCreator: MediaCreator {
         try writer.write(mediaType: .audio, sample: buff)
     }
     
-    private func cmTimeFrom(microSec: Int) -> CMTime {
+    private static func cmTimeFrom(microSec: Int) -> CMTime {
         return CMTime(value: CMTimeValue(microSec * 1_000),
                       timescale: 1_000_000_000,
                       flags: .init(rawValue: 3),

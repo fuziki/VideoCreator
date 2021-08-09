@@ -23,6 +23,8 @@ class DefualtMediaCreatorProvider: MediaCreatorProvider {
 class UnityMediaCreator {
     public static var shared: UnityMediaCreator = UnityMediaCreator(provider: DefualtMediaCreatorProvider())
     
+    public var onSegmentData: ((Data) -> Void)?
+    
     private let provider: MediaCreatorProvider
     init(provider: MediaCreatorProvider) {
         self.provider = provider
@@ -63,6 +65,24 @@ class UnityMediaCreator {
                                         expectsMediaDataInRealTime: true)
         let config = MovMediaWriterConfig(url: url, video: video, audio: nil, contentIdentifier: contentIdentifier)
         self.creator = try! provider.make(config: config)
+    }
+    
+    public func initAsHlsWithNoAudio(url: String, codec: String, width: Int, height: Int, segmentDurationMicroSec: Int) {
+        finishSync()
+        let url = URL(string: url)!
+        clean(url: url)
+        guard #available(iOS 14.0, *) else {
+            return
+        }
+        let video = AnyVideoWriterInput(codec: codec == "hevcWithAlpha" ? .hevcWithAlpha : .h264,
+                                        width: width,
+                                        height: height,
+                                        expectsMediaDataInRealTime: true)
+        let config = HlsMediaWriterConfig(url: url, video: video, audio: nil, segmentDurationMicroSec: segmentDurationMicroSec)
+        self.creator = try! provider.make(config: config)
+        creator!.setOnSegmentData { [weak self] data in
+            self?.onSegmentData?(data)
+        }
     }
     
     public func initAsWav(url: String, channel: Int, samplingRate: Float, bitDepth: Int) {
