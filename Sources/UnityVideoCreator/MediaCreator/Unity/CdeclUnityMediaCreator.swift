@@ -40,6 +40,21 @@ public func UnityMediaCreator_initAsMovWithAudio(_ url: UnsafePointer<CChar>?,
                                                 contentIdentifier: contentIdentifier)
 }
 
+@_cdecl("UnityMediaCreator_initAsHlsWithNoAudio")
+public func UnityMediaCreator_initAsHlsWithNoAudio(_ url: UnsafePointer<CChar>?,
+                                                   _ codec: UnsafePointer<CChar>?,
+                                                   _ width: Int64,
+                                                   _ height: Int64,
+                                                   _ segmentDurationMicroSec: Int64) {
+    let url = String(cString: url!)
+    let codec = String(cString: codec!)
+    UnityMediaCreator.shared.initAsHlsWithNoAudio(url: url,
+                                                  codec: codec,
+                                                  width: Int(width),
+                                                  height: Int(height),
+                                                  segmentDurationMicroSec: Int(segmentDurationMicroSec))
+}
+
 @_cdecl("UnityMediaCreator_initAsWav")
 public func UnityMediaCreator_initAsWav(_ url: UnsafePointer<CChar>?,
                                         _ channel: Int64,
@@ -47,6 +62,17 @@ public func UnityMediaCreator_initAsWav(_ url: UnsafePointer<CChar>?,
                                         _ bitDepth: Int) {
     let url = String(cString: url!)
     UnityMediaCreator.shared.initAsWav(url: url, channel: Int(channel), samplingRate: samplingRate, bitDepth: bitDepth)
+}
+
+@_cdecl("UnityMediaCreator_setOnSegmentData")
+public func UnityMediaCreator_setOnSegmentData(_ handler: @escaping @convention(c) (UnsafePointer<UInt8>, Int64) -> Void) {
+    UnityMediaCreator.shared.onSegmentData = { data in
+        data.withUnsafeBytes { (rawPtr: UnsafeRawBufferPointer) in
+            let buffPtr: UnsafeBufferPointer<UInt8> = rawPtr.bindMemory(to: UInt8.self)
+            let ptr = buffPtr.baseAddress!
+            handler(ptr, Int64(buffPtr.count))
+        }
+    }
 }
 
 @_cdecl("UnityMediaCreator_start")
