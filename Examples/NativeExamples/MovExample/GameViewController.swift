@@ -81,16 +81,10 @@ class GameViewController: UIViewController {
 //                                                 uuid.utf8String)
             let tex = mtkView.currentDrawable!.texture
             print("init \(tex.width) x \(tex.height)")
-/*            UnityMediaCreator_initAsMovWithNoAudio(tmpUrl?.utf8String, "h264",
+            UnityMediaCreator_initAsMovWithNoAudio(tmpUrl?.utf8String, "h264",
                                                    Int64(tex.width), Int64(tex.height),
 //                                                   "")
-                                                   uuid.utf8String)*/
-            
-            UnityMediaCreator_initAsHlsWithNoAudio(tmpUrl?.utf8String, "h264", Int64(tex.width), Int64(tex.height), 1_000_000)
-            
-            UnityMediaCreator_setOnSegmentData { (data: UnsafePointer<UInt8>, len: Int64) in
-                print("on segment data: \(len), \(data)")
-            }
+                                                   uuid.utf8String)
             
             sentFirstFrame = false
             link!.isPaused = false

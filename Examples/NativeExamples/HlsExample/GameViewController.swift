@@ -14,9 +14,14 @@ class GameViewController: UIViewController {
 
     var renderer: Renderer!
     var mtkView: MTKView!
+    
+    let viewModel: GameViewModelType = GameViewModel()
+    let hlsCreator: HlsCreator = HlsCreator.shared
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        print("open: http://\(getIpAddress()!):8080/hello")
 
         guard let mtkView = view as? MTKView else {
             print("View of Gameview controller is not an MTKView")
@@ -55,13 +60,9 @@ class GameViewController: UIViewController {
         let tex = mtkView.currentDrawable!.texture
         print("init \(tex.width) x \(tex.height)")
 
-        let tmpDir = FileManager.default.temporaryDirectory.appendingPathComponent("tmpDri")
-        try! FileManager.default.createDirectory(at: tmpDir, withIntermediateDirectories: true, attributes: nil)
-        let tmpUrl = tmpDir.absoluteString as NSString
-        UnityMediaCreator_initAsHlsWithNoAudio(tmpUrl.utf8String, "h264", Int64(tex.width), Int64(tex.height), 1_000_000)
-        
-        UnityMediaCreator_setOnSegmentData { (data: UnsafePointer<UInt8>, len: Int64) in
-            print("on segment data: \(len), \(data)")
+        hlsCreator.setup(width: tex.width, height: tex.height)
+        hlsCreator.onSegmentData = { [weak self] (data: Data) in
+            self?.viewModel.onSegmentData(data: data)
         }
         
         link = CADisplayLink(target: self, selector: #selector(self.update))
@@ -73,21 +74,8 @@ class GameViewController: UIViewController {
         }
     }
     
-    private var sentFirstFrame: Bool = false
     @objc private func update(displayLink: CADisplayLink) {
-        let time = Int64(timeSec * 1_000_000)
-        if !sentFirstFrame {
-            sentFirstFrame = true
-            UnityMediaCreator_start(time)
-        }
-        let tex = mtkView.currentDrawable!.texture
-        UnityMediaCreator_writeVideo(Unmanaged.passUnretained(tex).toOpaque(), time)
-    }
-
-    private var timeSec: Double {
-        var tb = mach_timebase_info()
-        mach_timebase_info(&tb)
-        let tsc = mach_absolute_time()
-        return Double(tsc) * Double(tb.numer) / Double(tb.denom) / 1000000000.0
+        let texture = mtkView.currentDrawable!.texture
+        hlsCreator.write(texture: texture)
     }
 }
