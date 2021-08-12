@@ -1,5 +1,5 @@
 //
-//  HlsCreator.swift
+//  HLSCreatorService.swift
 //  HlsExample
 //
 //  Created by fuziki on 2021/08/09.
@@ -8,8 +8,8 @@
 import MetalKit
 import UnityVideoCreator
 
-class HlsCreator {
-    public static let shared = HlsCreator()
+class HLSCreatorService {
+    public static let shared = HLSCreatorService()
     
     public var onSegmentData: ((Data) -> Void)?
     
@@ -25,7 +25,7 @@ class HlsCreator {
                 let dst: UnsafeMutableRawPointer? = ptr.baseAddress
                 memcpy(dst, data, Int(len))
             }
-            HlsCreator.shared.onSegmentData?(res)
+            HLSCreatorService.shared.onSegmentData?(res)
         }
     }
     
