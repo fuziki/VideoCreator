@@ -30,11 +30,12 @@
 		52F09D2D26C4BDA200B8B323 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 52F09D2C26C4BDA200B8B323 /* Assets.xcassets */; };
 		52F09D3526C4BE1800B8B323 /* Swifter in Frameworks */ = {isa = PBXBuildFile; productRef = 52F09D3426C4BE1800B8B323 /* Swifter */; };
 		52F09D3726C4BE3900B8B323 /* UnityVideoCreator in Frameworks */ = {isa = PBXBuildFile; productRef = 52F09D3626C4BE3900B8B323 /* UnityVideoCreator */; };
-		52F09D3C26C4BE6B00B8B323 /* HLSCreatorService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F09D3B26C4BE6B00B8B323 /* HLSCreatorService.swift */; };
+		52F09D3C26C4BE6B00B8B323 /* HlsCreatorService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F09D3B26C4BE6B00B8B323 /* HlsCreatorService.swift */; };
 		52F09D4326C4BEA600B8B323 /* GetIpAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F09D3F26C4BEA600B8B323 /* GetIpAddress.swift */; };
 		52F09D4426C4BEA600B8B323 /* LastNextDrawableTextureGettable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F09D4026C4BEA600B8B323 /* LastNextDrawableTextureGettable.swift */; };
 		52F09D4526C4BEA600B8B323 /* CAMetalLayer+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F09D4226C4BEA600B8B323 /* CAMetalLayer+Extensions.swift */; };
 		52F09D4726C4BFDB00B8B323 /* GameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F09D4626C4BFDB00B8B323 /* GameViewModel.swift */; };
+		52F09D9E26C5799600B8B323 /* HlsServerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F09D9D26C5799600B8B323 /* HlsServerService.swift */; };
 		52F0A8B5267E11BD009AF389 /* WavExampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F0A8B4267E11BD009AF389 /* WavExampleApp.swift */; };
 		52F0A8B7267E11BD009AF389 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F0A8B6267E11BD009AF389 /* ContentView.swift */; };
 		52F0A8B9267E11C0009AF389 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 52F0A8B8267E11C0009AF389 /* Assets.xcassets */; };
@@ -76,11 +77,12 @@
 		52F09D2A26C4BDA000B8B323 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		52F09D2C26C4BDA200B8B323 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		52F09D2E26C4BDA200B8B323 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		52F09D3B26C4BE6B00B8B323 /* HLSCreatorService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HLSCreatorService.swift; sourceTree = "<group>"; };
+		52F09D3B26C4BE6B00B8B323 /* HlsCreatorService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HlsCreatorService.swift; sourceTree = "<group>"; };
 		52F09D3F26C4BEA600B8B323 /* GetIpAddress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetIpAddress.swift; sourceTree = "<group>"; };
 		52F09D4026C4BEA600B8B323 /* LastNextDrawableTextureGettable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LastNextDrawableTextureGettable.swift; sourceTree = "<group>"; };
 		52F09D4226C4BEA600B8B323 /* CAMetalLayer+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CAMetalLayer+Extensions.swift"; sourceTree = "<group>"; };
 		52F09D4626C4BFDB00B8B323 /* GameViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameViewModel.swift; sourceTree = "<group>"; };
+		52F09D9D26C5799600B8B323 /* HlsServerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HlsServerService.swift; sourceTree = "<group>"; };
 		52F0A8B2267E11BD009AF389 /* WavExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WavExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		52F0A8B4267E11BD009AF389 /* WavExampleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WavExampleApp.swift; sourceTree = "<group>"; };
 		52F0A8B6267E11BD009AF389 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -239,7 +241,8 @@
 		52F09D3A26C4BE6B00B8B323 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				52F09D3B26C4BE6B00B8B323 /* HLSCreatorService.swift */,
+				52F09D3B26C4BE6B00B8B323 /* HlsCreatorService.swift */,
+				52F09D9D26C5799600B8B323 /* HlsServerService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -540,8 +543,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				52F09D9E26C5799600B8B323 /* HlsServerService.swift in Sources */,
 				52F09D4326C4BEA600B8B323 /* GetIpAddress.swift in Sources */,
-				52F09D3C26C4BE6B00B8B323 /* HLSCreatorService.swift in Sources */,
+				52F09D3C26C4BE6B00B8B323 /* HlsCreatorService.swift in Sources */,
 				52F09D2826C4BDA000B8B323 /* GameViewController.swift in Sources */,
 				52F09D2426C4BDA000B8B323 /* AppDelegate.swift in Sources */,
 				52F09D4426C4BEA600B8B323 /* LastNextDrawableTextureGettable.swift in Sources */,

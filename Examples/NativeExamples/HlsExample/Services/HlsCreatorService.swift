@@ -8,8 +8,14 @@
 import MetalKit
 import UnityVideoCreator
 
-class HLSCreatorService {
-    public static let shared = HLSCreatorService()
+protocol HlsCreatorService: AnyObject {
+    var onSegmentData: ((Data) -> Void)? { get set }
+    func setup(width: Int, height: Int)
+    func write(texture: MTLTexture)
+}
+
+class DefaultHlsCreatorService: HlsCreatorService {
+    public static let shared = DefaultHlsCreatorService()
     
     public var onSegmentData: ((Data) -> Void)?
     
@@ -25,7 +31,7 @@ class HLSCreatorService {
                 let dst: UnsafeMutableRawPointer? = ptr.baseAddress
                 memcpy(dst, data, Int(len))
             }
-            HLSCreatorService.shared.onSegmentData?(res)
+            DefaultHlsCreatorService.shared.onSegmentData?(res)
         }
     }
     
