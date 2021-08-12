@@ -11,11 +11,8 @@ import SceneKit
 
 class GameViewController: UIViewController {
     
-    let viewModel = GameViewModel()
-    let hlsCreatorService = HLSCreatorService.shared
+    private let viewModel = GameViewModel()
     
-    var shouldSend: Bool = true
-
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -77,16 +74,12 @@ class GameViewController: UIViewController {
         
         let layer = scnView.layer as! CAMetalLayer
         layer.framebufferOnly = false
-        
-        hlsCreatorService.onSegmentData = { [weak self] (data: Data) in
-            self?.viewModel.onSegmentData(data: data)
-        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         let layer = view.layer as! CAMetalLayer
-        hlsCreatorService.setup(width: Int(layer.drawableSize.width), height: Int(layer.drawableSize.height))
+        viewModel.setup(width: Int(layer.drawableSize.width), height: Int(layer.drawableSize.height))
     }
     
     @objc
@@ -146,10 +139,8 @@ class GameViewController: UIViewController {
 extension GameViewController: SCNSceneRendererDelegate {
     func renderer(_ renderer: SCNSceneRenderer, didRenderScene scene: SCNScene, atTime time: TimeInterval) {
         DispatchQueue.main.async { [weak self] in
-            self!.shouldSend.toggle()
-            if !self!.shouldSend { return }
             let layer = self!.view.layer as! CAMetalLayer
-            self!.hlsCreatorService.write(texture: layer.lastNextDrawableTexture!)
+            self!.viewModel.onRender(texture: layer.lastNextDrawableTexture!)
         }
     }
 }
