@@ -93,7 +93,8 @@ public func UnityMediaCreator_isRecording() -> Bool {
 @_cdecl("UnityMediaCreator_writeVideo")
 public func UnityMediaCreator_writeVideo(_ texturePtr: UnsafeRawPointer?, _ microSec: Int64) {
     let brideged: MTLTexture = __bridge(texturePtr!)
-    let srgb = brideged.makeTextureView(pixelFormat: .rgba8Unorm_srgb)!
+//    let srgb = brideged.makeTextureView(pixelFormat: .rgba8Unorm_srgb)!
+    let srgb = brideged.makeTextureView(pixelFormat: .bgra8Unorm_srgb)!
     UnityMediaCreator.shared.write(texture: srgb, microSec: Int(microSec))
 }
 
