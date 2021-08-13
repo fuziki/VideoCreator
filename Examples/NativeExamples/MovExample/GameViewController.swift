@@ -85,6 +85,7 @@ class GameViewController: UIViewController {
                                                    Int64(tex.width), Int64(tex.height),
 //                                                   "")
                                                    uuid.utf8String)
+            
             sentFirstFrame = false
             link!.isPaused = false
 //            audioEngine.start()

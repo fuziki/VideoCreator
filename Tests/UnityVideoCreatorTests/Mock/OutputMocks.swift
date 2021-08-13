@@ -99,4 +99,8 @@ class MediaCreatorMock: MediaCreator {
         }
         
     }
+    
+    func setOnSegmentData(handler: @escaping (Data) -> Void) {
+        
+    }
 }

@@ -28,7 +28,7 @@ final class InitMediaWriterTest: XCTestCase {
         ]
         
         for config in configs {
-            XCTAssertNoThrow(try MediaWriter(url: config.url, fileType: config.fileType, inputConfigs: config.inputConfigs, contentIdentifier: config.contentIdentifier))
+            XCTAssertNoThrow(try MediaWriter(url: config.url, fileType: config.fileType, inputConfigs: config.inputConfigs, contentIdentifier: config.contentIdentifier, segmentDuration: nil))
         }
     }
     

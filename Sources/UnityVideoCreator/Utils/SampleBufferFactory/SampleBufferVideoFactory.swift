@@ -49,6 +49,7 @@ internal class SampleBufferVideoFactory {
             let desc = formatDescription else {
                 return nil
         }
+//        let ci2 = ci.transformed(by: .init(scaleX: 1, y: -1)).transformed(by: .init(translationX: 0, y: CGFloat(mtlTexture.height)))
         CVPixelBufferLockBaseAddress(buff, CVPixelBufferLockFlags(rawValue: 0))
         context.render(ci, to: buff)
         var tmp: CMSampleBuffer? = nil
