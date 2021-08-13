@@ -41,7 +41,7 @@ class MediaWriter: NSObject {
         self.segmentDuration = segmentDuration
         
         let assetWriter: AVAssetWriter
-        if #available(iOS 14.0, *),
+        if #available(iOS 14.0, macOS 11.0, *),
            segmentDuration != nil {
             // setup as hls
             assetWriter = AVAssetWriter(contentType: UTType(fileType.rawValue)!)
@@ -66,7 +66,7 @@ class MediaWriter: NSObject {
         }
         
         // setup as hls
-        if #available(iOS 14.0, *),
+        if #available(iOS 14.0, macOS 11.0, *),
            let segmentDuration = segmentDuration {
             assetWriter.shouldOptimizeForNetworkUse = true
             assetWriter.outputFileTypeProfile = .mpeg4AppleHLS
@@ -77,7 +77,7 @@ class MediaWriter: NSObject {
     
     // MARK:- Inputs
     public func start(time: CMTime) throws {
-        if #available(iOS 14.0, *), segmentDuration != nil {
+        if #available(iOS 14.0, macOS 11.0, *), segmentDuration != nil {
             assetWriter.initialSegmentStartTime = time
         }
         let success = assetWriter.startWriting()
@@ -154,6 +154,7 @@ class MediaWriter: NSObject {
     }
 }
 
+@available(macOS 11.0, *)
 @available(iOS 14.0, *)
 extension MediaWriter: AVAssetWriterDelegate {
     func assetWriter(_ writer: AVAssetWriter,
