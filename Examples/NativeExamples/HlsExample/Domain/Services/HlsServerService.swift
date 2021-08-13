@@ -8,8 +8,9 @@
 import Foundation
 import Swifter
 
-protocol HlsServerService {
+protocol HlsServerService: AnyObject {
     func onSegmentData(data: Data)
+    var segmentDurationMicroSec: Int { get set }
 }
 
 class DefaultHlsServerService: HlsServerService {
@@ -20,11 +21,16 @@ class DefaultHlsServerService: HlsServerService {
 
     private var sequence: Int = -1
     
+    public var segmentDurationMicroSec: Int = 1_000_000
+    
     init() {
         server["/hello"] = { (request: HttpRequest) -> HttpResponse in
             print("request: \(request.path)")
             let body = """
 <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+<head>
+<title>VideoCreator</title>
+</head>
 <video id="video" width="240" height="360" autoplay muted></video>
 <script>
   var video = document.getElementById('video');
@@ -64,17 +70,18 @@ class DefaultHlsServerService: HlsServerService {
     }
 
     private var m3u8: String {
+        let durationStr = String(format: "%1.5f", Double(segmentDurationMicroSec) / 1_000_000)
         let template = """
 #EXTM3U
 #EXT-X-TARGETDURATION:1
 #EXT-X-VERSION:9
 #EXT-X-MEDIA-SEQUENCE:\(sequence - 2)
 #EXT-X-MAP:URI="init.mp4"
-#EXTINF:1.0,
+#EXTINF:\(durationStr),
 files/sequence\(sequence - 2).m4s
-#EXTINF:1.0,
+#EXTINF:\(durationStr),
 files/sequence\(sequence - 1).m4s
-#EXTINF:1.0,
+#EXTINF:\(durationStr),
 files/sequence\(sequence).m4s
 """
         return template

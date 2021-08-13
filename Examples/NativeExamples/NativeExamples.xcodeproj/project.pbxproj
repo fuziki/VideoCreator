@@ -219,7 +219,7 @@
 			isa = PBXGroup;
 			children = (
 				52F09D3D26C4BE8A00B8B323 /* Application */,
-				52F09D3A26C4BE6B00B8B323 /* Services */,
+				52F09D9F26C57B8900B8B323 /* Domain */,
 				52F09D3226C4BDD500B8B323 /* Presentation */,
 				52F09D2526C4BDA000B8B323 /* art.scnassets */,
 				52F09D2C26C4BDA200B8B323 /* Assets.xcassets */,
@@ -272,6 +272,14 @@
 				52F09D4226C4BEA600B8B323 /* CAMetalLayer+Extensions.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		52F09D9F26C57B8900B8B323 /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				52F09D3A26C4BE6B00B8B323 /* Services */,
+			);
+			path = Domain;
 			sourceTree = "<group>";
 		};
 		52F0A8B3267E11BD009AF389 /* WavExample */ = {
