@@ -173,3 +173,4 @@ MediaSaver.SaveImage(texture, "png");
 # Inside Plugin
 * [Record Video on Unity iOS App](https://medium.com/@f_yuki/unity-record-video-on-ios-4f4c7defa924)
 * [Make Video with Alpha Channel on iOS](https://medium.com/@f_yuki/ios-make-video-with-alpha-channel-d83a2cefe69c)
+* [Save Live Photos from mov & jpeg on iOS App](https://medium.com/@f_yuki/save-live-photos-from-mov-jpeg-on-ios-app-ff8c4f9045f1)
