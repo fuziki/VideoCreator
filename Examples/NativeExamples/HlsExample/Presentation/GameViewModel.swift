@@ -14,6 +14,8 @@ protocol GameViewModelType {
 }
 
 class GameViewModel: GameViewModelType {
+    private let segmentDurationMicroSec: Int = 1_000_000
+    
     private let serverService: HlsServerService
     private let hlsCreatorService: HlsCreatorService
     
@@ -23,13 +25,15 @@ class GameViewModel: GameViewModelType {
          hlsCreatorService: HlsCreatorService = DefaultHlsCreatorService.shared) {
         self.serverService = serverService
         self.hlsCreatorService = hlsCreatorService
+
+        self.serverService.segmentDurationMicroSec = segmentDurationMicroSec
         self.hlsCreatorService.onSegmentData = { [weak self] (data: Data) in
             self?.serverService.onSegmentData(data: data)
         }
     }
     
     public func setup(width: Int, height: Int) {
-        hlsCreatorService.setup(width: width, height: height)
+        hlsCreatorService.setup(width: width, height: height, segmentDurationMicroSec: segmentDurationMicroSec)
     }
     
     public func onRender(texture: MTLTexture) {

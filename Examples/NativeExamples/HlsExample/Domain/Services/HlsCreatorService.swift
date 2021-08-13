@@ -10,7 +10,7 @@ import UnityVideoCreator
 
 protocol HlsCreatorService: AnyObject {
     var onSegmentData: ((Data) -> Void)? { get set }
-    func setup(width: Int, height: Int)
+    func setup(width: Int, height: Int, segmentDurationMicroSec: Int)
     func write(texture: MTLTexture)
 }
 
@@ -19,11 +19,11 @@ class DefaultHlsCreatorService: HlsCreatorService {
     
     public var onSegmentData: ((Data) -> Void)?
     
-    public func setup(width: Int, height: Int) {
+    public func setup(width: Int, height: Int, segmentDurationMicroSec: Int) {
         let tmpDir = FileManager.default.temporaryDirectory.appendingPathComponent("tmpDri")
         try! FileManager.default.createDirectory(at: tmpDir, withIntermediateDirectories: true, attributes: nil)
         let tmpUrl = tmpDir.absoluteString as NSString
-        UnityMediaCreator_initAsHlsWithNoAudio(tmpUrl.utf8String, "h264", Int64(width), Int64(height), 1_000_000)
+        UnityMediaCreator_initAsHlsWithNoAudio(tmpUrl.utf8String, "h264", Int64(width), Int64(height), Int64(segmentDurationMicroSec))
         
         UnityMediaCreator_setOnSegmentData { (data: UnsafePointer<UInt8>, len: Int64) in
             var res = Data(count: Int(len))

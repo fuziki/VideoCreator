@@ -160,6 +160,12 @@ extension MediaWriter: AVAssetWriterDelegate {
                      didOutputSegmentData segmentData: Data,
                      segmentType: AVAssetSegmentType,
                      segmentReport: AVAssetSegmentReport?) {
+        // for debug
+//        print("segmentData: \(segmentData.count), segmentType: \(segmentType.rawValue)")
+//        let segmentReportStr = segmentReport.flatMap { (report: AVAssetSegmentReport) in
+//            return "segmentType: \(report.segmentType.rawValue), \ntrackReports: \(report.trackReports.map { $0.debugMessage })"
+//        }
+//        print("segmentReport: \(segmentReportStr ?? "nil")")
         self.onSegmentData?(segmentData)
     }
 }
