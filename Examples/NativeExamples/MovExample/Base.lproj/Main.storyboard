@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BV1-FR-VrT">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
@@ -8,33 +8,63 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Game View Controller-->
-        <scene sceneID="tXr-a1-R10">
+        <!--Mov Example View Controller-->
+        <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BV1-FR-VrT" customClass="GameViewController" customModule="MovExample" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="3se-qz-xqx" customClass="MTKView">
+                <viewController id="BYZ-38-t0r" customClass="MovExampleViewController" customModule="MovExample" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="muo-Zi-zvk">
-                                <rect key="frame" x="184" y="433" width="46" height="30"/>
-                                <state key="normal" title="Button"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hwr-S8-kcQ" customClass="SharedGameView" customModule="SharedGameView">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="ybw-I2-fML">
+                                <rect key="frame" x="92" y="497" width="230" height="31"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Save with Audio" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3lS-UW-l5O">
+                                        <rect key="frame" x="0.0" y="0.0" width="165" height="31"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="alt-km-4Q2">
+                                        <rect key="frame" x="181" y="0.0" width="51" height="31"/>
+                                    </switch>
+                                </subviews>
+                            </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RgW-dY-TmA">
+                                <rect key="frame" x="113.5" y="560" width="187" height="46"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="28"/>
+                                <state key="normal" title="Start Recording"/>
                                 <connections>
-                                    <action selector="onTapButton:" destination="BV1-FR-VrT" eventType="touchUpInside" id="WVO-dL-Tgn"/>
+                                    <action selector="buttonAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="7gi-ox-FQO"/>
                                 </connections>
                             </button>
                         </subviews>
-                        <viewLayoutGuide key="safeArea" id="rZh-zQ-HcR"/>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="muo-Zi-zvk" firstAttribute="centerX" secondItem="3se-qz-xqx" secondAttribute="centerX" id="MSK-Le-FNa"/>
-                            <constraint firstItem="muo-Zi-zvk" firstAttribute="centerY" secondItem="3se-qz-xqx" secondAttribute="centerY" id="zwU-B4-zde"/>
+                            <constraint firstItem="ybw-I2-fML" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="B3e-9y-Jya"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="RgW-dY-TmA" secondAttribute="bottom" constant="256" id="BHN-Zf-v20"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Hwr-S8-kcQ" secondAttribute="bottom" id="GPo-jp-te1"/>
+                            <constraint firstItem="Hwr-S8-kcQ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="UpA-Wn-BuZ"/>
+                            <constraint firstItem="Hwr-S8-kcQ" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="e6S-g6-hNO"/>
+                            <constraint firstItem="RgW-dY-TmA" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="gQu-EC-fHY"/>
+                            <constraint firstItem="RgW-dY-TmA" firstAttribute="top" secondItem="ybw-I2-fML" secondAttribute="bottom" constant="32" id="nSa-6J-4C2"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Hwr-S8-kcQ" secondAttribute="trailing" id="wiG-xU-h5K"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="button" destination="RgW-dY-TmA" id="J3L-0r-uDm"/>
+                        <outlet property="saveWithAudioSwitch" destination="alt-km-4Q2" id="pt7-JB-vRh"/>
+                        <outlet property="sharedGameView" destination="Hwr-S8-kcQ" id="bSA-j8-M7J"/>
+                    </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="87" y="81"/>
+            <point key="canvasLocation" x="-20" y="9"/>
         </scene>
     </scenes>
     <resources>

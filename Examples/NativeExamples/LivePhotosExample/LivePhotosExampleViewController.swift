@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  LivePhotosExampleViewController.swift
 //  LivePhotosExample
 //
 //  Created by fuziki on 2021/08/15.
@@ -10,7 +10,7 @@ import SharedGameView
 import UnityVideoCreator
 import UIKit
 
-class ViewController: UIViewController {
+class LivePhotosExampleViewController: UIViewController {
     
     @IBOutlet weak var indicatorLabel: UILabel!
     @IBOutlet weak var sharedGameView: SharedGameView!
