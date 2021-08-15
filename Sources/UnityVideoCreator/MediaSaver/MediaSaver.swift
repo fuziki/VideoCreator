@@ -24,7 +24,15 @@ public func UnityMediaSaver_saveVideo(_ url: UnsafePointer<CChar>?) {
 public func UnityMediaSaver_saveImage(_ texturePtr: UnsafeRawPointer?,
                                       _ type: UnsafePointer<CChar>?) {
     let brideged: MTLTexture = __bridge(texturePtr!)
-    let srgb = brideged.makeTextureView(pixelFormat: .rgba8Unorm_srgb)!
+    let srgb: MTLTexture
+    switch brideged.pixelFormat {
+    case .rgba8Unorm:
+        srgb = brideged.makeTextureView(pixelFormat: .rgba8Unorm_srgb)!
+    case .bgra8Unorm:
+        srgb = brideged.makeTextureView(pixelFormat: .bgra8Unorm_srgb)!
+    default:
+        srgb = brideged
+    }
     let ci = CIImage(mtlTexture: srgb, options: [:])!
     let context = CIContext()
     let data: Data
@@ -48,7 +56,15 @@ public func UnityMediaSaver_saveLivePhotos(_ texturePtr: UnsafeRawPointer?,
                                            _ contentIdentifier: UnsafePointer<CChar>?,
                                            _ url: UnsafePointer<CChar>?) {
     let brideged: MTLTexture = __bridge(texturePtr!)
-    let srgb = brideged.makeTextureView(pixelFormat: .rgba8Unorm_srgb)!
+    let srgb: MTLTexture
+    switch brideged.pixelFormat {
+    case .rgba8Unorm:
+        srgb = brideged.makeTextureView(pixelFormat: .rgba8Unorm_srgb)!
+    case .bgra8Unorm:
+        srgb = brideged.makeTextureView(pixelFormat: .bgra8Unorm_srgb)!
+    default:
+        srgb = brideged
+    }
     let ci = CIImage(mtlTexture: srgb, options: [:])!
     let context = CIContext()
     let contentIdentifier = String(cString: contentIdentifier!)
