@@ -1,3 +1,4 @@
+using AOT;
 using UnityEngine;
 using System;
 using System.Runtime.InteropServices;
@@ -15,6 +16,15 @@ namespace VideoCreator
 
         [DllImport("__Internal")]
         private static extern void UnityMediaCreator_initAsWav(string url, long channel, float samplingRate, long bitDepth);
+
+        [DllImport("__Internal")]
+        private static extern void UnityMediaCreator_initAsHlsWithNoAudio(string url, string codec, long width, long height, long segmentDurationMicroSec);
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        private delegate void UnityMediaCreator_setOnSegmentData_delegate(IntPtr data, long len);
+
+        [DllImport("__Internal")]
+        private static extern void UnityMediaCreator_setOnSegmentData(UnityMediaCreator_setOnSegmentData_delegate handler);
 
         [DllImport("__Internal")]
         private static extern void UnityMediaCreator_start(long microSec);
@@ -78,6 +88,13 @@ namespace VideoCreator
 #endif
         }
 
+        public static void InitAsHlsWithNoAudio(string url, string codec, long width, long height, long segmentDurationMicroSec)
+        {
+#if UNITY_IOS
+            UnityMediaCreator_initAsHlsWithNoAudio(url, codec, width, height, segmentDurationMicroSec);
+#endif
+        }
+
         /// <summary>
         /// Start recoding
         /// </summary>
@@ -86,6 +103,27 @@ namespace VideoCreator
         {
 #if UNITY_IOS
             UnityMediaCreator_start(microSec);
+#endif
+        }
+
+        private static Action<byte[]> onSegmentDataAction;
+
+        [MonoPInvokeCallback(typeof(UnityMediaCreator_setOnSegmentData_delegate))]
+        private static void OnSegmentDataCallback(IntPtr data, long len)
+        {
+            byte[] result = new byte[len];
+            Marshal.Copy(data, result, 0, (int)len);
+            onSegmentDataAction(result);
+        }
+
+        /// <summary>
+        /// Set Flagmented MP4 Handler for HLS
+        /// </summary>
+        public static void SetOnSegmentDataAction(Action<byte[]> action)
+        {
+            onSegmentDataAction = action;
+#if UNITY_IOS
+            UnityMediaCreator_setOnSegmentData(OnSegmentDataCallback);
 #endif
         }
 
