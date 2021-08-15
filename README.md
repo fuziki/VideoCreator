@@ -43,6 +43,24 @@
   * [x] wav
 </details>
 
+<details>
+<summary>HLS</summary>
+
+* Codec
+  * [x] h264
+  * [x] hevcWithAlpha
+* Source
+  * [x] Unity Texture (e.g. RenderTexture, Texture2D, etc)
+* Audio
+  * Codec
+    * [x] aac
+  * Source
+    * [x] float array
+* Manifesto
+  * [x] HLS
+  * [ ] Low-Latency HLS
+</details>
+
 # Usage
 ## Setup
 ### Setup MediaCreator for mov file (no audio)
@@ -161,14 +179,20 @@ MediaSaver.SaveImage(texture, "png");
 * Record the video from the recording camera and the audio from the microphone as a .mov file and save it to the Photos app.
 
 ## NativeExamples
-### CrossMetal iOS
-* Export Metal Texture to movie file.
+### MovExample
+* Export Metal Texture & PCM data to movie file.
+
+### HlsExample
+* Stream Metal Texture as HLS.
+
+### LivePhotosExample
+* Save Metal Texture & PCM data as Live Photos.
+
+### SharedGameView.framework
+* View to screen capture SCNView.
 
 ### WavExample
 * Export PCM data to wav file.
-
-### MovExample
-* Export Metal Texture & PCM data to movie file.
 
 # Inside Plugin
 * [Record Video on Unity iOS App](https://medium.com/@f_yuki/unity-record-video-on-ios-4f4c7defa924)
