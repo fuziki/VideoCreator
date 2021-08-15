@@ -44,6 +44,7 @@
 		52F09E0926C93D8D00B8B323 /* SharedGameView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52F09DBD26C8FCDB00B8B323 /* SharedGameView.framework */; };
 		52F09E0A26C93D8D00B8B323 /* SharedGameView.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 52F09DBD26C8FCDB00B8B323 /* SharedGameView.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		52F09E0F26C93D9000B8B323 /* UnityVideoCreator in Frameworks */ = {isa = PBXBuildFile; productRef = 52F09E0E26C93D9000B8B323 /* UnityVideoCreator */; };
+		52F09E1126C9498000B8B323 /* AudioEngineService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F09E1026C9498000B8B323 /* AudioEngineService.swift */; };
 		52F0A8B5267E11BD009AF389 /* WavExampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F0A8B4267E11BD009AF389 /* WavExampleApp.swift */; };
 		52F0A8B7267E11BD009AF389 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F0A8B6267E11BD009AF389 /* ContentView.swift */; };
 		52F0A8B9267E11C0009AF389 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 52F0A8B8267E11C0009AF389 /* Assets.xcassets */; };
@@ -133,6 +134,7 @@
 		52F09E0026C93B9B00B8B323 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		52F09E0326C93B9B00B8B323 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		52F09E0526C93B9B00B8B323 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		52F09E1026C9498000B8B323 /* AudioEngineService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioEngineService.swift; sourceTree = "<group>"; };
 		52F0A8B2267E11BD009AF389 /* WavExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WavExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		52F0A8B4267E11BD009AF389 /* WavExampleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WavExampleApp.swift; sourceTree = "<group>"; };
 		52F0A8B6267E11BD009AF389 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -377,6 +379,7 @@
 			children = (
 				52F09DF726C93B9A00B8B323 /* AppDelegate.swift */,
 				52F09DF926C93B9A00B8B323 /* SceneDelegate.swift */,
+				52F09E1026C9498000B8B323 /* AudioEngineService.swift */,
 				52F09DFB26C93B9A00B8B323 /* MovExampleViewController.swift */,
 				52F09DFD26C93B9A00B8B323 /* Main.storyboard */,
 				52F09E0026C93B9B00B8B323 /* Assets.xcassets */,
@@ -667,6 +670,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				52F09E1126C9498000B8B323 /* AudioEngineService.swift in Sources */,
 				52F09DFC26C93B9A00B8B323 /* MovExampleViewController.swift in Sources */,
 				52F09DF826C93B9A00B8B323 /* AppDelegate.swift in Sources */,
 				52F09DFA26C93B9A00B8B323 /* SceneDelegate.swift in Sources */,
