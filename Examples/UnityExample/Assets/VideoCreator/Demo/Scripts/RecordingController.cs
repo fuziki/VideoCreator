@@ -9,6 +9,8 @@ public class RecordingController : MonoBehaviour
 
     public Text text;
 
+    public HlsServer hlsServer;
+
     private bool isRecording = false;
     private bool recordTexture = false;
     private bool recordAudio = false;
@@ -159,6 +161,34 @@ public class RecordingController : MonoBehaviour
         source.Play();
     }
 
+    public void StartHls()
+    {
+        if (isRecording) return;
+        text.text = "start hls!";
+
+        cachePath = "file://" + Application.temporaryCachePath + "/tmp.mov";
+        Debug.Log($"cachePath: {cachePath}, {texture.width}x{texture.height}");
+
+        MediaCreator.SetOnSegmentDataAction((data) =>
+        {
+            Debug.Log($"on segment: {data.Length}");
+            hlsServer.OnSegmentData(data);
+        });
+
+        MediaCreator.InitAsHlsWithNoAudio(cachePath, "h264", texture.width, texture.height, 1_000_000);
+        MediaCreator.Start(startTimeOffset);
+
+        startTime = Time.time;
+
+        uuid = "";
+        isRecording = true;
+        recordTexture = true;
+        recordAudio = false;
+        saveAfterFinish = false;
+        amountFrame = 0;
+        livePhotosRecording = -1;
+    }
+
     public void FinishRec()
     {
         if (!isRecording) return;
@@ -209,3 +239,4 @@ public class RecordingController : MonoBehaviour
         amountFrame += data.Length;
     }
 }
+
