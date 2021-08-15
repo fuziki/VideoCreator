@@ -8,6 +8,10 @@
 import AVFoundation
 import Combine
 
+struct AppConfig {
+    static let fs: Double = 48_000
+}
+
 class AudioEngineService {
     private let onBuffer = PassthroughSubject<(buffer: AVAudioPCMBuffer, timeSec: Double), Never>()
     public var onBufferPublisher: AnyPublisher<(buffer: AVAudioPCMBuffer, timeSec: Double), Never> {
