@@ -22,7 +22,7 @@
 		52F09D9E26C5799600B8B323 /* HlsServerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F09D9D26C5799600B8B323 /* HlsServerService.swift */; };
 		52F09DA726C8F9D900B8B323 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F09DA626C8F9D900B8B323 /* AppDelegate.swift */; };
 		52F09DA926C8F9D900B8B323 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F09DA826C8F9D900B8B323 /* SceneDelegate.swift */; };
-		52F09DAB26C8F9D900B8B323 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F09DAA26C8F9D900B8B323 /* ViewController.swift */; };
+		52F09DAB26C8F9D900B8B323 /* LivePhotosExampleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F09DAA26C8F9D900B8B323 /* LivePhotosExampleViewController.swift */; };
 		52F09DAE26C8F9D900B8B323 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 52F09DAC26C8F9D900B8B323 /* Main.storyboard */; };
 		52F09DB026C8F9DC00B8B323 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 52F09DAF26C8F9DC00B8B323 /* Assets.xcassets */; };
 		52F09DB326C8F9DC00B8B323 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 52F09DB126C8F9DC00B8B323 /* LaunchScreen.storyboard */; };
@@ -113,7 +113,7 @@
 		52F09DA426C8F9D900B8B323 /* LivePhotosExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LivePhotosExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		52F09DA626C8F9D900B8B323 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		52F09DA826C8F9D900B8B323 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		52F09DAA26C8F9D900B8B323 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		52F09DAA26C8F9D900B8B323 /* LivePhotosExampleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LivePhotosExampleViewController.swift; sourceTree = "<group>"; };
 		52F09DAD26C8F9D900B8B323 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		52F09DAF26C8F9DC00B8B323 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		52F09DB226C8F9DC00B8B323 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -295,7 +295,7 @@
 			children = (
 				52F09DA626C8F9D900B8B323 /* AppDelegate.swift */,
 				52F09DA826C8F9D900B8B323 /* SceneDelegate.swift */,
-				52F09DAA26C8F9D900B8B323 /* ViewController.swift */,
+				52F09DAA26C8F9D900B8B323 /* LivePhotosExampleViewController.swift */,
 				52F09DAC26C8F9D900B8B323 /* Main.storyboard */,
 				52F09DAF26C8F9DC00B8B323 /* Assets.xcassets */,
 				52F09DB126C8F9DC00B8B323 /* LaunchScreen.storyboard */,
@@ -649,7 +649,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				52F09DAB26C8F9D900B8B323 /* ViewController.swift in Sources */,
+				52F09DAB26C8F9D900B8B323 /* LivePhotosExampleViewController.swift in Sources */,
 				52F09DA726C8F9D900B8B323 /* AppDelegate.swift in Sources */,
 				52F09DA926C8F9D900B8B323 /* SceneDelegate.swift in Sources */,
 			);
