@@ -9,3 +9,7 @@ framework:
 		-scheme UnityVideoCreator-Package \
 		-configuration Release \
 		-sdk iphoneos
+
+lint:
+	swift run --package-path ./tools swiftlint autocorrect --format
+	swift run --package-path ./tools swiftlint

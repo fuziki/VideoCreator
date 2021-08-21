@@ -31,13 +31,14 @@ class MovExampleViewController: UIViewController {
         // Do any additional setup after loading the view.
 
         let tmpDir = FileManager.default.temporaryDirectory.appendingPathComponent("tmpDri")
+        // swiftlint:disable force_try
         try! FileManager.default.createDirectory(at: tmpDir, withIntermediateDirectories: true, attributes: nil)
         self.tmpUrl = tmpDir.appendingPathComponent("tmp.mov", isDirectory: false).absoluteString as NSString
 
         sharedGameView.lastNextDrawableTexturePublisher.sink { [weak self] (texture: MTLTexture) in
             self?.write(texture: texture)
         }.store(in: &cancellables)
-        
+
         audioEngine.onBufferPublisher.sink { [weak self] (buffer: AVAudioPCMBuffer, timeSec: Double) in
             self?.write(buffer: buffer, timeSec: timeSec)
         }.store(in: &cancellables)

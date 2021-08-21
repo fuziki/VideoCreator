@@ -31,7 +31,7 @@ extension CAMetalLayer {
     fileprivate static func swizzling() {
         _ = runSwizzling
     }
-        
+
     fileprivate var cachedLastNextDrawableTexture: MTLTexture? {
         get {
             return objc_getAssociatedObject(self, &AssociatedObjectKeyList.lastNextDrawableTextureKey) as? MTLTexture
@@ -40,7 +40,7 @@ extension CAMetalLayer {
             objc_setAssociatedObject(self, &AssociatedObjectKeyList.lastNextDrawableTextureKey, newValue, .OBJC_ASSOCIATION_RETAIN)
         }
     }
-    
+
     // avoid multiple calls
     private static var runSwizzling: Void = {
         let cls = CAMetalLayer.self

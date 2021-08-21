@@ -8,8 +8,8 @@
 import Foundation
 
 func getIpAddress() -> String? {
-    var res : String?
-    var ifaddrsPtr : UnsafeMutablePointer<ifaddrs>?
+    var res: String?
+    var ifaddrsPtr: UnsafeMutablePointer<ifaddrs>?
     getifaddrs(&ifaddrsPtr)
     for targetPtr in sequence(first: ifaddrsPtr!, next: { $0.pointee.ifa_next }) {
         let ifaddrs: ifaddrs = targetPtr.pointee
