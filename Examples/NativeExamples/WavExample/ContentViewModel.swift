@@ -25,6 +25,7 @@ class ContentViewModel: ObservableObject {
     private var cancellables: Set<AnyCancellable> = []
     init() {
         let tmpDir = FileManager.default.temporaryDirectory.appendingPathComponent("tmpDri")
+        // swiftlint:disable force_try
         try! FileManager.default.createDirectory(at: tmpDir, withIntermediateDirectories: true, attributes: nil)
         self.tmpUrl = tmpDir.appendingPathComponent("tmp.wav", isDirectory: false).absoluteString as NSString
         audioEngine.onBufferPublisher.sink { [weak self] (buffer: AVAudioPCMBuffer, timeSec: Double) in

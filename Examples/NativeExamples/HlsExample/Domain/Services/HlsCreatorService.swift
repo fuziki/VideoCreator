@@ -21,6 +21,7 @@ class DefaultHlsCreatorService: HlsCreatorService {
 
     public func setup(width: Int, height: Int, segmentDurationMicroSec: Int) {
         let tmpDir = FileManager.default.temporaryDirectory.appendingPathComponent("tmpDri")
+        // swiftlint:disable force_try
         try! FileManager.default.createDirectory(at: tmpDir, withIntermediateDirectories: true, attributes: nil)
         let tmpUrl = tmpDir.absoluteString as NSString
         UnityMediaCreator_initAsHlsWithNoAudio(tmpUrl.utf8String, "h264", Int64(width), Int64(height), Int64(segmentDurationMicroSec))

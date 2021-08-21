@@ -31,6 +31,7 @@ class MovExampleViewController: UIViewController {
         // Do any additional setup after loading the view.
 
         let tmpDir = FileManager.default.temporaryDirectory.appendingPathComponent("tmpDri")
+        // swiftlint:disable force_try
         try! FileManager.default.createDirectory(at: tmpDir, withIntermediateDirectories: true, attributes: nil)
         self.tmpUrl = tmpDir.appendingPathComponent("tmp.mov", isDirectory: false).absoluteString as NSString
 
