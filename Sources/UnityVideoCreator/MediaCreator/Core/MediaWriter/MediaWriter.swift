@@ -1,6 +1,6 @@
 //
 //  MediaWriter.swift
-//  
+//
 //
 //  Created by fuziki on 2021/06/13.
 //
@@ -18,28 +18,28 @@ enum MediaWriterError: Error {
 class MediaWriter: NSObject {
     public struct InputConfig {
         let mediaType: AVMediaType
-        let outputSettings: [String : Any]?
+        let outputSettings: [String: Any]?
         let expectsMediaDataInRealTime: Bool
     }
-    
-    // MARK:- Outputs
+
+    // MARK: - Outputs
     public var onSegmentData: ((Data) -> Void)?
-    
-    // MARK:- Properties
+
+    // MARK: - Properties
     private let segmentDuration: CMTime?
     private let assetWriter: AVAssetWriter
     private var metadataAdaptor: AVAssetWriterInputMetadataAdaptor?
     private var startTime: CMTime?
     private var latestTime: CMTime?
-    
+
     init(url: URL,
          fileType: AVFileType,
          inputConfigs: [InputConfig],
          contentIdentifier: String,
          segmentDuration: CMTime?) throws {
-        
+
         self.segmentDuration = segmentDuration
-        
+
         let assetWriter: AVAssetWriter
         if #available(iOS 14.0, macOS 11.0, *),
            segmentDuration != nil {
@@ -57,14 +57,14 @@ class MediaWriter: NSObject {
             input.expectsMediaDataInRealTime = config.expectsMediaDataInRealTime
             assetWriter.add(input)
         }
-        
+
         // setup as live photos
         if contentIdentifier.count > 0 {
             assetWriter.metadata = [makeContentIdentifierMetadataItem(identifier: contentIdentifier)]
             self.metadataAdaptor = makeStillImageTimeMetadataAdaptor()
             assetWriter.add(metadataAdaptor!.assetWriterInput)
         }
-        
+
         // setup as hls
         if #available(iOS 14.0, macOS 11.0, *),
            let segmentDuration = segmentDuration {
@@ -74,8 +74,8 @@ class MediaWriter: NSObject {
             assetWriter.delegate = self
         }
     }
-    
-    // MARK:- Inputs
+
+    // MARK: - Inputs
     public func start(time: CMTime) throws {
         if #available(iOS 14.0, macOS 11.0, *), segmentDuration != nil {
             assetWriter.initialSegmentStartTime = time
@@ -85,11 +85,11 @@ class MediaWriter: NSObject {
             throw assetWriter.error ?? MediaWriterError.unknown
         }
         assetWriter.startSession(atSourceTime: time)
-        
+
         self.startTime = time
     }
-    
-    public func finish(completionHandler: @escaping () -> Void){
+
+    public func finish(completionHandler: @escaping () -> Void) {
         if let metadataAdaptor = self.metadataAdaptor,
            let startTime = self.startTime,
            let latestTime = self.latestTime {
@@ -99,7 +99,7 @@ class MediaWriter: NSObject {
         }
         assetWriter.finishWriting(completionHandler: completionHandler)
     }
-    
+
     public func write(mediaType: AVMediaType, sample: CMSampleBuffer) throws {
         guard CMSampleBufferDataIsReady(sample) else {
             throw MediaWriterError.dataIsNotReady
@@ -118,7 +118,7 @@ class MediaWriter: NSObject {
         self.latestTime = CMSampleBufferGetPresentationTimeStamp(sample)
     }
 
-    // MARK:- privates
+    // MARK: - privates
     private func makeContentIdentifierMetadataItem(identifier: String) -> AVMetadataItem {
         let item = AVMutableMetadataItem()
         item.key = AVMetadataKey.quickTimeMetadataKeyContentIdentifier as NSString
@@ -138,11 +138,11 @@ class MediaWriter: NSObject {
     }
 
     private func makeStillImageTimeMetadataAdaptor() -> AVAssetWriterInputMetadataAdaptor {
-        let spec : NSDictionary = [
+        let spec: NSDictionary = [
             kCMMetadataFormatDescriptionMetadataSpecificationKey_Identifier: "mdta/com.apple.quicktime.still-image-time",
             kCMMetadataFormatDescriptionMetadataSpecificationKey_DataType: kCMMetadataBaseDataType_SInt8
         ]
-        var desc : CMFormatDescription? = nil
+        var desc: CMFormatDescription?
         CMMetadataFormatDescriptionCreateWithMetadataSpecifications(allocator: kCFAllocatorDefault,
                                                                     metadataType: kCMMetadataFormatType_Boxed,
                                                                     metadataSpecifications: [spec] as CFArray,
@@ -162,11 +162,11 @@ extension MediaWriter: AVAssetWriterDelegate {
                      segmentType: AVAssetSegmentType,
                      segmentReport: AVAssetSegmentReport?) {
         // for debug
-//        print("segmentData: \(segmentData.count), segmentType: \(segmentType.rawValue)")
-//        let segmentReportStr = segmentReport.flatMap { (report: AVAssetSegmentReport) in
-//            return "segmentType: \(report.segmentType.rawValue), \ntrackReports: \(report.trackReports.map { $0.debugMessage })"
-//        }
-//        print("segmentReport: \(segmentReportStr ?? "nil")")
+        //        print("segmentData: \(segmentData.count), segmentType: \(segmentType.rawValue)")
+        //        let segmentReportStr = segmentReport.flatMap { (report: AVAssetSegmentReport) in
+        //            return "segmentType: \(report.segmentType.rawValue), \ntrackReports: \(report.trackReports.map { $0.debugMessage })"
+        //        }
+        //        print("segmentReport: \(segmentReportStr ?? "nil")")
         self.onSegmentData?(segmentData)
     }
 }

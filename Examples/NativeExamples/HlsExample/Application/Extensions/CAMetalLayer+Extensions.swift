@@ -9,5 +9,5 @@ import Metal
 import MetalKit
 
 extension CAMetalLayer: LastNextDrawableTextureGettable {
-    
+
 }

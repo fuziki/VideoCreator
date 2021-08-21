@@ -7,13 +7,13 @@ let package = Package(
     name: "UnityVideoCreator",
     platforms: [
         .iOS(.v13),
-        .macOS(.v10_15),
+        .macOS(.v10_15)
     ],
     products: [
         // Products define the executables and libraries a package produces, and make them visible to other packages.
         .library(
             name: "UnityVideoCreator",
-            targets: ["UnityVideoCreator"]),
+            targets: ["UnityVideoCreator"])
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
@@ -27,6 +27,6 @@ let package = Package(
             dependencies: []),
         .testTarget(
             name: "UnityVideoCreatorTests",
-            dependencies: ["UnityVideoCreator"]),
+            dependencies: ["UnityVideoCreator"])
     ]
 )
