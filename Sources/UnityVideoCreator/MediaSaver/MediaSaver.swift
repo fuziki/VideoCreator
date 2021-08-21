@@ -1,6 +1,6 @@
 //
 //  File.swift
-//  
+//
 //
 //  Created by fuziki on 2021/06/19.
 //
@@ -68,10 +68,10 @@ public func UnityMediaSaver_saveLivePhotos(_ texturePtr: UnsafeRawPointer?,
     let ci = CIImage(mtlTexture: srgb, options: [:])!
     let context = CIContext()
     let contentIdentifier = String(cString: contentIdentifier!)
-    let properties: [CFString : Any] = [kCGImagePropertyMakerAppleDictionary: ["17": contentIdentifier]]
+    let properties: [CFString: Any] = [kCGImagePropertyMakerAppleDictionary: ["17": contentIdentifier]]
     let propertiedCi = ci.settingProperties(properties)
     let jpegData = context.jpegRepresentation(of: propertiedCi, colorSpace: CGColorSpace(name: CGColorSpace.sRGB)!, options: [:])!
-    
+
     let urlStr = String(cString: url!)
     let url = URL(string: urlStr)!
     do {

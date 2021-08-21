@@ -1,6 +1,6 @@
 //
 //  UnityMediaCreator.swift
-//  
+//
 //
 //  Created by fuziki on 2021/06/13.
 //
@@ -22,17 +22,17 @@ class DefualtMediaCreatorProvider: MediaCreatorProvider {
 
 class UnityMediaCreator {
     public static var shared: UnityMediaCreator = UnityMediaCreator(provider: DefualtMediaCreatorProvider())
-    
+
     public var onSegmentData: ((Data) -> Void)?
-    
+
     private let provider: MediaCreatorProvider
     init(provider: MediaCreatorProvider) {
         self.provider = provider
     }
-    
-    private var samplingRate: Float? = nil
-    private var channel: Int? = nil
-    private var creator: MediaCreator? = nil
+
+    private var samplingRate: Float?
+    private var channel: Int?
+    private var creator: MediaCreator?
 
     public func initAsMovWithAudio(url: String,
                                    codec: String, width: Int, height: Int,
@@ -54,7 +54,7 @@ class UnityMediaCreator {
         self.channel = channel
         self.creator = try! provider.make(config: config)
     }
-    
+
     public func initAsMovWithNoAudio(url: String, codec: String, width: Int, height: Int, contentIdentifier: String) {
         finishSync()
         let url = URL(string: url)!
@@ -66,7 +66,7 @@ class UnityMediaCreator {
         let config = MovMediaWriterConfig(url: url, video: video, audio: nil, contentIdentifier: contentIdentifier)
         self.creator = try! provider.make(config: config)
     }
-    
+
     public func initAsHlsWithNoAudio(url: String, codec: String, width: Int, height: Int, segmentDurationMicroSec: Int) {
         finishSync()
         let url = URL(string: url)!
@@ -84,7 +84,7 @@ class UnityMediaCreator {
             self?.onSegmentData?(data)
         }
     }
-    
+
     public func initAsWav(url: String, channel: Int, samplingRate: Float, bitDepth: Int) {
         finishSync()
         let url = URL(string: url)!
@@ -98,7 +98,7 @@ class UnityMediaCreator {
         self.channel = channel
         self.creator = try! provider.make(config: config)
     }
-    
+
     private func clean(url: URL) {
         let fileManager = FileManager.default
         if fileManager.fileExists(atPath: url.path) {
@@ -109,11 +109,11 @@ class UnityMediaCreator {
             }
         }
     }
-    
+
     public func start(microSec: Int) {
         try! self.creator?.start(microSec: microSec)
     }
-    
+
     public func finishSync() {
         self.samplingRate = nil
         self.channel = nil
@@ -125,15 +125,15 @@ class UnityMediaCreator {
         }
         semaphore.wait()
     }
-    
+
     public var isRecording: Bool {
         return creator?.isRecording ?? false
     }
-    
+
     public func write(texture: MTLTexture, microSec: Int) {
         try! creator?.write(texture: texture, microSec: microSec)
     }
-    
+
     public func write(pcm: UnsafePointer<Float>, frame: Int, microSec: Int) {
         guard let samplingRate = self.samplingRate,
               let channel = self.channel else {

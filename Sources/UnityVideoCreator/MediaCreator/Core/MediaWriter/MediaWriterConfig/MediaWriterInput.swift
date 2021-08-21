@@ -1,6 +1,6 @@
 //
 //  File.swift
-//  
+//
 //
 //  Created by fuziki on 2021/06/13.
 //
@@ -31,10 +31,10 @@ struct AnyVideoWriterInput: VideoWriterInput {
     public let expectsMediaDataInRealTime: Bool
     var config: MediaWriter.InputConfig {
         let settings = [
-            AVVideoCodecKey : codec,
-            AVVideoWidthKey : width,
-            AVVideoHeightKey : height,
-        ] as [String : Any]
+            AVVideoCodecKey: codec,
+            AVVideoWidthKey: width,
+            AVVideoHeightKey: height
+        ] as [String: Any]
         return .init(mediaType: mediaType,
                      outputSettings: settings,
                      expectsMediaDataInRealTime: expectsMediaDataInRealTime)
@@ -48,11 +48,11 @@ struct AacAudioWriterInput: AudioWriterInput {
     public let expectsMediaDataInRealTime: Bool
     var config: MediaWriter.InputConfig {
         let settings = [
-            AVFormatIDKey : kAudioFormatMPEG4AAC,
-            AVNumberOfChannelsKey : channel,
-            AVSampleRateKey : samplingRate,
-            AVEncoderBitRateKey : bitRate,
-        ] as [String : Any]
+            AVFormatIDKey: kAudioFormatMPEG4AAC,
+            AVNumberOfChannelsKey: channel,
+            AVSampleRateKey: samplingRate,
+            AVEncoderBitRateKey: bitRate
+        ] as [String: Any]
         return .init(mediaType: mediaType,
                      outputSettings: settings,
                      expectsMediaDataInRealTime: expectsMediaDataInRealTime)
@@ -66,14 +66,14 @@ struct WavLinerAudioWriterInput: AudioWriterInput {
     public let expectsMediaDataInRealTime: Bool
     var config: MediaWriter.InputConfig {
         let settings = [
-            AVFormatIDKey : kAudioFormatLinearPCM,
-            AVNumberOfChannelsKey : channel,
-            AVSampleRateKey : samplingRate,
+            AVFormatIDKey: kAudioFormatLinearPCM,
+            AVNumberOfChannelsKey: channel,
+            AVSampleRateKey: samplingRate,
             AVLinearPCMBitDepthKey: bitDepth,
             AVLinearPCMIsBigEndianKey: false,
             AVLinearPCMIsFloatKey: false,
-            AVLinearPCMIsNonInterleaved: false,
-        ] as [String : Any]
+            AVLinearPCMIsNonInterleaved: false
+        ] as [String: Any]
         return .init(mediaType: mediaType,
                      outputSettings: settings,
                      expectsMediaDataInRealTime: expectsMediaDataInRealTime)

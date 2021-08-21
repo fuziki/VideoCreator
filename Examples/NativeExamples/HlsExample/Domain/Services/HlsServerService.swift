@@ -15,14 +15,14 @@ protocol HlsServerService: AnyObject {
 
 class DefaultHlsServerService: HlsServerService {
     private let server = HttpServer()
-    
+
     private var sequences: [(sequence: Int, data: Data)] = []
-    private var initData: Data? = nil
+    private var initData: Data?
 
     private var sequence: Int = -1
-    
+
     public var segmentDurationMicroSec: Int = 1_000_000
-    
+
     init() {
         server["/hello"] = { (request: HttpRequest) -> HttpResponse in
             print("request: \(request.path)")
@@ -66,6 +66,7 @@ class DefaultHlsServerService: HlsServerService {
             print("request path: \(request.path)")
             return .ok(body)
         }
+        // swiftlint:disable force_try
         try! server.start(8080, forceIPv4: true, priority: .default)
     }
 
@@ -86,18 +87,18 @@ files/sequence\(sequence).m4s
 """
         return template
     }
-    
+
     public func onSegmentData(data: Data) {
 
         sequence += 1
-        
+
         if sequence == 0 {
             initData = data
             return
         }
 
         sequences.append((sequence: sequence, data: data))
-        
+
         if sequences.count > 5 {
             sequences.removeFirst()
         }
