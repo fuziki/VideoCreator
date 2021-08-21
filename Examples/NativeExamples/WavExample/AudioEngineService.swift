@@ -45,6 +45,7 @@ class AudioEngineService {
         }
 
         engine.prepare()
+        // swiftlint:disable force_try
         try! engine.start()
     }
 
@@ -59,9 +60,11 @@ class AudioEngineService {
         engine.connect(player, to: engine.mainMixerNode, format: nil)
 
         engine.prepare()
+        // swiftlint:disable force_try
         try! engine.start()
         player.play()
 
+        // swiftlint:disable force_try
         let file = try! AVAudioFile(forReading: url, commonFormat: .pcmFormatFloat32, interleaved: false)
         player.scheduleFile(file, at: nil, completionHandler: nil)
     }

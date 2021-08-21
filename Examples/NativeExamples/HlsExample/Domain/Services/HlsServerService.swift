@@ -66,6 +66,7 @@ class DefaultHlsServerService: HlsServerService {
             print("request path: \(request.path)")
             return .ok(body)
         }
+        // swiftlint:disable force_try
         try! server.start(8080, forceIPv4: true, priority: .default)
     }
 

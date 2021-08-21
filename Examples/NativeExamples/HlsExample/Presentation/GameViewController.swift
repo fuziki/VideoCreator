@@ -52,6 +52,7 @@ class GameViewController: UIViewController {
         ship.runAction(SCNAction.repeatForever(SCNAction.rotateBy(x: 0, y: 2, z: 0, duration: 1)))
 
         // retrieve the SCNView
+        // swiftlint:disable force_cast
         let scnView = self.view as! SCNView
 
         // set the scene to the view
@@ -72,6 +73,7 @@ class GameViewController: UIViewController {
 
         scnView.delegate = self
 
+        // swiftlint:disable force_cast
         let layer = scnView.layer as! CAMetalLayer
         layer.framebufferOnly = false
     }
@@ -85,6 +87,7 @@ class GameViewController: UIViewController {
     @objc
     func handleTap(_ gestureRecognize: UIGestureRecognizer) {
         // retrieve the SCNView
+        // swiftlint:disable force_cast
         let scnView = self.view as! SCNView
 
         // check what nodes are tapped

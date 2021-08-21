@@ -15,10 +15,12 @@ public class SharedGameView: UIView {
     private let lastNextDrawableTextureSubject = PassthroughSubject<MTLTexture, Never>()
     public let lastNextDrawableTexturePublisher: AnyPublisher<MTLTexture, Never>
     public var lastNextDrawableTexture: MTLTexture? {
+        // swiftlint:disable force_cast
         return (scnView.layer as! CAMetalLayer).lastNextDrawableTexture
     }
 
     public var drawableSize: CGSize {
+        // swiftlint:disable force_cast
         return (scnView.layer as! CAMetalLayer).drawableSize
     }
 
@@ -49,6 +51,7 @@ public class SharedGameView: UIView {
 
         scnView.delegate = self
 
+        // swiftlint:disable force_cast
         let layer = scnView.layer as! CAMetalLayer
         layer.framebufferOnly = false
     }
@@ -56,6 +59,7 @@ public class SharedGameView: UIView {
     private func makeScene() -> SCNScene {
         // create a new scene
         let url = Bundle(for: SharedGameView.self).resourceURL!.appendingPathComponent("art.scnassets/ship.scn")
+        // swiftlint:disable force_try
         let scene = try! SCNScene(url: url, options: nil)
 
         // create and add a camera to the scene
@@ -115,6 +119,7 @@ public class SharedGameView: UIView {
 
     @objc private func handleTap(_ gestureRecognize: UIGestureRecognizer) {
         // retrieve the SCNView
+        // swiftlint:disable force_cast
         let scnView = self.subviews.first! as! SCNView
 
         // check what nodes are tapped
