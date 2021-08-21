@@ -37,7 +37,7 @@ class MovExampleViewController: UIViewController {
         sharedGameView.lastNextDrawableTexturePublisher.sink { [weak self] (texture: MTLTexture) in
             self?.write(texture: texture)
         }.store(in: &cancellables)
-        
+
         audioEngine.onBufferPublisher.sink { [weak self] (buffer: AVAudioPCMBuffer, timeSec: Double) in
             self?.write(buffer: buffer, timeSec: timeSec)
         }.store(in: &cancellables)

@@ -15,10 +15,10 @@ protocol GameViewModelType {
 
 class GameViewModel: GameViewModelType {
     private let segmentDurationMicroSec: Int = 1_000_000
-    
+
     private let serverService: HlsServerService
     private let hlsCreatorService: HlsCreatorService
-    
+
     private var shouldSend: Bool = true
 
     init(serverService: HlsServerService = DefaultHlsServerService(),
@@ -31,11 +31,11 @@ class GameViewModel: GameViewModelType {
             self?.serverService.onSegmentData(data: data)
         }
     }
-    
+
     public func setup(width: Int, height: Int) {
         hlsCreatorService.setup(width: width, height: height, segmentDurationMicroSec: segmentDurationMicroSec)
     }
-    
+
     public func onRender(texture: MTLTexture) {
         self.shouldSend.toggle()
         if !self.shouldSend { return }
