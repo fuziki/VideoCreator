@@ -429,6 +429,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 52F09D3126C4BDA200B8B323 /* Build configuration list for PBXNativeTarget "HlsExample" */;
 			buildPhases = (
+				5292BE3026D1375000AE895E /* ShellScript */,
 				52F09D1D26C4BDA000B8B323 /* Sources */,
 				52F09D1E26C4BDA000B8B323 /* Frameworks */,
 				52F09D1F26C4BDA000B8B323 /* Resources */,
@@ -450,6 +451,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 52F09DB726C8F9DC00B8B323 /* Build configuration list for PBXNativeTarget "LivePhotosExample" */;
 			buildPhases = (
+				5292BE3126D1375E00AE895E /* ShellScript */,
 				52F09DA026C8F9D900B8B323 /* Sources */,
 				52F09DA126C8F9D900B8B323 /* Frameworks */,
 				52F09DA226C8F9D900B8B323 /* Resources */,
@@ -490,6 +492,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 52F09E0826C93B9B00B8B323 /* Build configuration list for PBXNativeTarget "MovExample" */;
 			buildPhases = (
+				5292BE3226D1376600AE895E /* ShellScript */,
 				52F09DF126C93B9A00B8B323 /* Sources */,
 				52F09DF226C93B9A00B8B323 /* Frameworks */,
 				52F09DF326C93B9A00B8B323 /* Resources */,
@@ -628,6 +631,60 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		5292BE3026D1375000AE895E /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nmake lint\n";
+		};
+		5292BE3126D1375E00AE895E /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nmake lint\n";
+		};
+		5292BE3226D1376600AE895E /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nmake lint\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		52F09D1D26C4BDA000B8B323 /* Sources */ = {
