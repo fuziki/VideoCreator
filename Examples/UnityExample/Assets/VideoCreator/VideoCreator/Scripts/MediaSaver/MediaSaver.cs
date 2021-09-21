@@ -6,7 +6,7 @@ namespace VideoCreator
 {
     public class MediaSaver
     {
-#if UNITY_IOS
+#if !UNITY_EDITOR && UNITY_IOS
         [DllImport("__Internal")]
         private static extern void UnityMediaSaver_saveVideo(string url);
 
@@ -23,8 +23,10 @@ namespace VideoCreator
         /// <param name="url">Video file url</param>
         public static void SaveVideo(string url)
         {
-#if UNITY_IOS
+#if !UNITY_EDITOR && UNITY_IOS
             UnityMediaSaver_saveVideo(url);
+#else
+            Debug.Log("This platform is not supported.");
 #endif
         }
 
@@ -36,8 +38,10 @@ namespace VideoCreator
         /// <param name="url">Video file url</param>
         public static void SaveLivePhotos(Texture texture, string contentIdentifier, string url)
         {
-#if UNITY_IOS
+#if !UNITY_EDITOR && UNITY_IOS
             UnityMediaSaver_saveLivePhotos(texture.GetNativeTexturePtr(), contentIdentifier, url);
+#else
+            Debug.Log("This platform is not supported.");
 #endif
         }
 
@@ -48,8 +52,10 @@ namespace VideoCreator
         /// <param name="type">Image Format. Choose from "jpeg", "jpg", "heif", "png"</param>
         public static void SaveImage(Texture texture, string type)
         {
-#if UNITY_IOS
+#if !UNITY_EDITOR && UNITY_IOS
             UnityMediaSaver_saveImage(texture.GetNativeTexturePtr(), type);
+#else
+            Debug.Log("This platform is not supported.");
 #endif
         }
     }
