@@ -13,6 +13,8 @@
 		526CED04275CA378008AA659 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 526CED02275CA378008AA659 /* Main.storyboard */; };
 		526CED06275CA37A008AA659 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 526CED05275CA37A008AA659 /* Assets.xcassets */; };
 		526CED09275CA37A008AA659 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 526CED07275CA37A008AA659 /* LaunchScreen.storyboard */; };
+		526CED132764757E008AA659 /* SharedGameView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52F09DBD26C8FCDB00B8B323 /* SharedGameView.framework */; };
+		526CED142764757E008AA659 /* SharedGameView.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 52F09DBD26C8FCDB00B8B323 /* SharedGameView.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		52F09D2426C4BDA000B8B323 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F09D2326C4BDA000B8B323 /* AppDelegate.swift */; };
 		52F09D2626C4BDA000B8B323 /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 52F09D2526C4BDA000B8B323 /* art.scnassets */; };
 		52F09D2826C4BDA000B8B323 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F09D2726C4BDA000B8B323 /* GameViewController.swift */; };
@@ -61,6 +63,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		526CED152764757E008AA659 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 52BD83342662162D0017506E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 52F09DBC26C8FCDB00B8B323;
+			remoteInfo = SharedGameView;
+		};
 		52F09DCC26C8FCEA00B8B323 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 52BD83342662162D0017506E /* Project object */;
@@ -78,6 +87,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		526CED172764757E008AA659 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				526CED142764757E008AA659 /* SharedGameView.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		52F09DCE26C8FCEA00B8B323 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -164,6 +184,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				526CED132764757E008AA659 /* SharedGameView.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -469,10 +490,12 @@
 				526CECF6275CA378008AA659 /* Sources */,
 				526CECF7275CA378008AA659 /* Frameworks */,
 				526CECF8275CA378008AA659 /* Resources */,
+				526CED172764757E008AA659 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				526CED162764757E008AA659 /* PBXTargetDependency */,
 			);
 			name = PipExamle;
 			productName = PipExamle;
@@ -826,6 +849,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		526CED162764757E008AA659 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 52F09DBC26C8FCDB00B8B323 /* SharedGameView */;
+			targetProxy = 526CED152764757E008AA659 /* PBXContainerItemProxy */;
+		};
 		52F09DCD26C8FCEA00B8B323 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 52F09DBC26C8FCDB00B8B323 /* SharedGameView */;
