@@ -25,6 +25,8 @@ class PipViewController: UIViewController {
     var counter: Int = 0
     var label: UILabel = UILabel(frame: .init(origin: .zero, size: .init(width: 300, height: 200)))
 
+    @IBOutlet weak var gameView: SharedGameView!
+    
     @IBOutlet weak var sampleBufferDisplayView: SampleBufferDisplayView!
     
     var pipController: AVPictureInPictureController!
@@ -57,6 +59,28 @@ class PipViewController: UIViewController {
             }
             .store(in: &cancellables)
         
+        setupGameView()
+//        setupLabelMode()
+    }
+    
+    func setupGameView() {
+        gameView
+            .lastNextDrawableTexturePublisher
+            .sink { [weak self] (texture: MTLTexture) in
+                guard let self = self else { return }
+                let cm = self.sampleBufferVideoFactory.make(size: .init(width: texture.width, height: texture.height),
+                                                            time: self.currentCmTime) { (context, buff) in
+                    let ci = CIImage(mtlTexture: texture, options: nil)!
+                    let ci2 = ci.transformed(by: .init(scaleX: 1, y: -1))
+                        .transformed(by: .init(translationX: 0, y: CGFloat(texture.height)))
+                    context.render(ci2, to: buff)
+                }!
+                self.sampleBufferDisplayView.sampleBufferDisplayLayer.enqueue(cm)
+            }
+            .store(in: &cancellables)
+    }
+    
+    func setupLabelMode() {
         Timer
             .publish(every: 1, on: .main, in: .common)
             .autoconnect()
