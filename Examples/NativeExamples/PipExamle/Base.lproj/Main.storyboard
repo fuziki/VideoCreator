@@ -17,34 +17,69 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NDA-BK-xRZ" customClass="SampleBufferDisplayView" customModule="PipExamle" customModuleProvider="target">
-                                <rect key="frame" x="16" y="305" width="382" height="286.5"/>
+                                <rect key="frame" x="16" y="349" width="382" height="215"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="NDA-BK-xRZ" secondAttribute="height" multiplier="4:3" id="EF0-Mu-DID"/>
+                                    <constraint firstAttribute="width" secondItem="NDA-BK-xRZ" secondAttribute="height" multiplier="16:9" id="EF0-Mu-DID"/>
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X1J-NL-D8u">
-                                <rect key="frame" x="118" y="623.5" width="178" height="53"/>
+                                <rect key="frame" x="103" y="596" width="208" height="54"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="54" id="FRk-sT-ngm"/>
+                                </constraints>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Start / Stop">
+                                <buttonConfiguration key="configuration" style="plain" title="Start / Stop" cornerStyle="capsule">
+                                    <backgroundConfiguration key="background">
+                                        <color key="backgroundColor" systemColor="systemBlueColor"/>
+                                    </backgroundConfiguration>
                                     <fontDescription key="titleFontDescription" type="system" pointSize="32"/>
+                                    <directionalEdgeInsets key="contentInsets" top="0.0" leading="27" bottom="0.0" trailing="27"/>
                                 </buttonConfiguration>
                                 <connections>
                                     <action selector="onTapButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="M0r-od-HCe"/>
                                 </connections>
                             </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Q1r-pS-tc3" customClass="SharedGameView" customModule="SharedGameView">
+                                <rect key="frame" x="16" y="73" width="382" height="215"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="Q1r-pS-tc3" secondAttribute="height" multiplier="16:9" id="83q-pk-XNq"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SCNView" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ASh-XT-RWe">
+                                <rect key="frame" x="171" y="44" width="72" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SampleBufferDisplayView" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G3D-Le-pWC">
+                                <rect key="frame" x="109" y="320" width="196" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" systemColor="systemGray6Color"/>
                         <constraints>
-                            <constraint firstItem="X1J-NL-D8u" firstAttribute="top" secondItem="NDA-BK-xRZ" secondAttribute="bottom" constant="32" id="QqL-ZE-bS9"/>
+                            <constraint firstItem="G3D-Le-pWC" firstAttribute="top" secondItem="Q1r-pS-tc3" secondAttribute="bottom" constant="32" id="19A-Ab-J0z"/>
+                            <constraint firstItem="Q1r-pS-tc3" firstAttribute="top" secondItem="ASh-XT-RWe" secondAttribute="bottom" constant="8" id="1ym-ej-w7y"/>
+                            <constraint firstItem="ASh-XT-RWe" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="4fH-f0-mhD"/>
+                            <constraint firstItem="X1J-NL-D8u" firstAttribute="top" secondItem="NDA-BK-xRZ" secondAttribute="bottom" constant="32" id="5dI-m0-kBx"/>
+                            <constraint firstItem="Q1r-pS-tc3" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="CJz-db-Pfs"/>
+                            <constraint firstItem="NDA-BK-xRZ" firstAttribute="top" secondItem="G3D-Le-pWC" secondAttribute="bottom" constant="8" id="CTO-sD-l2B"/>
                             <constraint firstItem="NDA-BK-xRZ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="RMu-Yl-q4C"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="NDA-BK-xRZ" secondAttribute="trailing" constant="16" id="Ydt-Jw-tCx"/>
+                            <constraint firstItem="G3D-Le-pWC" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="gD5-83-vAe"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Q1r-pS-tc3" secondAttribute="trailing" constant="16" id="lxN-p0-prP"/>
                             <constraint firstItem="X1J-NL-D8u" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="ova-AI-uVJ"/>
-                            <constraint firstItem="NDA-BK-xRZ" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="qYx-Ju-l2N"/>
+                            <constraint firstItem="ASh-XT-RWe" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="teb-WS-tPg"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="gameView" destination="Q1r-pS-tc3" id="CEh-QD-TaY"/>
                         <outlet property="sampleBufferDisplayView" destination="NDA-BK-xRZ" id="u4f-O3-blx"/>
                     </connections>
                 </viewController>
@@ -56,6 +91,12 @@
     <resources>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemBlueColor">
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemGray6Color">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
