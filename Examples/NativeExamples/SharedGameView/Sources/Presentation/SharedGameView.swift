@@ -8,12 +8,12 @@
 import Combine
 import Foundation
 import SceneKit
-import UIKit
 
-public class SharedGameView: UIView {
+public class SharedGameView: CPView {
 
     private let lastNextDrawableTextureSubject = PassthroughSubject<MTLTexture, Never>()
     public let lastNextDrawableTexturePublisher: AnyPublisher<MTLTexture, Never>
+    public var lastNextDrawableTextureHandler: ((MTLTexture) -> Void)? = nil
     public var lastNextDrawableTexture: MTLTexture? {
         // swiftlint:disable force_cast
         return (scnView.layer as! CAMetalLayer).lastNextDrawableTexture
@@ -81,7 +81,7 @@ public class SharedGameView: UIView {
         let ambientLightNode = SCNNode()
         ambientLightNode.light = SCNLight()
         ambientLightNode.light!.type = .ambient
-        ambientLightNode.light!.color = UIColor.darkGray
+        ambientLightNode.light!.color = CPColor.darkGray
         scene.rootNode.addChildNode(ambientLightNode)
 
         // retrieve the ship node
@@ -110,14 +110,14 @@ public class SharedGameView: UIView {
         scnView.showsStatistics = true
 
         // configure the view
-        scnView.backgroundColor = UIColor.black
+        scnView.backgroundColor = CPColor.black
 
         // add a tap gesture recognizer
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
+        let tapGesture = CPTapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
         scnView.addGestureRecognizer(tapGesture)
     }
 
-    @objc private func handleTap(_ gestureRecognize: UIGestureRecognizer) {
+    @objc private func handleTap(_ gestureRecognize: CPGestureRecognizer) {
         // retrieve the SCNView
         // swiftlint:disable force_cast
         let scnView = self.subviews.first! as! SCNView
@@ -142,12 +142,12 @@ public class SharedGameView: UIView {
                 SCNTransaction.begin()
                 SCNTransaction.animationDuration = 0.5
 
-                material.emission.contents = UIColor.black
+                material.emission.contents = CPColor.black
 
                 SCNTransaction.commit()
             }
 
-            material.emission.contents = UIColor.red
+            material.emission.contents = CPColor.red
 
             SCNTransaction.commit()
         }
@@ -162,6 +162,7 @@ extension SharedGameView: SCNSceneRendererDelegate {
                 return
             }
             self?.lastNextDrawableTextureSubject.send(texture)
+            self?.lastNextDrawableTextureHandler?(texture)
         }
     }
 }
