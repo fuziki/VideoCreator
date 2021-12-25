@@ -27,20 +27,25 @@ class SampleBufferDisplayView: CPView {
         self.wantsLayer = true
         self.layer = sampleBufferDisplayLayer
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 #endif
-    
+
     let factory = SampleBufferVideoFactory(width: 128, height: 128)
     let encoder = Encoder()
     let decoder = Decoder()
-    
+
     private var cancellables: Set<AnyCancellable> = []
     func setup(textureStream: AnyPublisher<MTLTexture, Never>) {
         cancellables = []
-        
+
+        setupCodec(textureStream: textureStream)
+//        setupDirect(textureStream: textureStream)
+    }
+
+    func setupCodec(textureStream: AnyPublisher<MTLTexture, Never>) {
         textureStream
             .sink { [weak self] (texture: MTLTexture) in
                 guard let self = self else { return }
@@ -56,14 +61,14 @@ class SampleBufferDisplayView: CPView {
                                     duration: CMTime(value: 16_000_000, timescale: 1_000_000_000))
             }
             .store(in: &cancellables)
-        
+
         encoder
             .encodedSampleBuffer
             .sink { [weak self] encoded in
                 self?.decoder.decode(data: encoded)
             }
             .store(in: &cancellables)
-        
+
         decoder
             .decoded
             .receive(on: DispatchQueue.main)
@@ -77,26 +82,28 @@ class SampleBufferDisplayView: CPView {
                 self.sampleBufferDisplayLayer.enqueue(sampleBuffer)
             }
             .store(in: &cancellables)
-                
-//        textureStream
-//            .compactMap { [weak self] (texture: MTLTexture) -> CMSampleBuffer? in
-//                guard let self = self else { return nil }
-//                if !self.sampleBufferDisplayLayer.isReadyForMoreMediaData { return nil }
-//                let cm = self.factory.make(size: .init(width: texture.width, height: texture.height),
-//                                           time: self.currentCmTime) { (context, buff) in
-//                    let ci = CIImage(mtlTexture: texture, options: nil)!
-//                    let ci2 = ci.transformed(by: .init(scaleX: 1, y: -1))
-//                        .transformed(by: .init(translationX: 0, y: CGFloat(texture.height)))
-//                    context.render(ci2, to: buff)
-//                }
-//                return cm
-//            }
-//            .sink { [weak self] (sampleBuffer: CMSampleBuffer) in
-//                self?.sampleBufferDisplayLayer.enqueue(sampleBuffer)
-//            }
-//            .store(in: &cancellables)
     }
-    
+
+    func setupDirect(textureStream: AnyPublisher<MTLTexture, Never>) {
+        textureStream
+            .compactMap { [weak self] (texture: MTLTexture) -> CMSampleBuffer? in
+                guard let self = self else { return nil }
+                if !self.sampleBufferDisplayLayer.isReadyForMoreMediaData { return nil }
+                let cm = self.factory.make(size: .init(width: texture.width, height: texture.height),
+                                           time: self.currentCmTime) { (context, buff) in
+                    let ci = CIImage(mtlTexture: texture, options: nil)!
+                    let ci2 = ci.transformed(by: .init(scaleX: 1, y: -1))
+                        .transformed(by: .init(translationX: 0, y: CGFloat(texture.height)))
+                    context.render(ci2, to: buff)
+                }
+                return cm
+            }
+            .sink { [weak self] (sampleBuffer: CMSampleBuffer) in
+                self?.sampleBufferDisplayLayer.enqueue(sampleBuffer)
+            }
+            .store(in: &cancellables)
+    }
+
     var currentCmTime: CMTime {
         var tb = mach_timebase_info()
         mach_timebase_info(&tb)
