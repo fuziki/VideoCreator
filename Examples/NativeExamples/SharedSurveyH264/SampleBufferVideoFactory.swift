@@ -68,4 +68,19 @@ class SampleBufferVideoFactory {
         CVPixelBufferUnlockBaseAddress(buff, CVPixelBufferLockFlags(rawValue: 0))
         return tmp
     }
+    
+    func make(size: CGSize, render: (CIContext, CVPixelBuffer) -> Void) -> CVPixelBuffer? {
+        if let buff = pixelBuffer {
+            CVPixelBufferUnlockBaseAddress(buff, CVPixelBufferLockFlags(rawValue: 0))
+        }
+        if width != Int(size.width) || height != Int(size.height) {
+            makePixelBuffer(width: Int(size.width), height: Int(size.height))
+        }
+        guard let buff = pixelBuffer else {
+            return nil
+        }
+        CVPixelBufferLockBaseAddress(buff, CVPixelBufferLockFlags(rawValue: 0))
+        render(context, buff)
+        return buff
+    }
 }
