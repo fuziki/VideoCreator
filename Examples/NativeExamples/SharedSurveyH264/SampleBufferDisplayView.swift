@@ -34,32 +34,67 @@ class SampleBufferDisplayView: CPView {
 #endif
     
     let factory = SampleBufferVideoFactory(width: 128, height: 128)
+    let encoder = Encoder()
+    let decoder = Decoder()
     
     private var cancellables: Set<AnyCancellable> = []
     func setup(textureStream: AnyPublisher<MTLTexture, Never>) {
         cancellables = []
-                
+        
         textureStream
-            .compactMap { [weak self] (texture: MTLTexture) -> CMSampleBuffer? in
-                guard let self = self else { return nil }
-                if !self.sampleBufferDisplayLayer.isReadyForMoreMediaData { return nil }
-                let cm = self.factory.make(size: .init(width: texture.width, height: texture.height),
-                                           time: self.currentCmTime) { (context, buff) in
-                    let ci = CIImage(mtlTexture: texture, options: nil)!
-                    let ci2 = ci.transformed(by: .init(scaleX: 1, y: -1))
-                        .transformed(by: .init(translationX: 0, y: CGFloat(texture.height)))
-                    context.render(ci2, to: buff)
-                }
-                return cm
-            }
-            .compactMap { [weak self] (cmSampleBuffer: CMSampleBuffer) -> CMSampleBuffer? in
-                guard let self = self else { return nil }
-                return cmSampleBuffer
-            }
-            .sink { [weak self] (buff: CMSampleBuffer) in
-                self?.sampleBufferDisplayLayer.enqueue(buff)
+            .sink { [weak self] (texture: MTLTexture) in
+                guard let self = self else { return }
+                let imageBuffer = self.factory
+                    .make(size: .init(width: texture.width, height: texture.height)) { (context, buff) in
+                        let ci = CIImage(mtlTexture: texture, options: nil)!
+                        let ci2 = ci.transformed(by: .init(scaleX: 1, y: -1))
+                            .transformed(by: .init(translationX: 0, y: CGFloat(texture.height)))
+                        context.render(ci2, to: buff)
+                }!
+                self.encoder.encode(imageBuffer: imageBuffer,
+                                    presentationTimeStamp: self.currentCmTime,
+                                    duration: CMTime(value: 16_000_000, timescale: 1_000_000_000))
             }
             .store(in: &cancellables)
+        
+        encoder
+            .encodedSampleBuffer
+            .sink { [weak self] encoded in
+                self?.decoder.decode(data: encoded)
+            }
+            .store(in: &cancellables)
+        
+        decoder
+            .decoded
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] (sampleBuffer: CMSampleBuffer) in
+                guard let self = self else { return }
+                if let error = self.sampleBufferDisplayLayer.error {
+                    print("sampleBufferDisplayLayer.error: \(error)")
+                    return
+                }
+                print("status: \(self.sampleBufferDisplayLayer.status == .rendering ? ".rendering" : "failed")")
+                self.sampleBufferDisplayLayer.enqueue(sampleBuffer)
+            }
+            .store(in: &cancellables)
+                
+//        textureStream
+//            .compactMap { [weak self] (texture: MTLTexture) -> CMSampleBuffer? in
+//                guard let self = self else { return nil }
+//                if !self.sampleBufferDisplayLayer.isReadyForMoreMediaData { return nil }
+//                let cm = self.factory.make(size: .init(width: texture.width, height: texture.height),
+//                                           time: self.currentCmTime) { (context, buff) in
+//                    let ci = CIImage(mtlTexture: texture, options: nil)!
+//                    let ci2 = ci.transformed(by: .init(scaleX: 1, y: -1))
+//                        .transformed(by: .init(translationX: 0, y: CGFloat(texture.height)))
+//                    context.render(ci2, to: buff)
+//                }
+//                return cm
+//            }
+//            .sink { [weak self] (sampleBuffer: CMSampleBuffer) in
+//                self?.sampleBufferDisplayLayer.enqueue(sampleBuffer)
+//            }
+//            .store(in: &cancellables)
     }
     
     var currentCmTime: CMTime {
