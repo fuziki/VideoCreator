@@ -36,7 +36,7 @@ class Encoder {
                                              refcon: Unmanaged.passUnretained(self).toOpaque(),
                                              compressionSessionOut: &session)
         if res != noErr {
-            print("failed create VTCompressionSession")
+            print("failed create VTCompressionSession: \(res)")
             return
         }
         // set low quality
