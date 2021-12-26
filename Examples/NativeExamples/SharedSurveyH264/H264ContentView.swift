@@ -18,6 +18,11 @@ struct H264ContentView: View {
                     print("rendered: \(texture.width)")
                     textureStream.send(texture)
                 }
+            HStack {
+                Image(systemName: "arrow.down")
+                Text("H264 encode, decode")
+            }
+            .font(.system(size: 24))
             SampleBufferDisplayViewRepresentable(textureStream: textureStream.eraseToAnyPublisher())
         }
         .padding()
