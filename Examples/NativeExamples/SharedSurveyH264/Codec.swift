@@ -193,9 +193,9 @@ class Decoder {
         decodedSubject.send(res)
     }
 
-    func decode(data: CMSampleBuffer) {
+    func decode(sampleBuffer: CMSampleBuffer) {
         if session == nil {
-            let formatDescription = CMSampleBufferGetFormatDescription(data)!
+            let formatDescription = CMSampleBufferGetFormatDescription(sampleBuffer)!
             setup(formatDescription: formatDescription)
         }
         guard let session = session else { return }
@@ -203,7 +203,7 @@ class Decoder {
         let flags: VTDecodeFrameFlags = []
         var infoFlagsOut: VTDecodeInfoFlags = []
         let res = VTDecompressionSessionDecodeFrame(session,
-                                                    sampleBuffer: data,
+                                                    sampleBuffer: sampleBuffer,
                                                     flags: flags,
                                                     frameRefcon: nil,
                                                     infoFlagsOut: &infoFlagsOut)

@@ -65,7 +65,7 @@ class SampleBufferDisplayView: CPView {
         encoder
             .encodedSampleBuffer
             .sink { [weak self] encoded in
-                self?.decoder.decode(data: encoded)
+                self?.decoder.decode(sampleBuffer: encoded)
             }
             .store(in: &cancellables)
 
