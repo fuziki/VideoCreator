@@ -15,7 +15,7 @@ struct EncodedFrameEntity {
     let sps: [UInt8]
     let pps: [UInt8]
     let body: [Int8]
-    let time: CMTime
+    let microSec: Int
 }
 
 class Encoder {
@@ -102,8 +102,8 @@ class Encoder {
         encodedSampleBufferSubject.send(sampleBuffer)
     }
     
-    var isFirst: Bool = true
-    
+    // flag for degug
+    private var isFirst: Bool = true
     private func convert(sampleBuffer: CMSampleBuffer) -> EncodedFrameEntity? {
         if isFirst {
             let formatDescription = CMSampleBufferGetFormatDescription(sampleBuffer)!
@@ -116,7 +116,8 @@ class Encoder {
         let body = getData(sampleBuffer: sampleBuffer)
         let time = CMSampleBufferGetPresentationTimeStamp(sampleBuffer)
         print("sps: \(sps?.count ?? -1), pps: \(pps?.count ?? -1), body: \(body?.count ?? -1)")
-        return EncodedFrameEntity(sps: sps!, pps: pps!, body: body!, time: time)
+        let microSec: Int = Int(time.seconds * 1_000_000)
+        return EncodedFrameEntity(sps: sps!, pps: pps!, body: body!, microSec: microSec)
     }
     
     private func getData(sampleBuffer: CMSampleBuffer) -> [Int8]? {
@@ -303,7 +304,7 @@ class Decoder {
         
         var timingInfo = CMSampleTimingInfo()
         timingInfo.decodeTimeStamp = .invalid
-        timingInfo.presentationTimeStamp = frameEntity.time
+        timingInfo.presentationTimeStamp = CMTime(value: CMTimeValue(frameEntity.microSec), timescale: 1_000_000)
         timingInfo.duration = .invalid// CMTime(value: 16_000, timescale: 1_000_000)
         
         let res = CMSampleBufferCreate(allocator: kCFAllocatorDefault,
