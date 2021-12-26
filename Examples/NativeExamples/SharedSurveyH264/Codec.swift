@@ -12,16 +12,16 @@ import Foundation
 import VideoToolbox
 
 class Encoder {
-    var session: VTCompressionSession?
+    private var session: VTCompressionSession?
 
-    let encodedSampleBuffer: AnyPublisher<CMSampleBuffer, Never>
+    public let encodedSampleBuffer: AnyPublisher<CMSampleBuffer, Never>
     private let encodedSampleBufferSubject = PassthroughSubject<CMSampleBuffer, Never>()
 
-    init() {
+    public init() {
         encodedSampleBuffer = encodedSampleBufferSubject.eraseToAnyPublisher()
     }
 
-    func setup(width: Int32, height: Int32) {
+    private func setup(width: Int32, height: Int32) {
         var session: VTCompressionSession?
         let encoderSpecification: CFDictionary? = nil
         let imageBufferAttributes: CFDictionary? = nil
@@ -44,11 +44,11 @@ class Encoder {
         self.session = session
     }
 
-    let outputCallback: VTCompressionOutputCallback = { (outputCallbackRefCon: UnsafeMutableRawPointer?,
-                                                         sourceFrameRefCon: UnsafeMutableRawPointer?,
-                                                         status: OSStatus,
-                                                         infoFlags: VTEncodeInfoFlags,
-                                                         sampleBuffer: CMSampleBuffer?) in
+    private let outputCallback: VTCompressionOutputCallback = { (outputCallbackRefCon: UnsafeMutableRawPointer?,
+                                                                 sourceFrameRefCon: UnsafeMutableRawPointer?,
+                                                                 status: OSStatus,
+                                                                 infoFlags: VTEncodeInfoFlags,
+                                                                 sampleBuffer: CMSampleBuffer?) in
         guard let outputCallbackRefCon = outputCallbackRefCon else { return }
         let refcon = Unmanaged<Encoder>.fromOpaque(outputCallbackRefCon).takeUnretainedValue()
         refcon.callback(outputCallbackRefCon: outputCallbackRefCon,
@@ -58,11 +58,11 @@ class Encoder {
                         sampleBuffer: sampleBuffer)
     }
 
-    func callback(outputCallbackRefCon: UnsafeMutableRawPointer?,
-                  sourceFrameRefCon: UnsafeMutableRawPointer?,
-                  status: OSStatus,
-                  infoFlags: VTEncodeInfoFlags,
-                  sampleBuffer: CMSampleBuffer?) {
+    private func callback(outputCallbackRefCon: UnsafeMutableRawPointer?,
+                          sourceFrameRefCon: UnsafeMutableRawPointer?,
+                          status: OSStatus,
+                          infoFlags: VTEncodeInfoFlags,
+                          sampleBuffer: CMSampleBuffer?) {
         let infoFlags = infoFlags == .asynchronous ? ".asynchronous" : ".frameDropped"
         let size = (sampleBuffer?.dataBuffer?.dataLength).flatMap { Float($0) / 1_000 } ?? -1
         print("encoded infoFlags: \(infoFlags), size: \(size)KB")
@@ -77,7 +77,7 @@ class Encoder {
         encodedSampleBufferSubject.send(sampleBuffer)
     }
 
-    func encode(imageBuffer: CVImageBuffer, presentationTimeStamp: CMTime, duration: CMTime) {
+    public func encode(imageBuffer: CVImageBuffer, presentationTimeStamp: CMTime, duration: CMTime) {
         if session == nil {
             setup(width: Int32(CVPixelBufferGetWidth(imageBuffer)), height: Int32(CVPixelBufferGetHeight(imageBuffer)))
         }
@@ -102,16 +102,16 @@ class Encoder {
 }
 
 class Decoder {
-    var session: VTDecompressionSession?
+    private var session: VTDecompressionSession?
 
-    let decoded: AnyPublisher<CMSampleBuffer, Never>
+    public let decoded: AnyPublisher<CMSampleBuffer, Never>
     private let decodedSubject = PassthroughSubject<CMSampleBuffer, Never>()
 
-    init() {
+    public init() {
         decoded = decodedSubject.eraseToAnyPublisher()
     }
 
-    func setup(formatDescription: CMFormatDescription) {
+    private func setup(formatDescription: CMFormatDescription) {
         var session: VTDecompressionSession?
         let decoderSpecification: CFDictionary? = nil
         let imageBufferAttributes: CFDictionary? = nil
@@ -130,13 +130,13 @@ class Decoder {
         self.session = session
     }
 
-    var decompressionOutputCallback: VTDecompressionOutputCallback = { (decompressionOutputRefCon: UnsafeMutableRawPointer?,
-                                                                        sourceFrameRefCon: UnsafeMutableRawPointer?,
-                                                                        status: OSStatus,
-                                                                        infoFlags: VTDecodeInfoFlags,
-                                                                        imageBuffer: CVImageBuffer?,
-                                                                        presentationTimeStamp: CMTime,
-                                                                        presentationDuration: CMTime) in
+    private var decompressionOutputCallback: VTDecompressionOutputCallback = { (decompressionOutputRefCon: UnsafeMutableRawPointer?,
+                                                                                sourceFrameRefCon: UnsafeMutableRawPointer?,
+                                                                                status: OSStatus,
+                                                                                infoFlags: VTDecodeInfoFlags,
+                                                                                imageBuffer: CVImageBuffer?,
+                                                                                presentationTimeStamp: CMTime,
+                                                                                presentationDuration: CMTime) in
         guard let decompressionOutputRefCon = decompressionOutputRefCon else { return }
         let refcon = Unmanaged<Decoder>.fromOpaque(decompressionOutputRefCon).takeUnretainedValue()
         refcon.callback(decompressionOutputRefCon: decompressionOutputRefCon,
@@ -148,13 +148,13 @@ class Decoder {
                         presentationDuration: presentationDuration)
     }
 
-    func callback(decompressionOutputRefCon: UnsafeMutableRawPointer?,
-                  sourceFrameRefCon: UnsafeMutableRawPointer?,
-                  status: OSStatus,
-                  infoFlags: VTDecodeInfoFlags,
-                  imageBuffer: CVImageBuffer?,
-                  presentationTimeStamp: CMTime,
-                  presentationDuration: CMTime) {
+    private func callback(decompressionOutputRefCon: UnsafeMutableRawPointer?,
+                          sourceFrameRefCon: UnsafeMutableRawPointer?,
+                          status: OSStatus,
+                          infoFlags: VTDecodeInfoFlags,
+                          imageBuffer: CVImageBuffer?,
+                          presentationTimeStamp: CMTime,
+                          presentationDuration: CMTime) {
         guard let imageBuffer = imageBuffer else {
             print("no decoded imageBuffer")
             return
@@ -193,7 +193,7 @@ class Decoder {
         decodedSubject.send(res)
     }
 
-    func decode(sampleBuffer: CMSampleBuffer) {
+    public func decode(sampleBuffer: CMSampleBuffer) {
         if session == nil {
             let formatDescription = CMSampleBufferGetFormatDescription(sampleBuffer)!
             setup(formatDescription: formatDescription)
