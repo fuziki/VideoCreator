@@ -63,11 +63,18 @@ class SampleBufferDisplayView: CPView {
             .store(in: &cancellables)
 
         encoder
-            .encodedSampleBuffer
-            .sink { [weak self] encoded in
-                self?.decoder.decode(sampleBuffer: encoded)
+            .encodedFrameEntity
+            .sink { [weak self] frameEntity in
+                self?.decoder.decode(frameEntity: frameEntity)
             }
             .store(in: &cancellables)
+        
+//        encoder
+//            .encodedSampleBuffer
+//            .sink { [weak self] encoded in
+//                self?.decoder.decode(sampleBuffer: encoded)
+//            }
+//            .store(in: &cancellables)
 
         decoder
             .decodedSampleBuffer

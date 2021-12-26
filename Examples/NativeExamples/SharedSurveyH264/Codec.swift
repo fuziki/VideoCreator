@@ -11,14 +11,39 @@ import Combine
 import Foundation
 import VideoToolbox
 
+struct EncodedFrameEntity {
+    let sps: [UInt8]
+    let pps: [UInt8]
+    let body: [Int8]
+    let time: CMTime
+}
+
 class Encoder {
     private var session: VTCompressionSession?
 
     public let encodedSampleBuffer: AnyPublisher<CMSampleBuffer, Never>
     private let encodedSampleBufferSubject = PassthroughSubject<CMSampleBuffer, Never>()
 
+    public let encodedFrameEntity: AnyPublisher<EncodedFrameEntity, Never>
+    private let encodedFrameEntitySubject = PassthroughSubject<EncodedFrameEntity, Never>()
+
+    private var cancellables: Set<AnyCancellable> = []
     public init() {
-        encodedSampleBuffer = encodedSampleBufferSubject.eraseToAnyPublisher()
+        encodedSampleBuffer = encodedSampleBufferSubject
+            .share()
+            .eraseToAnyPublisher()
+        encodedFrameEntity = encodedFrameEntitySubject
+            .share()
+            .eraseToAnyPublisher()
+        encodedSampleBuffer
+            .compactMap { [weak self] sampleBuffer -> EncodedFrameEntity? in
+                return self?.convert(sampleBuffer: sampleBuffer)
+            }
+            .share()
+            .sink { [weak self] entity in
+                self?.encodedFrameEntitySubject.send(entity)
+            }
+            .store(in: &cancellables)
     }
 
     private func setup(width: Int32, height: Int32) {
@@ -75,6 +100,62 @@ class Encoder {
             return
         }
         encodedSampleBufferSubject.send(sampleBuffer)
+    }
+    
+    var isFirst: Bool = true
+    
+    private func convert(sampleBuffer: CMSampleBuffer) -> EncodedFrameEntity? {
+        if isFirst {
+            let formatDescription = CMSampleBufferGetFormatDescription(sampleBuffer)!
+            print("original formatDescription: \(formatDescription)")
+            isFirst = false
+        }
+        let formatDescription = CMSampleBufferGetFormatDescription(sampleBuffer)!
+        let sps = getH264Parameter(formatDescription: formatDescription, index: 0)
+        let pps = getH264Parameter(formatDescription: formatDescription, index: 1)
+        let body = getData(sampleBuffer: sampleBuffer)
+        let time = CMSampleBufferGetPresentationTimeStamp(sampleBuffer)
+        print("sps: \(sps?.count ?? -1), pps: \(pps?.count ?? -1), body: \(body?.count ?? -1)")
+        return EncodedFrameEntity(sps: sps!, pps: pps!, body: body!, time: time)
+    }
+    
+    private func getData(sampleBuffer: CMSampleBuffer) -> [Int8]? {
+        let blockBuffer = CMSampleBufferGetDataBuffer(sampleBuffer)!
+        let offset: Int = 0
+        var offsetOut: Int = 0
+        var lengthOut: Int = 0
+        var ptrOut: UnsafeMutablePointer<Int8>? = nil
+        let res = CMBlockBufferGetDataPointer(blockBuffer,
+                                              atOffset: offset,
+                                              lengthAtOffsetOut: &offsetOut,
+                                              totalLengthOut: &lengthOut,
+                                              dataPointerOut: &ptrOut)
+        guard res == noErr, let ptr = ptrOut else {
+            print("failed get data")
+            return nil
+        }
+        let buffer = UnsafeBufferPointer(start: ptr, count: lengthOut)
+        return Array(buffer)
+    }
+    
+    private func getH264Parameter(formatDescription: CMFormatDescription, index: Int) -> [UInt8]? {
+        var ptrOut: UnsafePointer<UInt8>?
+        var size: Int = 0
+        var count: Int = 0
+        var nal: Int32 = 0
+        let res = CMVideoFormatDescriptionGetH264ParameterSetAtIndex(formatDescription,
+                                                                     parameterSetIndex: index,
+                                                                     parameterSetPointerOut: &ptrOut,
+                                                                     parameterSetSizeOut: &size,
+                                                                     parameterSetCountOut: &count,
+                                                                     nalUnitHeaderLengthOut: &nal)
+        guard res == noErr, let ptr = ptrOut else {
+            print("failed get h264 parameter: \(res)")
+            return nil
+        }
+        print("h264 parameter index: \(index), size: \(size), count: \(count), nal: \((nal as Int32?) ?? -1)")
+        let buffer = UnsafeBufferPointer(start: ptr, count: size)
+        return Array(buffer)
     }
 
     public func encode(imageBuffer: CVImageBuffer, presentationTimeStamp: CMTime, duration: CMTime) {
@@ -156,7 +237,8 @@ class Decoder {
                           presentationTimeStamp: CMTime,
                           presentationDuration: CMTime) {
         guard let imageBuffer = imageBuffer else {
-            print("no decoded imageBuffer")
+            let error = NSError(domain: NSOSStatusErrorDomain, code: Int(status), userInfo: nil)
+            print("no decoded imageBuffer: \(error.localizedDescription)")
             return
         }
 
@@ -196,6 +278,7 @@ class Decoder {
     public func decode(sampleBuffer: CMSampleBuffer) {
         if session == nil {
             let formatDescription = CMSampleBufferGetFormatDescription(sampleBuffer)!
+            print("formatDescription: \(formatDescription)")
             setup(formatDescription: formatDescription)
         }
         guard let session = session else { return }
@@ -210,5 +293,87 @@ class Decoder {
         if res != noErr {
             print("faield decode frame: \(res)")
         }
+    }
+    
+    public func decode(frameEntity: EncodedFrameEntity) {
+        var sampleBufferOut: CMSampleBuffer?
+        let blockBuffer = makeMemoryBlock(frameEntity: frameEntity)!
+        let formatDescription = makeFormatDescription(frameEntity: frameEntity)
+        var sampleSizeArray: [Int] = [frameEntity.body.count]
+        
+        var timingInfo = CMSampleTimingInfo()
+        timingInfo.decodeTimeStamp = .invalid
+        timingInfo.presentationTimeStamp = frameEntity.time
+        timingInfo.duration = .invalid// CMTime(value: 16_000, timescale: 1_000_000)
+        
+        let res = CMSampleBufferCreate(allocator: kCFAllocatorDefault,
+                                       dataBuffer: blockBuffer,
+                                       dataReady: true,
+                                       makeDataReadyCallback: nil,
+                                       refcon: nil,
+                                       formatDescription: formatDescription,
+                                       sampleCount: 1,
+                                       sampleTimingEntryCount: 1,
+                                       sampleTimingArray: &timingInfo,
+                                       sampleSizeEntryCount: 1,
+                                       sampleSizeArray: &sampleSizeArray,
+                                       sampleBufferOut: &sampleBufferOut)
+        guard res == noErr, let sampleBuffer = sampleBufferOut else {
+            print("failed create sampleBuffer: \(res)")
+            return
+        }
+        self.decode(sampleBuffer: sampleBuffer)
+    }
+    
+    private func makeMemoryBlock(frameEntity: EncodedFrameEntity) -> CMBlockBuffer? {
+        var blockBufferOut: CMBlockBuffer?
+        let res = CMBlockBufferCreateWithMemoryBlock(allocator: kCFAllocatorDefault,
+                                                     memoryBlock: nil,
+                                                     blockLength: frameEntity.body.count,
+                                                     blockAllocator: nil,
+                                                     customBlockSource: nil,
+                                                     offsetToData: 0,
+                                                     dataLength: frameEntity.body.count,
+                                                     flags: 0,
+                                                     blockBufferOut: &blockBufferOut)
+        guard res == noErr, let blockBuffer = blockBufferOut else {
+            print("failed crete blockBuffer: \(res)")
+            return nil
+        }
+        frameEntity.body.withUnsafeBytes { (ptr: UnsafeRawBufferPointer) in
+            _ = CMBlockBufferReplaceDataBytes(with: ptr.baseAddress!,
+                                              blockBuffer: blockBuffer,
+                                              offsetIntoDestination: 0,
+                                              dataLength: frameEntity.body.count)
+        }
+        return blockBuffer
+    }
+    
+    private func makeFormatDescription(frameEntity: EncodedFrameEntity) -> CMFormatDescription? {
+        var formatDescriptionOut: CMVideoFormatDescription? = nil
+        let parameters: [[UInt8]] = [
+            frameEntity.sps,
+            frameEntity.pps
+        ]
+        var parameterSetPointers: [UnsafePointer<UInt8>] = parameters.map { (arr: [UInt8]) in
+            let res = UnsafeMutablePointer<UInt8>.allocate(capacity: arr.count)
+            arr.withUnsafeBytes { (src: UnsafeRawBufferPointer) in
+                _ = memcpy(res, src.baseAddress!, arr.count)
+            }
+            return UnsafePointer<UInt8>(res)
+        }
+        let parameterSetSizes: [Int] = parameters.map { $0.count }
+        let res = CMVideoFormatDescriptionCreateFromH264ParameterSets(allocator: kCFAllocatorDefault,
+                                                                      parameterSetCount: parameters.count,
+                                                                      parameterSetPointers: &parameterSetPointers,
+                                                                      parameterSetSizes: parameterSetSizes,
+                                                                      nalUnitHeaderLength: 4,
+                                                                      formatDescriptionOut: &formatDescriptionOut)
+        guard res == noErr, let formatDescription = formatDescriptionOut else {
+            let error = NSError(domain: NSOSStatusErrorDomain, code: Int(res), userInfo: nil)
+            print("failed create formatDescription: \(error.localizedDescription)")
+            return nil
+        }
+        return formatDescription
     }
 }
