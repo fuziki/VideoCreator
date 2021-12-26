@@ -70,7 +70,7 @@ class SampleBufferDisplayView: CPView {
             .store(in: &cancellables)
 
         decoder
-            .decoded
+            .decodedSampleBuffer
             .receive(on: DispatchQueue.main)
             .sink { [weak self] (sampleBuffer: CMSampleBuffer) in
                 guard let self = self else { return }

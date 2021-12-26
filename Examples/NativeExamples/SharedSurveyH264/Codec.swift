@@ -104,11 +104,11 @@ class Encoder {
 class Decoder {
     private var session: VTDecompressionSession?
 
-    public let decoded: AnyPublisher<CMSampleBuffer, Never>
-    private let decodedSubject = PassthroughSubject<CMSampleBuffer, Never>()
+    public let decodedSampleBuffer: AnyPublisher<CMSampleBuffer, Never>
+    private let decodedSampleBufferSubject = PassthroughSubject<CMSampleBuffer, Never>()
 
     public init() {
-        decoded = decodedSubject.eraseToAnyPublisher()
+        decodedSampleBuffer = decodedSampleBufferSubject.eraseToAnyPublisher()
     }
 
     private func setup(formatDescription: CMFormatDescription) {
@@ -190,7 +190,7 @@ class Decoder {
                   return
               }
         print("decoded frame")
-        decodedSubject.send(res)
+        decodedSampleBufferSubject.send(res)
     }
 
     public func decode(sampleBuffer: CMSampleBuffer) {
