@@ -39,6 +39,8 @@ class Encoder {
             print("failed create VTCompressionSession")
             return
         }
+        // set low quality
+//        VTSessionSetProperty(session!, key: kVTCompressionPropertyKey_AverageBitRate, value: width * height as CFTypeRef)
         self.session = session
     }
 
@@ -61,7 +63,9 @@ class Encoder {
                   status: OSStatus,
                   infoFlags: VTEncodeInfoFlags,
                   sampleBuffer: CMSampleBuffer?) {
-        print("encoded infoFlags: \(infoFlags == .asynchronous ? ".asynchronous" : ".frameDropped")")
+        let infoFlags = infoFlags == .asynchronous ? ".asynchronous" : ".frameDropped"
+        let size = (sampleBuffer?.dataBuffer?.dataLength).flatMap { Float($0) / 1_000 } ?? -1
+        print("encoded infoFlags: \(infoFlags), size: \(size)KB")
         guard status == noErr else {
             print("encode error: \(status)")
             return
@@ -78,7 +82,11 @@ class Encoder {
             setup(width: Int32(CVPixelBufferGetWidth(imageBuffer)), height: Int32(CVPixelBufferGetHeight(imageBuffer)))
         }
         guard let session = session else { return }
-        print("encode frame")
+        let bytesPerRow = CVPixelBufferGetBytesPerRow(imageBuffer)
+        let height = CVPixelBufferGetHeight(imageBuffer)
+        let width = CVPixelBufferGetWidth(imageBuffer)
+        let mb = Float(bytesPerRow * height / 1_000) / 1_000
+        print("encode frame size: \(mb)MB, w: \(width), h: \(height), bpp: \(bytesPerRow / width)")
         var infoFlagsOut: VTEncodeInfoFlags = []
         let res = VTCompressionSessionEncodeFrame(session,
                                                   imageBuffer: imageBuffer,
@@ -103,10 +111,8 @@ class Decoder {
         decoded = decodedSubject.eraseToAnyPublisher()
     }
 
-    func setup() {
+    func setup(formatDescription: CMFormatDescription) {
         var session: VTDecompressionSession?
-        // TODO: 何とかする
-        let formatDescription: CMFormatDescription! = nil
         let decoderSpecification: CFDictionary? = nil
         let imageBufferAttributes: CFDictionary? = nil
         var outputCallback = VTDecompressionOutputCallbackRecord(decompressionOutputCallback: decompressionOutputCallback,
@@ -183,12 +189,14 @@ class Decoder {
                   print("failed to create CMSampleBuffer: \(res2)")
                   return
               }
+        print("decoded frame")
         decodedSubject.send(res)
     }
 
     func decode(data: CMSampleBuffer) {
         if session == nil {
-            setup()
+            let formatDescription = CMSampleBufferGetFormatDescription(data)!
+            setup(formatDescription: formatDescription)
         }
         guard let session = session else { return }
         print("decode frame")
