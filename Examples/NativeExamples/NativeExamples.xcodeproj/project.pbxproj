@@ -23,8 +23,8 @@
 		5234BA262776AA04005C721B /* SampleBufferDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5234BA242776AA04005C721B /* SampleBufferDisplayView.swift */; };
 		5234BA28277771B0005C721B /* SampleBufferVideoFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5234BA27277771B0005C721B /* SampleBufferVideoFactory.swift */; };
 		5234BA29277771B0005C721B /* SampleBufferVideoFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5234BA27277771B0005C721B /* SampleBufferVideoFactory.swift */; };
-		5234BA2B27777DDC005C721B /* Codec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5234BA2A27777DDC005C721B /* Codec.swift */; };
-		5234BA2C27777DDC005C721B /* Codec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5234BA2A27777DDC005C721B /* Codec.swift */; };
+		5234BA2B27777DDC005C721B /* Decoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5234BA2A27777DDC005C721B /* Decoder.swift */; };
+		5234BA2C27777DDC005C721B /* Decoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5234BA2A27777DDC005C721B /* Decoder.swift */; };
 		526CECFD275CA378008AA659 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526CECFC275CA378008AA659 /* AppDelegate.swift */; };
 		526CECFF275CA378008AA659 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526CECFE275CA378008AA659 /* SceneDelegate.swift */; };
 		526CED01275CA378008AA659 /* PipViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526CED00275CA378008AA659 /* PipViewController.swift */; };
@@ -33,6 +33,12 @@
 		526CED09275CA37A008AA659 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 526CED07275CA37A008AA659 /* LaunchScreen.storyboard */; };
 		526CED132764757E008AA659 /* SharedGameView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52F09DBD26C8FCDB00B8B323 /* SharedGameView.framework */; };
 		526CED142764757E008AA659 /* SharedGameView.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 52F09DBD26C8FCDB00B8B323 /* SharedGameView.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		52D5CEC2277F5AAA00FBD62A /* H264ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D5CEC1277F5AAA00FBD62A /* H264ContentViewModel.swift */; };
+		52D5CEC3277F5AAA00FBD62A /* H264ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D5CEC1277F5AAA00FBD62A /* H264ContentViewModel.swift */; };
+		52D5CECC277F5D1000FBD62A /* EncodedFrameEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D5CECB277F5D1000FBD62A /* EncodedFrameEntity.swift */; };
+		52D5CECD277F5D1000FBD62A /* EncodedFrameEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D5CECB277F5D1000FBD62A /* EncodedFrameEntity.swift */; };
+		52D5CECF277F5D3A00FBD62A /* Encoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D5CECE277F5D3A00FBD62A /* Encoder.swift */; };
+		52D5CED0277F5D3A00FBD62A /* Encoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D5CECE277F5D3A00FBD62A /* Encoder.swift */; };
 		52F09D2426C4BDA000B8B323 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F09D2326C4BDA000B8B323 /* AppDelegate.swift */; };
 		52F09D2626C4BDA000B8B323 /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 52F09D2526C4BDA000B8B323 /* art.scnassets */; };
 		52F09D2826C4BDA000B8B323 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F09D2726C4BDA000B8B323 /* GameViewController.swift */; };
@@ -187,7 +193,7 @@
 		5234BA2027762350005C721B /* CrossPlatform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrossPlatform.swift; sourceTree = "<group>"; };
 		5234BA242776AA04005C721B /* SampleBufferDisplayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleBufferDisplayView.swift; sourceTree = "<group>"; };
 		5234BA27277771B0005C721B /* SampleBufferVideoFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleBufferVideoFactory.swift; sourceTree = "<group>"; };
-		5234BA2A27777DDC005C721B /* Codec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Codec.swift; sourceTree = "<group>"; };
+		5234BA2A27777DDC005C721B /* Decoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Decoder.swift; sourceTree = "<group>"; };
 		526CECFA275CA378008AA659 /* PipExamle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PipExamle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		526CECFC275CA378008AA659 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		526CECFE275CA378008AA659 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -196,6 +202,9 @@
 		526CED05275CA37A008AA659 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		526CED08275CA37A008AA659 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		526CED0A275CA37A008AA659 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		52D5CEC1277F5AAA00FBD62A /* H264ContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = H264ContentViewModel.swift; sourceTree = "<group>"; };
+		52D5CECB277F5D1000FBD62A /* EncodedFrameEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncodedFrameEntity.swift; sourceTree = "<group>"; };
+		52D5CECE277F5D3A00FBD62A /* Encoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Encoder.swift; sourceTree = "<group>"; };
 		52F09D2126C4BDA000B8B323 /* HlsExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HlsExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		52F09D2326C4BDA000B8B323 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		52F09D2526C4BDA000B8B323 /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
@@ -317,12 +326,8 @@
 		5234B9F7277610FF005C721B /* SharedSurveyH264 */ = {
 			isa = PBXGroup;
 			children = (
-				5234B9F8277610FF005C721B /* SurveyH264App.swift */,
-				5234B9F9277610FF005C721B /* H264ContentView.swift */,
+				52D5CEC4277F5BC300FBD62A /* Sources */,
 				5234B9FA27761100005C721B /* Assets.xcassets */,
-				5234BA242776AA04005C721B /* SampleBufferDisplayView.swift */,
-				5234BA27277771B0005C721B /* SampleBufferVideoFactory.swift */,
-				5234BA2A27777DDC005C721B /* Codec.swift */,
 			);
 			path = SharedSurveyH264;
 			sourceTree = "<group>";
@@ -393,6 +398,69 @@
 				52623AB7266BDC110012EC57 /* Products */,
 				52623AE1266C57CA0012EC57 /* Frameworks */,
 			);
+			sourceTree = "<group>";
+		};
+		52D5CEC4277F5BC300FBD62A /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				5234B9F8277610FF005C721B /* SurveyH264App.swift */,
+				52D5CEC6277F5C0400FBD62A /* Application */,
+				52D5CEC5277F5BE300FBD62A /* Presentation */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		52D5CEC5277F5BE300FBD62A /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				52D5CEC7277F5C1A00FBD62A /* View */,
+				52D5CEC8277F5C1D00FBD62A /* ViewModel */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
+		52D5CEC6277F5C0400FBD62A /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				52D5CECA277F5CFE00FBD62A /* Codec */,
+				52D5CEC9277F5CF600FBD62A /* SampleBuffer */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		52D5CEC7277F5C1A00FBD62A /* View */ = {
+			isa = PBXGroup;
+			children = (
+				5234BA242776AA04005C721B /* SampleBufferDisplayView.swift */,
+				5234B9F9277610FF005C721B /* H264ContentView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		52D5CEC8277F5C1D00FBD62A /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				52D5CEC1277F5AAA00FBD62A /* H264ContentViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		52D5CEC9277F5CF600FBD62A /* SampleBuffer */ = {
+			isa = PBXGroup;
+			children = (
+				5234BA27277771B0005C721B /* SampleBufferVideoFactory.swift */,
+			);
+			path = SampleBuffer;
+			sourceTree = "<group>";
+		};
+		52D5CECA277F5CFE00FBD62A /* Codec */ = {
+			isa = PBXGroup;
+			children = (
+				52D5CECB277F5D1000FBD62A /* EncodedFrameEntity.swift */,
+				52D5CECE277F5D3A00FBD62A /* Encoder.swift */,
+				5234BA2A27777DDC005C721B /* Decoder.swift */,
+			);
+			path = Codec;
 			sourceTree = "<group>";
 		};
 		52F09D2226C4BDA000B8B323 /* HlsExample */ = {
@@ -960,9 +1028,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				52D5CECF277F5D3A00FBD62A /* Encoder.swift in Sources */,
+				52D5CEC2277F5AAA00FBD62A /* H264ContentViewModel.swift in Sources */,
 				5234BA28277771B0005C721B /* SampleBufferVideoFactory.swift in Sources */,
 				5234BA0927761101005C721B /* H264ContentView.swift in Sources */,
-				5234BA2B27777DDC005C721B /* Codec.swift in Sources */,
+				52D5CECC277F5D1000FBD62A /* EncodedFrameEntity.swift in Sources */,
+				5234BA2B27777DDC005C721B /* Decoder.swift in Sources */,
 				5234BA0727761101005C721B /* SurveyH264App.swift in Sources */,
 				5234BA252776AA04005C721B /* SampleBufferDisplayView.swift in Sources */,
 			);
@@ -972,9 +1043,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				52D5CED0277F5D3A00FBD62A /* Encoder.swift in Sources */,
+				52D5CEC3277F5AAA00FBD62A /* H264ContentViewModel.swift in Sources */,
 				5234BA29277771B0005C721B /* SampleBufferVideoFactory.swift in Sources */,
 				5234BA0A27761101005C721B /* H264ContentView.swift in Sources */,
-				5234BA2C27777DDC005C721B /* Codec.swift in Sources */,
+				52D5CECD277F5D1000FBD62A /* EncodedFrameEntity.swift in Sources */,
+				5234BA2C27777DDC005C721B /* Decoder.swift in Sources */,
 				5234BA0827761101005C721B /* SurveyH264App.swift in Sources */,
 				5234BA262776AA04005C721B /* SampleBufferDisplayView.swift in Sources */,
 			);
