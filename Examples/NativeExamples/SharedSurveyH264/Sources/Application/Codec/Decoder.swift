@@ -11,14 +11,40 @@ import Combine
 import Foundation
 import VideoToolbox
 
+struct DecodedFrameEntity {
+    let pixelBuffer: CVPixelBuffer
+    let formatDescription: CMFormatDescription
+    let timing: CMSampleTimingInfo
+}
+
+extension DecodedFrameEntity {
+    public func toSampleBuffer() -> CMSampleBuffer? {
+        var sampleTiming = self.timing
+        var sampleBufferOut: CMSampleBuffer?
+        let res = CMSampleBufferCreateForImageBuffer(allocator: kCFAllocatorDefault,
+                                                     imageBuffer: self.pixelBuffer,
+                                                     dataReady: true,
+                                                     makeDataReadyCallback: nil,
+                                                     refcon: nil,
+                                                     formatDescription: self.formatDescription,
+                                                     sampleTiming: &sampleTiming,
+                                                     sampleBufferOut: &sampleBufferOut)
+        guard let sampleBuffer = sampleBufferOut, res == noErr else {
+            print("failed to create CMSampleBuffer: \(res)")
+            return nil
+        }
+        return sampleBuffer
+    }
+}
+
 class Decoder {
     private var session: VTDecompressionSession?
 
-    public let decodedSampleBuffer: AnyPublisher<CMSampleBuffer, Never>
-    private let decodedSampleBufferSubject = PassthroughSubject<CMSampleBuffer, Never>()
+    public let decodedFrameEntity: AnyPublisher<DecodedFrameEntity, Never>
+    private let decodedFrameEntitySubject = PassthroughSubject<DecodedFrameEntity, Never>()
 
     public init() {
-        decodedSampleBuffer = decodedSampleBufferSubject.eraseToAnyPublisher()
+        decodedFrameEntity = decodedFrameEntitySubject.eraseToAnyPublisher()
     }
 
     private func setup(formatDescription: CMFormatDescription) {
@@ -82,26 +108,14 @@ class Decoder {
                   return
               }
 
-        var sampleTiming = CMSampleTimingInfo(duration: presentationDuration,
+        let sampleTiming = CMSampleTimingInfo(duration: presentationDuration,
                                               presentationTimeStamp: presentationTimeStamp,
                                               decodeTimeStamp: .invalid)
 
-        var sampleBuffer: CMSampleBuffer?
-        let res2 = CMSampleBufferCreateForImageBuffer(allocator: kCFAllocatorDefault,
-                                                      imageBuffer: imageBuffer,
-                                                      dataReady: true,
-                                                      makeDataReadyCallback: nil,
-                                                      refcon: nil,
-                                                      formatDescription: formatDescription,
-                                                      sampleTiming: &sampleTiming,
-                                                      sampleBufferOut: &sampleBuffer)
-        guard let res = sampleBuffer,
-              res2 == noErr else {
-                  print("failed to create CMSampleBuffer: \(res2)")
-                  return
-              }
+        
         print("decoded frame")
-        decodedSampleBufferSubject.send(res)
+        let entity = DecodedFrameEntity(pixelBuffer: imageBuffer, formatDescription: formatDescription, timing: sampleTiming)
+        decodedFrameEntitySubject.send(entity)
     }
 
     public func decode(sampleBuffer: CMSampleBuffer) {
