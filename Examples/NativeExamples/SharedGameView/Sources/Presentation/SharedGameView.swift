@@ -43,6 +43,8 @@ public class SharedGameView: CPView {
     private func setup() {
         CAMetalLayer.setupLastNextDrawableTexture()
 
+        scnView.preferredFramesPerSecond = 30
+
         // retrieve the SCNView
         self.addSubview(scnView)
 
