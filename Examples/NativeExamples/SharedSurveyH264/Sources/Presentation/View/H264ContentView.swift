@@ -12,6 +12,7 @@ struct H264ContentView: View {
     let viewModel = H264ContentViewModel()
     var body: some View {
         VStack {
+            ControlPanelView(viewModel: viewModel.controlPanelViewModel)
             SharedGameWrapperView()
                 .didRender{ (texture: MTLTexture) in
                     print("rendered: \(texture.width)")

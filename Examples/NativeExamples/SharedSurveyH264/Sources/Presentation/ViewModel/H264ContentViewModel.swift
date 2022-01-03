@@ -9,15 +9,20 @@ import Combine
 import CoreMedia
 import CoreImage
 import Foundation
-import Metal
-import Network
 
 class H264ContentViewModel {
+    public let controlPanelViewModel = ControlPanelViewModel()
+
     public let textureStream = PassthroughSubject<MTLTexture, Never>()
     public let sampleBuffer: AnyPublisher<CMSampleBuffer, Never>
     private let sampleBufferSubject = PassthroughSubject<CMSampleBuffer, Never>()
 
-    private var client = Client()
+    private var client: Client?
+    private var server: Server? {
+        didSet {
+            setupServer()
+        }
+    }
 
     private let factory = SampleBufferVideoFactory(width: 128, height: 128)
     private let encoder = Encoder()
@@ -27,12 +32,20 @@ class H264ContentViewModel {
     init() {
         sampleBuffer = sampleBufferSubject.eraseToAnyPublisher()
 
+        controlPanelViewModel.config.sink { [weak self] (entity: ControlPanelEntity) in
+            self?.server = entity.server ? Server() : nil
+            self?.client = (entity.clientLocal || entity.clientRemote) ? Client(connectToRemote: entity.clientRemote) : nil
+        }.store(in: &cancellables)
+
         setupCodec(textureStream: textureStream.eraseToAnyPublisher())
+
+        // for debug
 //        setupDirect(textureStream: textureStream.eraseToAnyPublisher())
     }
 
     private func setupCodec(textureStream: AnyPublisher<MTLTexture, Never>) {
         textureStream
+            .receive(on: DispatchQueue(label: "hogehoge.fuga.hogegggggg.encode"))
             .sink { [weak self] (texture: MTLTexture) in
                 guard let self = self else { return }
                 let imageBuffer = self.factory
@@ -42,35 +55,40 @@ class H264ContentViewModel {
                             .transformed(by: .init(translationX: 0, y: CGFloat(texture.height)))
                         context.render(ci2, to: buff)
                 }!
+                let scale: UInt64 = 1_000_000_000
                 self.encoder.encode(imageBuffer: imageBuffer,
                                     presentationTimeStamp: self.currentCmTime,
-                                    duration: CMTime(value: 33_000_000, timescale: 1_000_000_000))
+                                    duration: CMTime(value: CMTimeValue(scale / UInt64(30)), timescale: CMTimeScale(scale)))
             }
             .store(in: &cancellables)
 
         encoder
             .encodedSampleBuffer
             .map { EncodedFrameEntity.make(from: $0) }
+            .receive(on: DispatchQueue(label: "hogehoge.fuga.hogegggggg.encoded"))
             .sink { [weak self] frameEntity in
-                DispatchQueue(label: "hogehoge.encodable").async {
-                    let b64 = EncodedFrameEntityBase64(nonBase64: frameEntity)
-                    let data = try! JSONEncoder().encode(b64)
-                    let e = try! JSONDecoder().decode(EncodedFrameEntityBase64.self, from: data)
-                    DispatchQueue.main.async {
-                        print("data count: \(data.count / 1000) KB")
-                        self?.client.send(message: data)
-                    }
-                    DispatchQueue.main.async {
-                        self?.decoder.decode(sampleBuffer: e.nonBase64.toSampleBuffer()!)
-                    }
-                }
+                let b64 = EncodedFrameEntityBase64(nonBase64: frameEntity)
+                let data = try! JSONEncoder().encode(b64)
+                print("data count: \(data.count)")
+                self?.client?.send(message: data)
             }
             .store(in: &cancellables)
 
         decoder
-            .decodedSampleBuffer
-            .sink { [weak self] (sampleBuffer: CMSampleBuffer) in
-                self?.sampleBufferSubject.send(sampleBuffer)
+            .decodedFrameEntity
+            .sink { [weak self] (entity: DecodedFrameEntity) in
+                self?.sampleBufferSubject.send(entity.toSampleBuffer()!)
+            }
+            .store(in: &cancellables)
+    }
+
+    private func setupServer() {
+        server?.onReceiveMessage
+            .receive(on: DispatchQueue(label: "hogehoge.fuga.hogegggggg.decode"))
+            .sink { [weak self] (data: Data) in
+                print("onReceiveMessage data: \(data.count)")
+                let e = try! JSONDecoder().decode(EncodedFrameEntityBase64.self, from: data)
+                self?.decoder.decode(sampleBuffer: e.nonBase64.toSampleBuffer()!)
             }
             .store(in: &cancellables)
     }
@@ -103,68 +121,5 @@ class H264ContentViewModel {
                       timescale: 1_000_000_000,
                       flags: .init(rawValue: 3),
                       epoch: 0)
-    }
-}
-
-class Client {
-    var connection: NWConnection?
-
-    init() {
-        connection = NWConnection(host: .init("localhost"), port: .init(rawValue: 8080)!, using: .tcp)
-//        connection = NWConnection(host: .init("192.168.3.33"), port: .init(rawValue: 8080)!, using: .tcp)
-        connection?.stateUpdateHandler = { (state: NWConnection.State) in
-            print("client state: \(state)")
-        }
-        connection?.start(queue: DispatchQueue.main)
-    }
-
-    public func send(message: Data) {
-        if connection?.state != .ready {
-            print("connection not ready: \(String(describing: connection?.state))")
-            return
-        }
-        connection!.send(content: message,
-                         completion: .contentProcessed({ e in print("e: \(String(describing: e))") }))
-    }
-}
-
-class Server {
-    public let onReceiveMessage: AnyPublisher<Data, Never>
-    private let onReceiveMessageSubject = PassthroughSubject<Data, Never>()
-    
-    var listener: NWListener!
-    
-    var connections: [NWConnection] = []
-    init() {
-        onReceiveMessage = onReceiveMessageSubject.eraseToAnyPublisher()
-        do {
-            listener = try NWListener(using: .tcp, on: .init(rawValue: 8080)!)
-        } catch let error {
-            print("error: \(error)")
-        }
-        listener.newConnectionHandler = { [weak self] (connection: NWConnection) in
-            self?.connections.append(connection)
-            print("new connection: \(connection)")
-            self?.sub(connection: connection)
-            connection.start(queue: DispatchQueue.main)
-        }
-
-        listener.start(queue: DispatchQueue.main)
-    }
-        
-    private func sub(connection: NWConnection) {
-        connection.receive(minimumIncompleteLength: 0, maximumLength: .max) { [weak self] (completeContent: Data?,
-                                                                                           contentContext: NWConnection.ContentContext?,
-                                                                                           isComplete: Bool,
-                                                                                           error: NWError?) in
-            if let content = completeContent {
-                self?.onReceiveMessageSubject.send(content)
-            }
-            if let error = error {
-                print("error: \(error)")
-            } else {
-                self?.sub(connection: connection)
-            }
-        }
     }
 }
