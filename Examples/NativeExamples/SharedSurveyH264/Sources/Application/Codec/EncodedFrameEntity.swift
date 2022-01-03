@@ -90,17 +90,18 @@ extension EncodedFrameEntity {
 }
 
 extension EncodedFrameEntity {
-    func toSampleBuffer() -> CMSampleBuffer? {
+    public func toSampleBuffer() -> CMSampleBuffer? {
         var sampleBufferOut: CMSampleBuffer?
-        let blockBuffer = makeMemoryBlock(frameEntity: self)!
+        let blockBuffer = makeBlockBuffer(frameEntity: self)!
         let formatDescription = makeFormatDescription(frameEntity: self)
         var sampleSizeArray: [Int] = [self.body.count]
-        
+
         var timingInfo = CMSampleTimingInfo()
         timingInfo.decodeTimeStamp = .invalid
         timingInfo.presentationTimeStamp = CMTime(value: CMTimeValue(self.microSec), timescale: 1_000_000)
-        timingInfo.duration = .invalid// CMTime(value: 16_000, timescale: 1_000_000)
-        
+        let scale: UInt64 = 1_000_000
+        timingInfo.duration = CMTime(value: CMTimeValue(scale / UInt64(30)), timescale: CMTimeScale(scale))
+
         let res = CMSampleBufferCreate(allocator: kCFAllocatorDefault,
                                        dataBuffer: blockBuffer,
                                        dataReady: true,
@@ -120,7 +121,7 @@ extension EncodedFrameEntity {
         return sampleBuffer
     }
 
-    private func makeMemoryBlock(frameEntity: EncodedFrameEntity) -> CMBlockBuffer? {
+    private func makeBlockBuffer(frameEntity: EncodedFrameEntity) -> CMBlockBuffer? {
         var blockBufferOut: CMBlockBuffer?
         let res = CMBlockBufferCreateWithMemoryBlock(allocator: kCFAllocatorDefault,
                                                      memoryBlock: nil,
