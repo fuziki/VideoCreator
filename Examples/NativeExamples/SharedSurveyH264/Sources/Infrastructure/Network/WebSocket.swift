@@ -10,31 +10,31 @@ import Foundation
 import Network
 
 class Client {
-    private var connection: NWConnection?
+    private let connection: NWConnection
 
     init(connectToRemote: Bool) {
         let host = connectToRemote ? "192.168.3.33" : "localhost"
         let parameters: NWParameters = .tcp
         parameters.defaultProtocolStack.applicationProtocols.insert(NWProtocolWebSocket.Options(), at: 0)
         connection = NWConnection(to: .url(URL(string: "ws://\(host):8080")!), using: parameters)
-        connection?.stateUpdateHandler = { (state: NWConnection.State) in
+        connection.stateUpdateHandler = { (state: NWConnection.State) in
             print("client state: \(state)")
         }
-        connection?.start(queue: DispatchQueue.main)
+        connection.start(queue: DispatchQueue.main)
     }
 
     public func send(message: Data) {
-        if connection?.state != .ready {
-            print("connection not ready: \(String(describing: connection?.state))")
+        if connection.state != .ready {
+            print("connection not ready: \(String(describing: connection.state))")
             return
         }
         let metadata = NWProtocolWebSocket.Metadata(opcode: NWProtocolWebSocket.Opcode.binary)
         let context = NWConnection.ContentContext(identifier: "context",
                                                   metadata: [metadata])
-        connection?.send(content: message,
-                         contentContext: context,
-                         isComplete: true,
-                         completion: .contentProcessed({ e in print("e: \(String(describing: e))") }))
+        connection.send(content: message,
+                        contentContext: context,
+                        isComplete: true,
+                        completion: .contentProcessed({ e in print("e: \(String(describing: e))") }))
     }
 }
 
