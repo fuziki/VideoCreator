@@ -24,7 +24,7 @@ class H264ContentViewModel {
         }
     }
 
-    private let factory = SampleBufferVideoFactory(width: 128, height: 128)
+    private let factory = PixelBufferFactory(width: 128, height: 128)
     private let encoder = Encoder()
     private let decoder = Decoder()
 

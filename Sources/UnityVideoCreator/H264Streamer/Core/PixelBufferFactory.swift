@@ -9,7 +9,7 @@ import CoreImage
 import CoreMedia
 import Foundation
 
-class SampleBufferVideoFactory {
+class PixelBufferFactory {
     let context = CIContext()
     var width: Int!
     var height: Int!
