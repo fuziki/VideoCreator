@@ -24,7 +24,7 @@ class Client {
     }
 
     public func send(message: Data) {
-        if connection?.state != .ready {
+        if connection.state != .ready {
             print("connection not ready: \(String(describing: connection.state))")
             return
         }
