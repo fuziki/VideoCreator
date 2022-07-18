@@ -16,7 +16,7 @@ public struct SharedGameWrapperView: CPViewRepresentable {
     public init() {
     }
 
-#if !os(macOS)
+    #if !os(macOS)
     public typealias UIViewType = SharedGameView
     private typealias ViewType = UIViewType
     public func makeUIView(context: Context) -> UIViewType {
@@ -25,7 +25,7 @@ public struct SharedGameWrapperView: CPViewRepresentable {
     public func updateUIView(_ uiView: UIViewType, context: Context) {
         updateView(uiView, context: context)
     }
-#else
+    #else
     public typealias NSViewType = SharedGameView
     private typealias ViewType = NSViewType
     public func makeNSView(context: Context) -> NSViewType {
@@ -34,7 +34,7 @@ public struct SharedGameWrapperView: CPViewRepresentable {
     public func updateNSView(_ nsView: NSViewType, context: Context) {
         updateView(nsView, context: context)
     }
-#endif
+    #endif
 
     private func makeView(context: Context) -> ViewType {
         return sharedGameView
