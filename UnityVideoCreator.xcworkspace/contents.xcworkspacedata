@@ -5,9 +5,9 @@
       location = "group:Examples/NativeExamples/NativeExamples.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:Plugins/Plugins.xcodeproj">
+      location = "group:">
    </FileRef>
    <FileRef
-      location = "group:">
+      location = "group:tools">
    </FileRef>
 </Workspace>

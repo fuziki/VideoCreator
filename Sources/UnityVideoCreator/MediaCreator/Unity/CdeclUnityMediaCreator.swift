@@ -8,6 +8,8 @@
 import Foundation
 import Metal
 
+// swiftlint:disable identifier_name function_parameter_count
+
 @_cdecl("UnityMediaCreator_initAsMovWithNoAudio")
 public func UnityMediaCreator_initAsMovWithNoAudio(_ url: UnsafePointer<CChar>?,
                                                    _ codec: UnsafePointer<CChar>?,

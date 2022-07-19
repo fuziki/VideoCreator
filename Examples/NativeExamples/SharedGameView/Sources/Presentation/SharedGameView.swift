@@ -13,7 +13,7 @@ public class SharedGameView: CPView {
 
     private let lastNextDrawableTextureSubject = PassthroughSubject<MTLTexture, Never>()
     public let lastNextDrawableTexturePublisher: AnyPublisher<MTLTexture, Never>
-    public var lastNextDrawableTextureHandler: ((MTLTexture) -> Void)? = nil
+    public var lastNextDrawableTextureHandler: ((MTLTexture) -> Void)?
     public var lastNextDrawableTexture: MTLTexture? {
         // swiftlint:disable force_cast
         return (scnView.layer as! CAMetalLayer).lastNextDrawableTexture

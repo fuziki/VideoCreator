@@ -1,0 +1,14 @@
+included:
+    - ../Examples/NativeExamples
+    - ../Sources
+    - ../Tests
+excluded:
+  - ../Tests/UnityVideoCreatorTests/Mock
+line_length: 300
+identifier_name:
+  min_length: 1
+nesting:
+  type_level:
+    warning: 5
+#opt_in_rules:
+#  - force_unwrapping

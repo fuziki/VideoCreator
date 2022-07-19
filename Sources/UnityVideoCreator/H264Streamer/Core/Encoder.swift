@@ -44,6 +44,7 @@ class Encoder {
         self.session = session
     }
 
+    // swiftlint:disable closure_parameter_position
     private let outputCallback: VTCompressionOutputCallback = { (outputCallbackRefCon: UnsafeMutableRawPointer?,
                                                                  sourceFrameRefCon: UnsafeMutableRawPointer?,
                                                                  status: OSStatus,
