@@ -53,13 +53,13 @@ public class HlsServer : MonoBehaviour
     {
         context.Response.StatusCode = 200;
 
-        byte[] data = System.Text.Encoding.UTF8.GetBytes("Hello world");
+        byte[] data = System.Text.Encoding.UTF8.GetBytes("access http://XXX.XXX.XXX.XXX:8080/index");
         string contentType = "text/plain";
 
         var path = context.Request.Url.LocalPath;
         switch (path)
         {
-            case "/hello":
+            case "/index":
                 data = System.Text.Encoding.UTF8.GetBytes(Html);
                 contentType = "text/html";
                 break;
