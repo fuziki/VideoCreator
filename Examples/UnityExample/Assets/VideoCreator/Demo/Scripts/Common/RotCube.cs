@@ -8,7 +8,6 @@ public class RotCube : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
         if (this.transform.position.y < 0)
         {
             vy = 0.0f;

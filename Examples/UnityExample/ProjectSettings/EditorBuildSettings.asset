@@ -6,6 +6,21 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/VideoCreator/Demo/Scenes/SampleScene.unity
-    guid: 99c9720ab356a0642a771bea13969a05
+    path: Assets/VideoCreator/Demo/Scenes/Main/Main.unity
+    guid: d311a8417e80741458bd1e8b9a1a71d7
+  - enabled: 1
+    path: Assets/VideoCreator/Demo/Scenes/Common/Common.unity
+    guid: 0a5c4f503e1824fdca9eb200acea93df
+  - enabled: 1
+    path: Assets/VideoCreator/Demo/Scenes/Samples/ImageSample.unity
+    guid: 1a3b2545574c445718a484c688a4cd68
+  - enabled: 1
+    path: Assets/VideoCreator/Demo/Scenes/Samples/MovSample.unity
+    guid: 82926927633134ef5a92479eda68de9e
+  - enabled: 1
+    path: Assets/VideoCreator/Demo/Scenes/Samples/LivePhotosSample.unity
+    guid: d351a68fdca6f4a66ae416ca917b856f
+  - enabled: 1
+    path: Assets/VideoCreator/Demo/Scenes/Samples/HlsSample.unity
+    guid: a6105f225a693470a9096f51a5e284a2
   m_configObjects: {}
