@@ -11,6 +11,8 @@ import Combine
 import Foundation
 import Metal
 
+// swiftlint:disable identifier_name superfluous_disable_command
+
 @_cdecl("H264Streamer_Start")
 public func H264Streamer_Start(_ url: UnsafePointer<CChar>?, _ width: Int64, _ height: Int64) {
     let url = String(cString: url!)
@@ -39,7 +41,7 @@ public func H264Streamer_Close() {
 }
 
 class H264Streamer {
-    public static var shared: H264Streamer? = nil
+    public static var shared: H264Streamer?
 
     private let encoder: Encoder
     private let client: Client
@@ -58,7 +60,13 @@ class H264Streamer {
             .receive(on: DispatchQueue(label: "hogehoge.fuga.hogegggggg.encoded"))
             .sink { [weak self] frameEntity in
                 let b64 = EncodedFrameEntityBase64(nonBase64: frameEntity)
-                let data = try! JSONEncoder().encode(b64)
+                let data: Data
+                do {
+                    data = try JSONEncoder().encode(b64)
+                } catch let error {
+                    print("error: \(error)")
+                    return
+                }
                 print("data count: \(data.count)")
                 self?.client.send(message: data)
             }

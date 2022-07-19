@@ -34,6 +34,7 @@ class UnityMediaCreator {
     private var channel: Int?
     private var creator: MediaCreator?
 
+    // swiftlint:disable function_parameter_count
     public func initAsMovWithAudio(url: String,
                                    codec: String, width: Int, height: Int,
                                    channel: Int, samplingRate: Float,
@@ -52,6 +53,7 @@ class UnityMediaCreator {
         let config = MovMediaWriterConfig(url: url, video: video, audio: audio, contentIdentifier: contentIdentifier)
         self.samplingRate = samplingRate
         self.channel = channel
+        // swiftlint:disable force_try
         self.creator = try! provider.make(config: config)
     }
 
@@ -64,6 +66,7 @@ class UnityMediaCreator {
                                         height: height,
                                         expectsMediaDataInRealTime: true)
         let config = MovMediaWriterConfig(url: url, video: video, audio: nil, contentIdentifier: contentIdentifier)
+        // swiftlint:disable force_try
         self.creator = try! provider.make(config: config)
     }
 
@@ -79,6 +82,7 @@ class UnityMediaCreator {
                                         height: height,
                                         expectsMediaDataInRealTime: true)
         let config = HlsMediaWriterConfig(url: url, video: video, audio: nil, segmentDurationMicroSec: segmentDurationMicroSec)
+        // swiftlint:disable force_try
         self.creator = try! provider.make(config: config)
         creator!.setOnSegmentData { [weak self] data in
             self?.onSegmentData?(data)
@@ -96,6 +100,7 @@ class UnityMediaCreator {
         let config = WavMediaWriterConfig(url: url, audio: audio)
         self.samplingRate = samplingRate
         self.channel = channel
+        // swiftlint:disable force_try
         self.creator = try! provider.make(config: config)
     }
 
@@ -111,6 +116,7 @@ class UnityMediaCreator {
     }
 
     public func start(microSec: Int) {
+        // swiftlint:disable force_try
         try! self.creator?.start(microSec: microSec)
     }
 
@@ -131,6 +137,7 @@ class UnityMediaCreator {
     }
 
     public func write(texture: MTLTexture, microSec: Int) {
+        // swiftlint:disable force_try
         try! creator?.write(texture: texture, microSec: microSec)
     }
 
@@ -147,6 +154,7 @@ class UnityMediaCreator {
         let buffer = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: frameLength)!
         buffer.frameLength = frameLength
         memcpy(buffer.floatChannelData![0], pcm, MemoryLayout<Float>.size * frame)
+        // swiftlint:disable force_try
         try! creator?.write(pcm: buffer, microSec: microSec)
     }
 }

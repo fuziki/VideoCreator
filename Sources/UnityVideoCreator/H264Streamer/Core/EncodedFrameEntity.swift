@@ -51,7 +51,7 @@ extension EncodedFrameEntity {
         let offset: Int = 0
         var offsetOut: Int = 0
         var lengthOut: Int = 0
-        var ptrOut: UnsafeMutablePointer<Int8>? = nil
+        var ptrOut: UnsafeMutablePointer<Int8>?
         let res = CMBlockBufferGetDataPointer(blockBuffer,
                                               atOffset: offset,
                                               lengthAtOffsetOut: &offsetOut,

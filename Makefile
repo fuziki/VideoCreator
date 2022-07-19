@@ -11,5 +11,11 @@ framework:
 		-sdk iphoneos
 
 lint:
-	swift run --package-path ./tools swiftlint autocorrect --format
-	swift run --package-path ./tools swiftlint
+	xcrun --sdk macosx \
+		swift run --package-path ./tools swiftlint \
+		--config tools/.swiftlint.yml \
+		autocorrect --format
+	pwd
+	xcrun --sdk macosx \
+		swift run --package-path ./tools swiftlint \
+		--config tools/.swiftlint.yml

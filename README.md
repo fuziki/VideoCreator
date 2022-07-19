@@ -140,7 +140,7 @@ MediaCreator.WriteAudio(pcm, time);
 MediaCreator.FinishSync();
 ```
 
-## Save mov to album app (optional)
+## Save mov to Photos app (optional)
 
 * If you want to save your recorded videos to an album, you can use MediaSaver to do so.
 
@@ -148,7 +148,7 @@ MediaCreator.FinishSync();
 MediaSaver.SaveVideo(cachePath);
 ```
 
-## Save Live Photos to album app
+## Save Live Photos to Photos app
 
 * If you want to save your recorded Live Photos to an album, you can use MediaSaver to do so.
 * Set the thumbnail and the same Content Identifier as the video.
@@ -157,7 +157,7 @@ MediaSaver.SaveVideo(cachePath);
 MediaSaver.SaveLivePhotos(texture, uuid, cachePath);
 ```
 
-## Save Texture to album app
+## Save Texture to Photos app
 
 * You can choose the format from "jpeg", "jpg", "heif", and "png".
 

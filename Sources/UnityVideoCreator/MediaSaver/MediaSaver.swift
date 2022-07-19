@@ -8,10 +8,13 @@
 import os
 import Photos
 
+// swiftlint:disable identifier_name superfluous_disable_command
+
 @_cdecl("UnityMediaSaver_saveVideo")
 public func UnityMediaSaver_saveVideo(_ url: UnsafePointer<CChar>?) {
     let urlStr = String(cString: url!)
     let url = URL(string: urlStr)!
+    // swiftlint:disable force_try
     try! PHPhotoLibrary.shared().performChangesAndWait {
         let options = PHAssetResourceCreationOptions()
         options.shouldMoveFile = true
@@ -45,6 +48,7 @@ public func UnityMediaSaver_saveImage(_ texturePtr: UnsafeRawPointer?,
     case "png", _:
         data = context.pngRepresentation(of: ci, format: .RGBA8, colorSpace: CGColorSpace(name: CGColorSpace.sRGB)!, options: [:])!
     }
+    // swiftlint:disable force_try
     try! PHPhotoLibrary.shared().performChangesAndWait {
         let request = PHAssetCreationRequest.forAsset()
         request.addResource(with: .photo, data: data, options: nil)

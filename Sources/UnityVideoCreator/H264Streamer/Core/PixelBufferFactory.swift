@@ -68,7 +68,7 @@ class PixelBufferFactory {
         CVPixelBufferUnlockBaseAddress(buff, CVPixelBufferLockFlags(rawValue: 0))
         return tmp
     }
-    
+
     func make(size: CGSize, render: (CIContext, CVPixelBuffer) -> Void) -> CVPixelBuffer? {
         if width != Int(size.width) || height != Int(size.height) {
             makePixelBuffer(width: Int(size.width), height: Int(size.height))
