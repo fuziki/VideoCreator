@@ -1,0 +1,48 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.6.1 (swiftlang-5.6.0.323.66 clang-1316.0.20.12)
+// swift-module-flags: -target arm64-apple-ios14.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name UnityVideoCreator
+import AVFoundation
+import Combine
+import CoreImage
+import CoreMedia
+import CoreVideo
+import Foundation
+import Metal
+import Network
+import Photos
+import Swift
+import VideoToolbox
+import _Concurrency
+import os
+@_cdecl("H264Streamer_Start")
+public func H264Streamer_Start(_ url: Swift.UnsafePointer<Swift.CChar>?, _ width: Swift.Int64, _ height: Swift.Int64)
+@_cdecl("H264Streamer_Enqueue")
+public func H264Streamer_Enqueue(_ texturePtr: Swift.UnsafeRawPointer?, _ microSec: Swift.Int64)
+@_cdecl("H264Streamer_Close")
+public func H264Streamer_Close()
+@_cdecl("UnityMediaCreator_initAsMovWithNoAudio")
+public func UnityMediaCreator_initAsMovWithNoAudio(_ url: Swift.UnsafePointer<Swift.CChar>?, _ codec: Swift.UnsafePointer<Swift.CChar>?, _ width: Swift.Int64, _ height: Swift.Int64, _ contentIdentifier: Swift.UnsafePointer<Swift.CChar>?)
+@_cdecl("UnityMediaCreator_initAsMovWithAudio")
+public func UnityMediaCreator_initAsMovWithAudio(_ url: Swift.UnsafePointer<Swift.CChar>?, _ codec: Swift.UnsafePointer<Swift.CChar>?, _ width: Swift.Int64, _ height: Swift.Int64, _ channel: Swift.Int64, _ samplingRate: Swift.Float, _ contentIdentifier: Swift.UnsafePointer<Swift.CChar>?)
+@_cdecl("UnityMediaCreator_initAsHlsWithNoAudio")
+public func UnityMediaCreator_initAsHlsWithNoAudio(_ url: Swift.UnsafePointer<Swift.CChar>?, _ codec: Swift.UnsafePointer<Swift.CChar>?, _ width: Swift.Int64, _ height: Swift.Int64, _ segmentDurationMicroSec: Swift.Int64)
+@_cdecl("UnityMediaCreator_initAsWav")
+public func UnityMediaCreator_initAsWav(_ url: Swift.UnsafePointer<Swift.CChar>?, _ channel: Swift.Int64, _ samplingRate: Swift.Float, _ bitDepth: Swift.Int)
+@_cdecl("UnityMediaCreator_setOnSegmentData")
+public func UnityMediaCreator_setOnSegmentData(_ handler: @convention(c) (Swift.UnsafePointer<Swift.UInt8>, Swift.Int64) -> Swift.Void)
+@_cdecl("UnityMediaCreator_start")
+public func UnityMediaCreator_start(_ microSec: Swift.Int64)
+@_cdecl("UnityMediaCreator_finishSync")
+public func UnityMediaCreator_finishSync()
+@_cdecl("UnityMediaCreator_isRecording")
+public func UnityMediaCreator_isRecording() -> Swift.Bool
+@_cdecl("UnityMediaCreator_writeVideo")
+public func UnityMediaCreator_writeVideo(_ texturePtr: Swift.UnsafeRawPointer?, _ microSec: Swift.Int64)
+@_cdecl("UnityMediaCreator_writeAudio")
+public func UnityMediaCreator_writeAudio(_ pcm: Swift.UnsafePointer<Swift.Float>, _ frame: Swift.Int64, _ microSec: Swift.Int64)
+@_cdecl("UnityMediaSaver_saveVideo")
+public func UnityMediaSaver_saveVideo(_ url: Swift.UnsafePointer<Swift.CChar>?)
+@_cdecl("UnityMediaSaver_saveImage")
+public func UnityMediaSaver_saveImage(_ texturePtr: Swift.UnsafeRawPointer?, _ type: Swift.UnsafePointer<Swift.CChar>?)
+@_cdecl("UnityMediaSaver_saveLivePhotos")
+public func UnityMediaSaver_saveLivePhotos(_ texturePtr: Swift.UnsafeRawPointer?, _ contentIdentifier: Swift.UnsafePointer<Swift.CChar>?, _ url: Swift.UnsafePointer<Swift.CChar>?)
