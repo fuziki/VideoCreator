@@ -106,8 +106,3 @@ MediaSaver.SaveLivePhotos(texture, uuid, cachePath);
 ```c#
 MediaSaver.SaveImage(texture, "png");
 ```
-
-# Demo
-* Unity Version: 2020.3.5
-* Build for iOS
-* Set `Privacy - Photo Library Additions Usage Description` and `Privacy - Photo Library Usage Description`
