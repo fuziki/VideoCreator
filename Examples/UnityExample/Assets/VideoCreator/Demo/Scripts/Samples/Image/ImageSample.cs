@@ -38,9 +38,4 @@ public class ImageSample : MonoBehaviour
     {
         MediaSaver.SaveImage(texture, "heif");
     }
-
-    public void Close()
-    {
-        SceneManager.LoadScene("Main", LoadSceneMode.Single);
-    }
 }
